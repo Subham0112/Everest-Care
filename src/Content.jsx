@@ -55,12 +55,12 @@ export default function Content() {
     <section className="hero-section container-fluid" id="home">
       <div className="hero-overlay">
         <div className="hero-text-box">
-          <h1 className="hero-title">
-            Caring Beyond <span className="highlight">Boundaries</span>
-          </h1>
+          <h2 className="hero-title">
+            Caring Beyond  Boundaries
+          </h2>
 
           <p className="hero-subtitle">
-            At <span className="highlight">Everest Home Care</span>, we provide
+            At Everest Home Care, we provide
             compassionate, reliable, and professional care for your loved ones.
           </p>
 
@@ -339,19 +339,13 @@ export default function Content() {
       {/* ----- MAPS ----- */}
       <div className="maps-container">
         <div className="map-card">
-          <iframe
-            title="Office 1"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.835401702496!2d-79.97886268459469!3d40.39161867936913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8834f5b16698a8d7%3A0x8b575e4323a853e4!2s109%20Dewalt%20Ave%20%232018%2C%20Pittsburgh%2C%20PA%2015227!5e0!3m2!1sen!2sus!4v1700000000000"
-            loading="lazy"
-          ></iframe>
+     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.963969727073!2d-79.98693052485295!3d40.36532325876786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8834f09f0fc2b51d%3A0xb0f6501cc9d52f8d!2s109%20Dewalt%20Ave%2C%20Pittsburgh%2C%20PA%2015227%2C%20USA!5e0!3m2!1sen!2snp!4v1758772097361!5m2!1sen!2snp"  loading="lazy" ></iframe>
         </div>
 
         <div className="map-card">
-          <iframe
-            title="Office 2"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.835401702496!2d-73.98386268459469!3d40.71161867936913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8b575e4323a853e4!2sYour%20Other%20Office!5e0!3m2!1sen!2sus!4v1700000000001"
-            loading="lazy"
-          ></iframe>
+     <iframe 
+     title="Office 2"
+     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5921.338836233973!2d-80.138724!3d42.093132!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88327fa96a6f8751%3A0x2d6170cdb137b344!2s2800%20W%2021st%20St%20%23416%2C%20Erie%2C%20PA%2016506%2C%20USA!5e0!3m2!1sen!2snp!4v1758772048707!5m2!1sen!2snp"   loading="lazy" ></iframe>
         </div>
       </div>
 
