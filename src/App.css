@@ -133,7 +133,7 @@ html{
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
-    text-align: center;
+    /* text-align: center; */
   }
 
   .hero-text-box {
@@ -164,6 +164,7 @@ height: auto;
  
 }
   .hero-title {
+    text-align: center;
     font-size: 1.6rem;
     margin-bottom: 0.8rem;
   }

@@ -384,12 +384,12 @@ export default function Content() {
         {/* RIGHT FORM */}
         <form className="contact-form">
           <div className="form-row">
-            <input type="text" placeholder="Your Name" required />
-            <input type="email" placeholder="Your Email" required />
+            <input type="text" name="name" autoComplete="on" placeholder="Your Name" required />
+            <input type="email" name="email" autoComplete="on" placeholder="Your Email" required />
           </div>
-          <input type="text" placeholder="Subject" required />
-          <textarea placeholder="Message" rows="5" required></textarea>
-          <button type="submit" className="contact-btn">
+          <input type="text" name="subject" placeholder="Subject" required />
+          <textarea placeholder="Message" name="message"  rows="5" required></textarea>
+          <button type="submit"  className="contact-btn">
             Send Message
           </button>
         </form>

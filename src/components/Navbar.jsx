@@ -19,7 +19,7 @@ const Navbar = () => {
           <span></span>
         </div>
         <div className="logo">
-          <img src={logo} height={60} width={60} alt="Everest Home Care" />
+          <img src={logo} height={60} width={80} alt="Everest Home Care" />
         </div>
         <div className="nav-links">
           <a href="#home">Home</a>
