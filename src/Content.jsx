@@ -369,7 +369,7 @@ export default function Content() {
 
           <div className="info-item">
             <FaEnvelope className="info-icon" />
-            <div>
+            <div style={{width:"80%", display:"flex",flexDirection:"column"}}>
               <h5>Email</h5>
               <p>everesthomecarellc@gmail.com</p>
             </div>

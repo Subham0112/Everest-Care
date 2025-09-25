@@ -389,6 +389,16 @@ width: 100%;
     text-align: left;
   }
 }
+
+@media (max-width: 450px) {
+  .about-section{
+    padding: 50px 20px ;
+
+  }
+  .about-text{
+    padding: 20px;
+  }
+}
 .about-card .icon {
   font-size: 2rem;
   color: #0a6cff;
@@ -578,7 +588,7 @@ width: 100%;
     background: linear-gradient(135deg, #f5faff, #e9f3ff);
  
   margin: 0 auto;
-  padding: 60px 20px;
+  padding: 60px 10px;
 }
 
 .contact-title {
@@ -623,14 +633,16 @@ width: 100%;
 
 /* ----- CONTACT BOX ----- */
 .contact-box {
+  font-size: 14px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   background: #ffffffc2; /* soft background */
-  padding: 40px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
   margin-top: 20px;
+  max-width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -643,12 +655,13 @@ width: 100%;
 .contact-info {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 25px;
 }
 
 .info-item {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   align-items: flex-start;
 }
 
@@ -671,6 +684,7 @@ width: 100%;
 
 /* Form */
 .contact-form {
+
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -678,6 +692,7 @@ width: 100%;
 
 .form-row {
   display: flex;
+  
   gap: 15px;
 }
 
@@ -687,7 +702,7 @@ width: 100%;
 
 .contact-form input,
 .contact-form textarea {
-  width: 100%;
+  width: 80%;
   padding: 12px 15px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -701,19 +716,29 @@ width: 100%;
   border-color: #007bff;
   outline: none;
 }
-
-.contact-btn {
-  align-self: flex-start;
-  background-color: #07b3aa;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
+.contact-btn{
+  width: 30%;
+  padding: 10px;
+  background-color: #52dafc;
+  border: transparent;
+  border-radius: 10px;
 }
 
-.contact-btn:hover {
-  background-color: #28e6ff;
+/* ✅ Mobile Fix */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column; /* stack inputs */
+    gap: 12px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .contact-btn {
+    width: 70%; /* button full width on mobile */
+    text-align: center;
+  }
 }
