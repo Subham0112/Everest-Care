@@ -1,6 +1,6 @@
 .footer {
-  background: #0b2545; /* deep navy */
-  color: #dbe2ef;
+   background: linear-gradient(135deg, #c7f8fa, #2a9494);
+  color: #000000;
   padding-top: 50px;
   font-size: 15px;
 }
@@ -21,7 +21,7 @@
 }
 
 .footer-about p {
-  color: #bfc9d9;
+  color: #0d0d0e;
   line-height: 1.6;
 }
 
@@ -29,7 +29,7 @@
 .footer-links h4,
 .footer-contact h4,
 .footer-social h4 {
-  color: #fff;
+  color: #2c2b2b;
   font-size: 1.1rem;
   margin-bottom: 15px;
 }
@@ -44,7 +44,7 @@
 }
 
 .footer-links ul li a {
-  color: #bfc9d9;
+  color: #2a2a2b;
   text-decoration: none;
   transition: color 0.3s;
 }
@@ -59,7 +59,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
-  color: #bfc9d9;
+  color: #1c1c1d;
 }
 
 .footer-icon {
@@ -77,11 +77,11 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #1c3a60;
+  background: #578dd4;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #dbe2ef;
+  color: #1a1b1b;
   transition: all 0.3s ease;
   font-size: 16px;
 }
@@ -97,5 +97,5 @@
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding: 15px 20px;
   font-size: 14px;
-  color: #aebbcf;
+  color: #1e1e1f;
 }

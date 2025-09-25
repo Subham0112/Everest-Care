@@ -29,6 +29,10 @@ const Navbar = () => {
           <a href="#services">Services</a>
           <a href="#gallery">Gallery</a>
           <a href="#contact">Contact</a>
+        <div className="d-flex loginBtn-container mx-2 gap-3">
+        <button className="btn btn-outline-info btn-sm"> Log In</button>
+        <button className="btn btn-outline-info btn-sm"> Sign Up</button>
+        </div>
         </div>
     
       </nav>
@@ -41,6 +45,11 @@ const Navbar = () => {
         <a href="#services" onClick={toggleSidebar}>Services</a>
         <a href="#gallery" onClick={toggleSidebar}>Gallery</a>
         <a href="#contact" onClick={toggleSidebar}>Contact</a>
+        <div className="loginBtn-container d-flex mx-2 gap-3">
+        <button className="btn btn-outline-info btn-sm"> Log In</button>
+        <button className="btn btn-outline-info btn-sm"> Sign Up</button>
+        </div>
+ 
       </div>
 
       {/* Optional overlay for better UX */}

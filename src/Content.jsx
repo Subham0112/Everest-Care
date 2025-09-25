@@ -339,7 +339,10 @@ export default function Content() {
       {/* ----- MAPS ----- */}
       <div className="maps-container">
         <div className="map-card">
-     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.963969727073!2d-79.98693052485295!3d40.36532325876786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8834f09f0fc2b51d%3A0xb0f6501cc9d52f8d!2s109%20Dewalt%20Ave%2C%20Pittsburgh%2C%20PA%2015227%2C%20USA!5e0!3m2!1sen!2snp!4v1758772097361!5m2!1sen!2snp"  loading="lazy" ></iframe>
+ <iframe
+ title="Office 1"
+ 
+ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.9575553960235!2d-79.98419590081316!3d40.3654654831067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8834f09f0fe551ab%3A0xfc54f65c27f1f3f2!2s109%20Dewalt%20Ave%20%23201%2C%20Brentwood%2C%20PA%2015227%2C%20USA!5e0!3m2!1sen!2snp!4v1758811380463!5m2!1sen!2snp"  loading="lazy" ></iframe>
         </div>
 
         <div className="map-card">
@@ -357,7 +360,7 @@ export default function Content() {
             <FaMapMarkerAlt className="info-icon" />
             <div>
               <h5>Location</h5>
-              <p>109 Dewalt Ave STE 2018, Pittsburgh, PA 15227</p>
+              <p>109 Dewalt Ave STE 201, Pittsburgh, PA 15227</p>
             </div>
           </div>
 

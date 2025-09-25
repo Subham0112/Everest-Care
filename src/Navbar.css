@@ -18,7 +18,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 15px;
   /* position: fixed;
   top: 0;
   left: 0; */
@@ -27,20 +27,31 @@ body {
 
 .logo {
 background-color: rgb(255, 255, 255);
-  margin: 0 20px;
+margin: 0 0 0 40px;
+border-radius: 50%;
+  
 }
 
 .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   margin: 0 20px;
+}
+.loginBtn-container button{
+  padding: 5px 10px;
+border: 1px solid transparent;
+border-radius: 5px;
+background-color: #07a5c5;
+color: #fff;
 }
 
 .nav-links a {
   text-decoration: none;
   color: #171818;
-  font-size: 1rem;
+  font-size: 14px;
   transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
   font-weight: 500;
 }
 
@@ -87,8 +98,8 @@ background-color: rgb(255, 255, 255);
   color: rgba(122, 248, 221, 0.973);
   font-weight: 500;
   text-decoration: none;
-  font-size: 1.1rem;
- padding: 15px;
+  font-size: 14px;
+ padding: 10px;
   transition: color 0.3s ease;
 }
 
@@ -121,4 +132,15 @@ background-color: rgb(255, 255, 255);
   .menu-btn {
     display: flex;
   }
+  .logo{
+    margin: 0 40px 0 0;
+  }
+  .loginBtn-container{
+    flex-direction: column;
+      align-items: center;
+}
+.loginBtn-container button{
+
+width: 5rem;
+}
 }

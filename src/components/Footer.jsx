@@ -31,7 +31,7 @@ export default function Footer() {
         {/* ---- Contact Info ---- */}
         <div className="footer-contact">
           <h4>Contact Us</h4>
-          <p><FaMapMarkerAlt className="footer-icon" /> 109 Dewalt Ave STE 201B, Pittsburgh, PA 15227</p>
+          <p><FaMapMarkerAlt className="footer-icon" /> 109 Dewalt Ave STE 201, Pittsburgh, PA 15227</p>
           <p><FaEnvelope className="footer-icon" /> everesthomecarellc@gmail.com</p>
           <p><FaPhoneAlt className="footer-icon" /> (412) 207-7383</p>
         </div>

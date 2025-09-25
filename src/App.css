@@ -1,4 +1,12 @@
 /* HERO SECTION */
+
+#root{
+ background: linear-gradient(135deg, #f5faff, #e9f3ff);
+}
+body{
+    background-color: #c6f5f8af;
+}
+
 html{
   scroll-behavior: smooth;
 }
@@ -29,7 +37,7 @@ html{
 /* Text Box */
 .hero-text-box {
   background: rgba(0, 255, 255, 0.623);
-  padding: 1.8rem 2rem;
+  padding: 1.6rem 2rem;
   border-radius: 12px;
   max-width: 550px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
@@ -180,8 +188,11 @@ height: auto;
 /*  why us section */
 
 .whyus-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 1.8rem 2rem;
-  background: #f9fafc;
+   /* background-color: #c6f5f8af; */
   text-align: center;
 }
 
@@ -191,7 +202,8 @@ height: auto;
 }
 
 .whyus-header h2 {
-  font-size: 1.8rem;
+  text-align: center;
+  font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 1rem;
   color: #2c3e50;
@@ -251,7 +263,7 @@ height: auto;
 
   .card {
     width: 70%;
-    text-align: center;
+    text-align: left;
   }
 }
 @media (max-width: 500px) {
@@ -264,7 +276,7 @@ height: auto;
 
   .card {
     width: 95%;
-    text-align: center;
+    text-align: left;
   }
 }
 
@@ -292,7 +304,7 @@ height: auto;
 
 .about-text h2 {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: #2be9f7;
     margin-bottom: 20px;
 }
@@ -421,7 +433,7 @@ width: 100%;
 }
 
 .mission-header h2 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 1rem;
   color: #2ee6f3;
@@ -433,6 +445,11 @@ width: 100%;
 
 }
 
+@media (max-width: 768px) {
+.mission-header h2 {
+  font-size: 1.4rem;
+}
+}
 /* Services section */
 .services-section {
   background: linear-gradient(135deg, #f5faff, #e9f3ff);
@@ -446,7 +463,7 @@ width: 100%;
 }
 
 .services-title {
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: #37eaf7;
   margin-bottom: 10px;
 }
@@ -489,7 +506,7 @@ width: 100%;
 }
 
 .service-content h3 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #45f1f7;
   margin-bottom: 10px;
 }
@@ -504,6 +521,7 @@ width: 100%;
 .care-box {
   background: linear-gradient(135deg, #f5faff, #e9f3ff);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 300px;
   border: 1px solid #f1f1f1;
 }
 
@@ -524,14 +542,10 @@ width: 100%;
 
 @media (max-width: 768px) {
   .care-box {
-    text-align: center;
+    text-align: left;
   }
-  .icon-circle {
-    margin: 0 10px;
-  }
-  .icon-container{
-   justify-content: center;
-}
+
+
 }
 /* gallery */
 
@@ -540,6 +554,7 @@ width: 100%;
   max-width: 700px;          /* ⬅️ slightly smaller container */
   margin: 0 auto;
   padding: 40px 15px;
+
 }
 
 .gallery-title {
