@@ -621,9 +621,9 @@ width: 100%;
 /* ----- MAPS ----- */
 .maps-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
-  margin: 40px 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  margin: 40px 10px;
 }
 
 .map-card {
@@ -643,6 +643,7 @@ width: 100%;
 @media (max-width: 768px) {
   .maps-container {
     grid-template-columns: 1fr;
+    margin: 0px;
   }
 }
 
@@ -695,6 +696,7 @@ width: 100%;
 .info-item p {
   margin: 0;
   color: #555;
+  
 }
 
 /* Form */

@@ -1,7 +1,7 @@
 import React from "react";
 
 
-import { FaHome, FaUserNurse, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import { FaHome, FaUserNurse,FaDotCircle, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { FaBullseye,FaEye, FaUsers, FaLightbulb } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import aboutImg from "./assets/img/about.jpg";
@@ -344,11 +344,15 @@ export default function Content() {
  
  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.9575553960235!2d-79.98419590081316!3d40.3654654831067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8834f09f0fe551ab%3A0xfc54f65c27f1f3f2!2s109%20Dewalt%20Ave%20%23201%2C%20Brentwood%2C%20PA%2015227%2C%20USA!5e0!3m2!1sen!2snp!4v1758811380463!5m2!1sen!2snp"  loading="lazy" ></iframe>
         </div>
-
         <div className="map-card">
      <iframe 
      title="Office 2"
      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5921.338836233973!2d-80.138724!3d42.093132!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88327fa96a6f8751%3A0x2d6170cdb137b344!2s2800%20W%2021st%20St%20%23416%2C%20Erie%2C%20PA%2016506%2C%20USA!5e0!3m2!1sen!2snp!4v1758772048707!5m2!1sen!2snp"   loading="lazy" ></iframe>
+        </div>
+      <div className="map-card">
+    <iframe 
+    title="Office 3"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3046.2347727650226!2d-76.93985882486088!3d40.22608196722208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c8c20d8dd0082b%3A0x7cf2b5bf76a315d3!2s3425%20Simpson%20Ferry%20Rd%20%23100%2C%20Camp%20Hill%2C%20PA%2017011%2C%20USA!5e0!3m2!1sen!2snp!4v1758898070721!5m2!1sen!2snp" loading="lazy" ></iframe>
         </div>
       </div>
 
@@ -360,7 +364,9 @@ export default function Content() {
             <FaMapMarkerAlt className="info-icon" />
             <div>
               <h5>Location</h5>
-              <p>109 Dewalt Ave STE 201, Pittsburgh, PA 15227</p>
+              <p><span className="text-info font-smaller"><FaDotCircle/></span> 109 Dewalt Ave STE 201, Pittsburgh, PA 15227, USA</p>
+              <p> <span className="text-info"><FaDotCircle/></span> 2800 W 21st St, Erie, PA 16506, USA</p>
+              <p><span className="text-info"><FaDotCircle/></span> 3425 Simpson Ferry Rd, Camp Hill, PA 17011, USA</p>
             </div>
           </div>
 
@@ -368,7 +374,7 @@ export default function Content() {
             <FaEnvelope className="info-icon" />
             <div style={{width:"80%", display:"flex",flexDirection:"column"}}>
               <h5>Email</h5>
-              <p>everesthomecarellc@gmail.com</p>
+              <p className="text-wrap">everesthomecarellc@gmail.com</p>
             </div>
           </div>
 
