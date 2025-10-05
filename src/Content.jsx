@@ -1,5 +1,6 @@
 import React from "react";
-
+import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
 
 import { FaHome, FaUserNurse,FaDotCircle, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { FaBullseye,FaEye, FaUsers, FaLightbulb } from "react-icons/fa";
@@ -52,6 +53,7 @@ export default function Content() {
 
   return (
     <>
+     <Navbar />
     <section className="hero-section container-fluid" id="home">
       <div className="hero-overlay">
         <div className="hero-text-box">
@@ -402,6 +404,10 @@ export default function Content() {
       </div>
     </section>
 
+
+
+
+    <Footer />
     </>
   );
 }

@@ -53,10 +53,12 @@ color: #fff;
   display: flex;
   align-items: center;
   font-weight: 500;
+  padding: 0 5px;
+
 }
 
 .nav-links a:hover {
-  color: #1abc9c;
+  color: #aafaea;
 }
 
 /* Hamburger */

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/img/logo.png";
 import "../Navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,8 +31,9 @@ const Navbar = () => {
           <a href="#gallery">Gallery</a>
           <a href="#contact">Contact</a>
         <div className="d-flex loginBtn-container mx-2 gap-3">
-        <button className="btn btn-outline-info btn-sm"> Log In</button>
-        <button className="btn btn-outline-info btn-sm"> Sign Up</button>
+        <Link to={"/login"}>
+          <button className="btn btn-outline-info"> Log In</button>
+        </Link>
         </div>
         </div>
     
@@ -46,8 +48,9 @@ const Navbar = () => {
         <a href="#gallery" onClick={toggleSidebar}>Gallery</a>
         <a href="#contact" onClick={toggleSidebar}>Contact</a>
         <div className="loginBtn-container d-flex mx-2 gap-3">
-        <button className="btn btn-outline-info btn-sm"> Log In</button>
-        <button className="btn btn-outline-info btn-sm"> Sign Up</button>
+        <Link to={"/login"}>
+          <button className="btn btn-outline-info "> Log In</button>
+        </Link>
         </div>
  
       </div>
