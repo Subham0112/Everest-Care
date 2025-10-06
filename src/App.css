@@ -904,7 +904,6 @@ width: 100%;
 
 .signup-container {
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -919,21 +918,21 @@ width: 100%;
   max-width: 600px;
   background-color: #ddf6f78e;
   backdrop-filter: blur(10px);
-  padding: 25px;
+  padding: 15px 25px;
   border-radius: 16px;
 }
 
 .signup-card h2 {
   color: #222;
   font-weight: 600;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
 }
 
 .form-label {
   font-weight: 500;
   color: #333;
   font-size: 13px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .form-control,
@@ -947,6 +946,132 @@ width: 100%;
 .form-select:focus {
   border-color: #52dafc;
   box-shadow: 0 0 0 0.2rem rgba(82, 218, 252, 0.25);
+}
+
+/* Phone input with country code */
+.phone-input-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+/* Custom Country Select Dropdown */
+.custom-country-select {
+  position: relative;
+  width: 100px;
+}
+
+.country-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.country-select-trigger:hover {
+  border-color: #52dafc;
+}
+
+.selected-country {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.country-flag {
+  font-size: 18px;
+}
+
+.country-code {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  color: #666;
+  transition: transform 0.2s;
+}
+
+.country-select-trigger:hover .dropdown-arrow {
+  color: #52dafc;
+}
+
+/* Dropdown List */
+.country-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 250px;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.country-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.country-option:hover {
+  background-color: #f0f9ff;
+}
+
+.country-option.selected {
+  background-color: #e6f7ff;
+}
+
+.country-option .country-flag {
+  font-size: 20px;
+  min-width: 24px;
+}
+
+.country-option .country-name {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+}
+
+.country-option .country-code {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Scrollbar styling for dropdown */
+.country-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.country-dropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.country-dropdown::-webkit-scrollbar-thumb {
+  background: #52dafc;
+  border-radius: 8px;
+}
+
+.country-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #3bc5e8;
+}
+
+.phone-input {
+  flex: 1;
 }
 
 /* Password wrapper */
