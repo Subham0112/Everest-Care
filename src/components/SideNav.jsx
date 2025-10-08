@@ -47,7 +47,7 @@ function Sidebar() {
     document.getElementById("mySidebar").classList.remove("visibleNav");
   };
 const handleLogout = () => {
-  // localStorage.removeItem('token');
+  localStorage.removeItem('token');
   navigate('/login');
 }
   // Click outside functionality

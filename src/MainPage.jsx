@@ -365,7 +365,7 @@ export default function Content() {
             <FaMapMarkerAlt className="info-icon" />
             <div>
               <h5>Location</h5>
-              <p><span className="text-info font-smaller"><FaDotCircle/></span> 109 Dewalt Ave STE 201, Pittsburgh, PA 15227, USA</p>
+              <p><span className="text-info font-smaller"><FaDotCircle/></span> 109 Dewalt Ave Suite 201, Pittsburgh, PA 15227, USA</p>
               <p> <span className="text-info"><FaDotCircle/></span> 2800 W 21st St, Erie, PA 16506, USA</p>
               <p><span className="text-info"><FaDotCircle/></span> 3425 Simpson Ferry Rd, Camp Hill, PA 17011, USA</p>
             </div>
