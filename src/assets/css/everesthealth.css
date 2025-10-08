@@ -794,7 +794,7 @@
   border-color: #e2e8f0;
 }
 
-/* Responsive Design */
+/* Responsive Design - Tablet */
 @media (max-width: 768px) {
   .page-title {
     font-size: 1.5rem;
@@ -812,12 +812,18 @@
   
   .table-header th {
     padding: 12px 8px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
   
   .table-row td {
     padding: 12px 8px;
     font-size: 0.85rem;
+  }
+  
+  /* Phone number column larger on tablet */
+  .table-row td:nth-child(6) {
+    min-width: 120px;
+    white-space: nowrap;
   }
 
   .modal-dialog {
@@ -834,6 +840,118 @@
 
   .detail-value {
     font-size: 0.9rem;
+  }
+}
+
+/* Extra Small Devices (Mobile phones) */
+@media (max-width: 576px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .pending-badge {
+    padding: 10px 18px;
+    font-size: 0.95rem;
+  }
+  
+  .member-table {
+    font-size: 0.85rem;
+  }
+  
+  .table-header th {
+    padding: 12px 6px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  
+  .table-row td {
+    padding: 12px 6px;
+    font-size: 0.85rem;
+  }
+  
+  /* Make specific columns more compact */
+  .table-row td:nth-child(1),
+  .table-row td:nth-child(2) {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .table-row td:nth-child(3) {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Gender badge */
+  .gender-badge {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+  
+  /* SSN column more compact */
+  .table-row td:nth-child(5) {
+    max-width: 90px;
+  }
+  
+  /* Phone number column - make it larger */
+  .table-row td:nth-child(6) {
+    min-width: 120px;
+    max-width: 140px;
+    white-space: nowrap;
+  }
+  
+  /* Status badge */
+  .table-row td:nth-child(7) .badge {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+  
+  /* Action button */
+  .edit-icon-btn {
+    padding: 8px 12px;
+  }
+  
+  .edit-icon-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .modal-footer .btn {
+    width: 100%;
+  }
+  
+  .search-input {
+    padding-left: 15px;
+    font-size: 0.95rem;
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .page-link {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+  
+  .detail-label {
+    font-size: 0.85rem;
+  }
+
+  .detail-value {
+    font-size: 0.95rem;
   }
 }
 
@@ -996,7 +1114,7 @@
 @media (min-width: 1201px) {
   .main-content {
     margin-left: 220px;
-    padding: 30px;
+    padding: 20px;
   }
   
   .content-container {
@@ -1119,7 +1237,7 @@
   .main-content {
     margin-left: 0;
     margin-top: 60px; /* Account for fixed navbar */
-    padding: 15px;
+    padding: 0px;
   }
   
   /* Overlay when sidebar is open */
@@ -1143,7 +1261,7 @@
   .row > .col-lg-6,
   .row > .col-xl-6,
   .row > [class*="col-"] {
-    margin-right: 2%;
+    /* margin-right: 2%; */
     margin-bottom: 15px;
   }
   

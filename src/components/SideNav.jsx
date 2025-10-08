@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ImCross } from "react-icons/im";
+import { FaArrowLeft} from 'react-icons/fa';
 
 
 
@@ -75,7 +77,7 @@ const handleLogout = () => {
     <div className="sidebar2" id="mySidebar" ref={sidebarRef}>
       {/* Close button (X) */}
       <button onClick={handleClick} className="cancel-btn  mb-4 ">
-        <i className="fa-solid fa-xmark"></i>
+        <ImCross />
       </button>
 
       {/* Sidebar brand */}
@@ -132,7 +134,7 @@ const handleLogout = () => {
         style={{ width: "50px" }}
         className="position-absolute closebtn-2 mt-3"
       >
-        <i className="fa-solid fa-arrow-left"></i>
+       <FaArrowLeft/>
       </button>
     </div>
   );

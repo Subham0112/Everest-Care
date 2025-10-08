@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBars } from "react-icons/fa";
 
 function Navbar2() {
   const handleClick = () => {
@@ -12,7 +13,7 @@ function Navbar2() {
     <nav className="custom-nav">
       <div className="container-fluid">
         <button onClick={handleClick} className='menu-btn2'>
-          <i className="fa-solid fa-bars"></i>
+          <FaBars />
         </button>
       </div>
     </nav>
