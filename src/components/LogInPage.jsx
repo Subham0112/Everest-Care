@@ -7,7 +7,7 @@ import { FaArrowLeft, FaEye,FaEyeSlash } from 'react-icons/fa';
 
 
 
-export default function LogInPage() {
+export default function LoginPage() {
      const [email, setEmail] = useState('');
      const [password, setPassword] = useState('');
      const [showPassword, setShowPassword] = useState(false);
