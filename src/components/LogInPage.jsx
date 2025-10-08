@@ -94,7 +94,7 @@ const handleSubmit = async (e) => {
         
         </p>
           <Link to="/" className="login-link">
-           <FaArrowLeft/> Main page
+            Main page
           </Link>
     </div>
 
