@@ -2,13 +2,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaChevronDown } from "react-icons/fa";
+
+import Alert from "./Alert";
+
+
 // import "./Signup.css";
 
 // Country codes data
 const countryCodes = [
   { name: "United States", code: "+1", flag: "🇺🇸" },
   { name: "United Kingdom", code: "+44", flag: "🇬🇧" },
-  { name: "Canada", code: "+1", flag: "🇨🇦" },
   { name: "Australia", code: "+61", flag: "🇦🇺" },
   { name: "India", code: "+91", flag: "🇮🇳" },
   { name: "Nepal", code: "+977", flag: "🇳🇵" },
@@ -43,7 +46,18 @@ export default function Signup() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const dropdownRef = useRef(null);
-  const [error, setError] = useState(false);
+  const [alert, setAlert] = useState(null);
+
+
+const handleAlert = (message, type) => {
+  setAlert({
+    message,
+    type
+  })
+  setTimeout(() => {
+    setAlert(null);
+  }, 1500);
+}
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -81,8 +95,14 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const fullPhoneNumber = `${formData.countryCode}${formData.phone}`;
-    console.log(formData);
+
+    if(formData.password !== formData.confirmPassword){
+      handleAlert("Password and Confirm Password do not match", "danger");
+      return;
+    }
+  }
+    // const fullPhoneNumber = `${formData.countryCode}${formData.phone}`;
+    // // console.log(formData);
     // const submitData = {
     //   firstName: formData.firstName,
     //   lastName: formData.lastName,
@@ -117,22 +137,24 @@ export default function Signup() {
       // }
 
   //     if (response.ok) {
-  //       alert('Signup successful!');
+  //       handleAlert("Your registration form has been successfully submitted. Please wait for admin approval", "success");
   //       console.log("Success:");
   //     } else {
-  //       alert('Signup failed: ' + (response.statusText || response.status));
+  //       handleAlert("Sorry, Your Registration Form has failed. Please Check and Fill your field properly.", "warning");
   //       console.error("Error:",);
-  //       setError(true);
   //     }
   //   } catch (error) {
   //     console.error("Request failed:", error);
-  //     alert('An error occurred during signup');
+  //     handleAlert("An error occured during signup " + error.message, "warning");
   //   }
   // };
-}
+
 
   return (
+    <>
+   <Alert alert={alert} />
     <div className="signup-container">
+
       <div className="signup-card shadow-lg">
         <h2 className="text-center mb-1">Create an Account</h2>
 
@@ -298,5 +320,6 @@ export default function Signup() {
         </p>
       </div>
     </div>
+    </>
   );
 }

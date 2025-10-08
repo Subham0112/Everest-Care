@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
+import './assets/css/everestcare.css';
 
 import { FaHome, FaUserNurse,FaDotCircle, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { FaBullseye,FaEye, FaUsers, FaLightbulb } from "react-icons/fa";
@@ -52,7 +53,7 @@ export default function Content() {
 
 
   return (
-    <>
+    <div  className="home-care-page">
      <Navbar />
     <section className="hero-section container-fluid" id="home">
       <div className="hero-overlay">
@@ -321,8 +322,6 @@ export default function Content() {
             </div>
           ))}
         </div>
-
-        {/* Custom Arrows */}
    
     
       </div>
@@ -408,6 +407,6 @@ export default function Content() {
 
 
     <Footer />
-    </>
+    </div>
   );
 }

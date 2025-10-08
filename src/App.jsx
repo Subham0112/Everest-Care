@@ -1,28 +1,24 @@
-import { useState } from 'react'
-
-
-import './App.css'
-import LogInPage from './components/LogInPage'
-import SignupPage from './components/SignupPage'
-// importing routers for routing 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Content from './Content'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './assets/css/everestcare.css';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
+import Main from './MainPage';
+import QuizTraining from './QuizTraining';
 
 function App() {
-
   return (
-    <>
-      <Router>
-     
-        <Routes>
-          <Route path="/login" element={<LogInPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-       <Route path="/" element={<Content />} />
-        </Routes>
-  
-      </Router>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        
+        {/* This route catches /home and all sub-routes like /home/odp */}
+        <Route path="/home/*" element={<QuizTraining />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

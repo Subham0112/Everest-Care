@@ -1,20 +1,24 @@
+/* ========================================
+   EVEREST HOME CARE - FIXED CSS
+   Scoped to prevent conflicts with Health CSS
+   ======================================== */
+
+/* ROOT SCOPING - Only apply to home care pages */
+.home-care-page {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff);
+  min-height: 100vh;
+}
+
+.home-care-page body,
+.home-care-page #root {
+  background: transparent;
+}
+
 /* HERO SECTION */
-
-#root{
- background: linear-gradient(135deg, #f5faff, #e9f3ff);
-}
-body{
-    background-color: #c6f5f8af;
-}
-
-html{
-  scroll-behavior: smooth;
-}
-
-.hero-section {
-  width: 100%;
+.home-care-page #home {
+  width: 100%  !important;  
   height: 70vh;
-  background: url("./assets/img/hero-img.jpg") no-repeat right center;
+  background: url("../img/hero-img.jpg") no-repeat right center;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -22,21 +26,21 @@ html{
   position: relative;
   color: #3b8f8b;
   overflow: hidden;
-  background-color: #4bf7fd71; /* fallback */
+  background-color: #4bf7fd71;
 }
 
 /* Overlay */
-.hero-overlay {
-  width: 100%;
-  height: 100%;
+.home-care-page .hero-overlay {
+  width: 100% !important;
+  height: 100% !important;
   display: flex;
   align-items: center;
   padding: 4rem;
 }
 
-/* Text Box */
-.hero-text-box {
-  background: rgba(0, 255, 255, 0.623);
+/* Text Box - CRITICAL FIX */
+.home-care-page .hero-text-box {
+  background: rgba(0, 255, 255, 0.623) !important; /* Force the cyan background */
   padding: 1.6rem 2rem;
   border-radius: 12px;
   max-width: 550px;
@@ -44,7 +48,7 @@ html{
 }
 
 /* Headings */
-.hero-title {
+.home-care-page .hero-title {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -52,23 +56,20 @@ html{
   color: #1a5364;
 }
 
-
-
-.hero-subtitle {
- 
+.home-care-page .hero-subtitle {
   margin-bottom: 1.2rem;
   line-height: 1.5;
   color: #06323a;
 }
 
 /* Points */
-.hero-points {
+.home-care-page .hero-points {
   list-style: none;
   margin-bottom: 1.5rem;
   padding: 0;
 }
 
-.hero-points li {
+.home-care-page .hero-points li {
   margin-bottom: 0.4rem;
   font-size: 0.95rem;
   color: #333;
@@ -77,13 +78,13 @@ html{
 }
 
 /* Actions */
-.hero-actions {
+.home-care-page .hero-actions {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
 
-.btn-custom {
+.home-care-page .btn-custom {
   background-color: #1abc9c;
   color: #fff;
   padding: 10px 24px;
@@ -96,113 +97,42 @@ html{
   width: fit-content;
 }
 
-.btn-custom:hover {
+.home-care-page .btn-custom:hover {
   background-color: #16a085;
   transform: translateY(-2px);
 }
 
-.hero-call {
+.home-care-page .hero-call {
   font-size: 0.95rem;
   color: #2c3e50;
 }
 
-.hero-call a {
+.home-care-page .hero-call a {
   color: #088286;
   font-weight: bold;
   text-decoration: none;
 }
 
-.hero-call a:hover {
+.home-care-page .hero-call a:hover {
   text-decoration: underline;
 }
 
-/* RESPONSIVE DESIGN */
-@media (max-width: 992px) {
-  .hero-section {
-    height: auto;
-  
-    background: url("./assets/img/hero-img.jpg") no-repeat right center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: #acf3f3; /* fills gaps */
-    padding: 1.6rem 1rem;
-  }
-
-  .hero-overlay {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    /* text-align: center; */
-  }
-
-  .hero-text-box {
-    max-width: 100%;
-    padding: 1.2rem;
-  }
-
-  .hero-title {
-    font-size: 1.8rem; /* smaller */
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .hero-points li {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 576px) {
-.hero-section{
-height: auto;
-
-    background: url("./assets/img/hero-img3.jpg") no-repeat  ;
-    background-size: contain;
- 
-}
-  .hero-title {
-    text-align: center;
-    font-size: 1.6rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .hero-subtitle {
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-  }
-
-  .btn-custom {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-  }
-
-  .hero-text-box {
-    padding: 1rem;
-  }
-}
-
-
-/*  why us section */
-
-.whyus-section {
+/* WHY US SECTION */
+.home-care-page .whyus-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1.8rem 2rem;
-   /* background-color: #c6f5f8af; */
   text-align: center;
+  background: transparent !important;
 }
 
-.whyus-header {
+.home-care-page .whyus-header {
   max-width: 800px;
   margin: 0 auto 3rem auto;
 }
 
-.whyus-header h2 {
+.home-care-page .whyus-header h2 {
   text-align: center;
   font-size: 1.6rem;
   font-weight: 700;
@@ -210,25 +140,25 @@ height: auto;
   color: #2c3e50;
 }
 
-.highlight {
+.home-care-page .highlight {
   color: #1abc9c;
 }
 
-.whyus-header p {
+.home-care-page .whyus-header p {
   font-size: 1.1rem;
   color: #555;
   line-height: 1.6;
 }
 
 /* Cards Layout */
-.whyus-cards {
+.home-care-page .whyus-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
-.card {
-  background: #ffffff;
+.home-care-page .whyus-cards .card {
+  background: #ffffff !important;
   border-radius: 12px;
   padding: 1.6rem;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
@@ -236,58 +166,30 @@ height: auto;
   text-align: left;
 }
 
-.card h3 {
+.home-care-page .card h3 {
   font-size: 1.4rem;
   margin-bottom: 0.8rem;
   color: #79eef7;
 }
 
-.card p {
+.home-care-page .card p {
   font-size: 1rem;
   color: #666;
   line-height: 1.6;
 }
 
-.card:hover {
+.home-care-page .card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-  .whyus-cards {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
-  }
-
-  .card {
-    width: 70%;
-    text-align: left;
-  }
-}
-@media (max-width: 500px) {
-  .whyus-cards {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-  }
-
-  .card {
-    width: 95%;
-    text-align: left;
-  }
-}
-
-/* About section */
-.about-section {
-  background: linear-gradient(135deg, #f5faff, #e9f3ff); /* very light blue background */
+/* ABOUT SECTION */
+.home-care-page .about-section {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
   padding: 60px 40px;
 }
 
-.about-container {
+.home-care-page .about-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -295,123 +197,52 @@ height: auto;
   flex-wrap: wrap;
 }
 
-
-.about-text {
+.home-care-page .about-text {
   background-color: #e9f3ff;
   padding: 20px 40px;
   flex: 1 1 200px;
-  
 }
 
-.about-text h2 {
+.home-care-page .about-text h2 {
   text-align: center;
   font-size: 1.6rem;
   color: #2be9f7;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-.about-text .highlight {
+.home-care-page .about-text .highlight {
   color: #0a6cff;
 }
 
-.about-text p {
+.home-care-page .about-text p {
   color: #555;
   font-size: 1.05rem;
   line-height: 1.6;
   margin-bottom: 30px;
 }
 
-.about-cards {
+.home-care-page .about-cards {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.about-card {
+.home-care-page .about-card {
   display: flex;
   gap: 15px;
-  background: #fff;
+  background: #fff !important;
   padding: 18px 20px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.about-card:hover {
+.home-care-page .about-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.about-card .icon {
-  font-size: 2rem;
-  color: #0a6cff;
-  flex-shrink: 0;
-}
-
-.about-card h4 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #37e7f3;
-}
-
-.about-card p {
-  margin-top: 5px;
-  font-size: 0.95rem;
-  color: #555;
-}
-
-.about-image {
-  height: 450px;
-flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.about-image img {
-width: 100%;
- object-fit: cover;  
-  height: auto; 
-        /* ✅ keeps aspect ratio */
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    /* ✅ prevents weird stretching */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.about-image img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* --- Responsive --- */
-@media (max-width: 992px) {
-  .about-container {  
-        /* ✅ keeps it from becoming huge */
-  height: auto;  
-    flex-direction: column-reverse;
-    text-align: center;
-  }
-  .about-image img {
-    max-width: 90%;
-  }
-  .about-cards {
-    align-items: center;
-  }
-  .about-card {
-    max-width: 600px;
-    text-align: left;
-  }
-}
-
-@media (max-width: 450px) {
-  .about-section{
-    padding: 50px 20px ;
-
-  }
-  .about-text{
-    padding: 20px;
-  }
-}
-.about-card .icon {
+.home-care-page .about-card .icon {
   font-size: 2rem;
   color: #0a6cff;
   flex-shrink: 0;
@@ -420,70 +251,97 @@ width: 100%;
   justify-content: center;
 }
 
-/* Mission section */
+.home-care-page .about-card h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #37e7f3;
+}
 
-.mission-section {
+.home-care-page .about-card p {
+  margin-top: 5px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.home-care-page .about-image {
+  height: 450px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.home-care-page .about-image img {
+  width: 100%;
+  object-fit: cover;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-care-page .about-image img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* MISSION SECTION */
+.home-care-page .mission-section {
   padding: 4rem 2rem;
-  background: #f9fafc;
+  background: #f9fafc !important;
   text-align: center;
 }
 
-.mission-header {
+.home-care-page .mission-header {
   max-width: 800px;
   margin: 0 auto 3rem auto;
 }
 
-.mission-header h2 {
+.home-care-page .mission-header h2 {
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 1rem;
   color: #2ee6f3;
 }
-.icon{
+
+.home-care-page .icon {
   color: #2ee6f3;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-.mission-header h2 {
-  font-size: 1.4rem;
-}
-}
-/* Services section */
-.services-section {
-  background: linear-gradient(135deg, #f5faff, #e9f3ff);
+/* SERVICES SECTION */
+.home-care-page .services-section {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
   padding: 30px 20px 50px 20px;
 }
 
-.services-container {
+.home-care-page .services-container {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
 }
 
-.services-title {
+.home-care-page .services-title {
   font-size: 1.6rem;
   color: #37eaf7;
   margin-bottom: 10px;
 }
 
-.services-subtitle {
+.home-care-page .services-subtitle {
   font-size: 1.1rem;
   color: #555;
   max-width: 700px;
   margin: 0 auto 40px;
 }
 
-.services-grid {
+.home-care-page .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
 }
 
-.service-card {
-  background: #fff;
+.home-care-page .service-card {
+  background: #fff !important;
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -491,47 +349,47 @@ width: 100%;
   text-align: left;
 }
 
-.service-card:hover {
+.home-care-page .service-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
 }
 
-.service-img-wrapper img {
+.home-care-page .service-img-wrapper img {
   width: 100%;
   height: 180px;
   object-fit: cover;
 }
 
-.service-content {
+.home-care-page .service-content {
   padding: 20px;
 }
 
-.service-content h3 {
+.home-care-page .service-content h3 {
   font-size: 1.2rem;
   color: #45f1f7;
   margin-bottom: 10px;
 }
 
-.service-content p {
+.home-care-page .service-content p {
   font-size: 0.95rem;
   color: #555;
   line-height: 1.5;
 }
 
-/* live and care section */
-.care-box {
-  background: linear-gradient(135deg, #f5faff, #e9f3ff);
+/* CARE SECTION */
+.home-care-page .care-box {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   min-height: 300px;
   border: 1px solid #f1f1f1;
 }
 
-.care-box:hover {
+.home-care-page .care-box:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.icon-circle {
+.home-care-page .icon-circle {
   width: 50px;
   height: 50px;
   background: #c2d0f7;
@@ -541,92 +399,74 @@ width: 100%;
   justify-content: center;
 }
 
-@media (max-width: 768px) {
-  .care-box {
-    text-align: left;
-  }
-
-
-}
-/* gallery */
-
-/* --- GALLERY SECTION --- */
-.gallery-section {
-  max-width: 700px;          /* ⬅️ slightly smaller container */
+/* GALLERY */
+.home-care-page .gallery-section {
+  max-width: 700px;
   margin: 0 auto;
   padding: 40px 15px;
-
 }
 
-.gallery-title {
+.home-care-page .gallery-title {
   font-size: 2rem;
   font-weight: 700;
   color: #79eef7;
 }
 
-.gallery-subtitle {
+.home-care-page .gallery-subtitle {
   color: #555;
   font-size: 1rem;
   margin-top: 5px;
 }
 
-/* --- CAROUSEL --- */
-
-/* Images */
-.carousel-inner img {
-  max-height: 400px;         /* ⬅️ shrink height */
+.home-care-page .carousel-inner img {
+  max-height: 400px;
   object-fit: cover;
   border-radius: 12px;
 }
 
-/* Arrows */
-
-
-/* Indicators (dots) */
-.carousel-indicators {
+.home-care-page .carousel-indicators {
   position: relative;
   margin-top: 10px;
 }
 
-.carousel-indicators [data-bs-target] {
-  width: 8px;                /* ⬅️ smaller dots */
+.home-care-page .carousel-indicators [data-bs-target] {
+  width: 8px;
   height: 8px;
   background-color: #007bff;
 }
 
-.carousel-indicators .active {
+.home-care-page .carousel-indicators .active {
   background-color: #0056b3;
 }
 
-/* --- CONTACT SECTION --- */
-.contact-section {
-    background: linear-gradient(135deg, #f5faff, #e9f3ff);
- 
+/* CONTACT SECTION */
+.home-care-page .contact-section {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
   margin: 0 auto;
   padding: 60px 10px;
 }
 
-.contact-title {
+.home-care-page .contact-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #79eef7;}
+  color: #79eef7;
+}
 
-.contact-subtitle {
+.home-care-page .contact-subtitle {
   color: #555;
   font-size: 1rem;
   max-width: 700px;
   margin: 10px auto 0;
 }
 
-/* ----- MAPS ----- */
-.maps-container {
+.home-care-page .maps-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 15px;
   margin: 40px 10px;
 }
 
-.map-card {
+.home-care-page .map-card {
   background: #b4f2fd;
   border: 1px solid #d39191;
   border-radius: 10px;
@@ -634,26 +474,18 @@ width: 100%;
   overflow: hidden;
 }
 
-.map-card iframe {
+.home-care-page .map-card iframe {
   width: 100%;
   height: 300px;
   border: 0;
 }
 
-@media (max-width: 768px) {
-  .maps-container {
-    grid-template-columns: 1fr;
-    margin: 0px;
-  }
-}
-
-/* ----- CONTACT BOX ----- */
-.contact-box {
+.home-care-page .contact-box {
   font-size: 14px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
-  background: #ffffffc2; /* soft background */
+  background: #ffffffc2;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
@@ -661,64 +493,53 @@ width: 100%;
   max-width: 100%;
 }
 
-@media (max-width: 768px) {
-  .contact-box {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Info Items */
-.contact-info {
+.home-care-page .contact-info {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 25px;
 }
 
-.info-item {
+.home-care-page .info-item {
   display: flex;
   gap: 10px;
   align-items: flex-start;
 }
 
-.info-icon {
+.home-care-page .info-icon {
   color: #07bae7;
   font-size: 28px;
   flex-shrink: 0;
 }
 
-.info-item h5 {
+.home-care-page .info-item h5 {
   margin: 0 0 5px;
   font-size: 1.1rem;
   font-weight: 600;
 }
 
-.info-item p {
+.home-care-page .info-item p {
   margin: 0;
   color: #555;
-  
 }
 
-/* Form */
-.contact-form {
-
+.home-care-page .contact-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.form-row {
+.home-care-page .form-row {
   display: flex;
-  
   gap: 15px;
 }
 
-.form-row input {
+.home-care-page .form-row input {
   flex: 1;
 }
 
-.contact-form input,
-.contact-form textarea {
+.home-care-page .contact-form input,
+.home-care-page .contact-form textarea {
   width: 80%;
   padding: 12px 15px;
   border: 1px solid #ddd;
@@ -728,12 +549,13 @@ width: 100%;
   background: #fff;
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
+.home-care-page .contact-form input:focus,
+.home-care-page .contact-form textarea:focus {
   border-color: #007bff;
   outline: none;
 }
-.contact-btn{
+
+.home-care-page .contact-btn {
   width: 30%;
   padding: 10px;
   background-color: #52dafc;
@@ -741,26 +563,156 @@ width: 100%;
   border-radius: 10px;
 }
 
-/* ✅ Mobile Fix */
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 992px) {
+  .home-care-page #home {
+    height: auto;
+    background: url("../img/hero-img.jpg") no-repeat right center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #acf3f3;
+    padding: 1.6rem 1rem;
+  }
+
+  .home-care-page .hero-overlay {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .home-care-page .hero-text-box {
+    max-width: 100%;
+    padding: 1.2rem;
+  }
+
+  .home-care-page .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .home-care-page .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .home-care-page .hero-points li {
+    font-size: 0.9rem;
+  }
+
+  .home-care-page .whyus-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-care-page .card {
+    width: 70%;
+    text-align: left;
+  }
+
+  .home-care-page .about-container {
+    height: auto;
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .home-care-page .about-image img {
+    max-width: 90%;
+  }
+
+  .home-care-page .about-cards {
+    align-items: center;
+  }
+
+  .home-care-page .about-card {
+    max-width: 600px;
+    text-align: left;
+  }
+}
+
 @media (max-width: 768px) {
-  .form-row {
-    flex-direction: column; /* stack inputs */
+  .home-care-page .maps-container {
+    grid-template-columns: 1fr;
+    margin: 0px;
+  }
+
+  .home-care-page .contact-box {
+    grid-template-columns: 1fr;
+  }
+
+  .home-care-page .form-row {
+    flex-direction: column;
     gap: 12px;
   }
 
-  .contact-form input,
-  .contact-form textarea {
+  .home-care-page .contact-form input,
+  .home-care-page .contact-form textarea {
     font-size: 0.9rem;
     padding: 10px 12px;
   }
 
-  .contact-btn {
-    width: 70%; /* button full width on mobile */
+  .home-care-page .contact-btn {
+    width: 70%;
     text-align: center;
+  }
+
+  .home-care-page .care-box {
+    text-align: left;
+  }
+
+  .home-care-page .mission-header h2 {
+    font-size: 1.4rem;
   }
 }
 
-/* login page */
+@media (max-width: 576px) {
+  .home-care-page #home {
+    height: auto;
+    background: url("../img/hero-img3.jpg") no-repeat;
+    background-size: contain;
+  }
+
+  .home-care-page .hero-title {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .home-care-page .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .home-care-page .btn-custom {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .home-care-page .hero-text-box {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .home-care-page .whyus-cards .card {
+    width: 95%;
+    text-align: left;
+  }
+}
+
+@media (max-width: 450px) {
+  .home-care-page .about-section {
+    padding: 50px 20px;
+  }
+
+  .home-care-page .about-text {
+    padding: 20px;
+  }
+}
 
 .login-container {
   min-height: 100vh;
@@ -802,6 +754,7 @@ width: 100%;
 /* Input Fields */
 .login-items {
   width: 90%;
+  position: relative;
 }
 
 .login-items label {
@@ -828,6 +781,36 @@ width: 100%;
   border-color: #00b0ff;
   box-shadow: 0 0 5px rgba(0, 176, 255, 0.3);
   outline: none;
+}
+
+/* Password Input Wrapper */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+/* Eye Icon Styling */
+.toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-icon:hover {
+  color: #00b0ff;
 }
 
 /* Button */
@@ -872,7 +855,7 @@ width: 100%;
     width: 85%;
     padding: 30px 20px;
   }
-
+  
   .login-btn {
     width: 60%;
   }
@@ -883,12 +866,12 @@ width: 100%;
     width: 100%;
     padding: 25px 15px;
   }
-
+  
   .login-items input {
     font-size: 0.95rem;
     padding: 10px;
   }
-
+  
   .login-btn {
     width: 70%;
   }
@@ -905,6 +888,7 @@ width: 100%;
 .signup-container {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #f5faff, #87e0ff);
@@ -1108,6 +1092,7 @@ width: 100%;
 
 .sign-btn:hover {
   opacity: 0.9;
+  background-color: #046b85;
 }
 
 /* Login link */
