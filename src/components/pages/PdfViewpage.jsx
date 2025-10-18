@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './PdfViewpage.css';
 
 const PdfViewer = () => {
   const { formType } = useParams();
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+  const [isProduction, setIsProduction] = useState(false);
 
-  // Map form types to their PDF URLs
+  useEffect(() => {
+    // Detect if user is on mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Check if running on production (not localhost)
+    setIsProduction(!window.location.hostname.includes('localhost'));
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const formPaths = {
     form1: '/pdfs/complete-orientation-packet.pdf',
     form2: '/pdfs/consumer-packet-complete.pdf',
@@ -22,10 +38,12 @@ const PdfViewer = () => {
   const pdfUrl = formPaths[formType];
   const title = formTitles[formType] || 'Form';
 
-  // Debug: Log the formType to see what's being passed
-  console.log('FormType from URL:', formType);
-  console.log('Available forms:', Object.keys(formPaths));
-  console.log('PDF URL:', pdfUrl);
+  // Use Google Docs Viewer ONLY on production + mobile
+  let viewerUrl = `${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`;
+  
+  if (isProduction && isMobile) {
+    viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`;
+  }
 
   if (!formType || !pdfUrl) {
     return (
@@ -43,7 +61,6 @@ const PdfViewer = () => {
 
   return (
     <div className="pdf-viewer-container">
-      {/* Header */}
       <div className="pdf-header">
         <div className="header-content">
           <div>
@@ -65,22 +82,23 @@ const PdfViewer = () => {
         </div>
       </div>
 
-      {/* PDF Viewer */}
       <div className="pdf-content">
         <div className="pdf-frame-wrapper">
           <iframe
-            src={`${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
+            src={viewerUrl}
             className="pdf-iframe"
             title={title}
+            type="application/pdf"
           />
         </div>
         
-        {/* Instructions */}
         <div className="pdf-fallback-message">
           <p>
-            <strong>Note:</strong> The PDF will open in your browser's built-in viewer. 
-            If you need to fill out the form, download it using the button above, 
-            fill it out with a PDF reader (like Adobe Acrobat), and submit it back to us.
+            <strong>Note:</strong> View the PDF above. Download it using the button to fill out offline, 
+            or view and read all the information directly on this page.
+            {!isProduction && isMobile && (
+              <span className="dev-note"> (Mobile view will work better after deployment)</span>
+            )}
           </p>
         </div>
       </div>
