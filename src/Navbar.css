@@ -14,35 +14,32 @@ body {
   width: 100%;
   height: 65px;
   background: linear-gradient(135deg, #c7f8fa, #2a9494);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 15px;
-  /* position: fixed;
-  top: 0;
-  left: 0; */
   z-index: 1000;
 }
 
 .logo {
-background-color: rgb(255, 255, 255);
-margin: 0 0 0 40px;
-border-radius: 50%;
-  
+  background-color: rgb(255, 255, 255);
+  margin: 0 0 0 20px;
+  border-radius: 50%;
 }
 
 .nav-links {
   display: flex;
-  gap: 10px;
-  margin: 0 20px;
+  gap: 5px;
+  margin: 0 10px;
+  align-items: center;
 }
-.loginBtn-container button{
+
+.loginBtn-container button {
   padding: 5px 10px;
-border: 1px solid transparent;
-border-radius: 5px;
-background-color: #07a5c5;
-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background-color: #07a5c5;
+  color: #fff;
 }
 
 .nav-links a {
@@ -54,7 +51,6 @@ color: #fff;
   align-items: center;
   font-weight: 500;
   padding: 0 5px;
-
 }
 
 .nav-links a:hover {
@@ -78,6 +74,86 @@ color: #fff;
   transition: 0.4s;
 }
 
+/* Navbar dropdown - FIXED */
+.select-option {
+  background: rgba(255, 255, 255, 0.15);
+  color: #171818;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 8px;
+  height: auto;
+  min-height: 32px;
+  width: auto;
+  max-width: 130px;
+  transition: all 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171818' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  background-size: 14px;
+  padding-right: 26px;
+}
+
+.select-option:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #0d3c3f;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.select-option:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Dropdown list items */
+.select-option option {
+  background-color: #ffffff;
+  color: #0d3c3f;
+  font-size: 14px;
+  padding: 8px 12px;
+  line-height: 1.4;
+}
+
+.select-option option:hover {
+  background-color: #e6ffff;
+}
+
+.select-option option:disabled {
+  color: #999;
+  font-style: italic;
+}
+
+/* For sidebar version */
+.sidebar .select-option {
+  width: 100%;
+  margin-top: 10px;
+  color: #0d3c3f;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(10, 123, 131, 0.3);
+  border-radius: 5px;
+  padding: 10px 32px 10px 12px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d3c3f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.sidebar .select-option:hover {
+  background: #ffffff;
+  border-color: #0a7b83;
+}
+
+.sidebar .select-option option {
+  background: #ffffff;
+  color: #0d3c3f;
+}
+
 /* Sidebar */
 .sidebar {
   position: fixed;
@@ -86,7 +162,6 @@ color: #fff;
   width: 250px;
   height: 100%;
   background: #2eb1b6;
-
   padding-top: 70px;
   transition: left 0.3s ease;
   display: flex;
@@ -101,14 +176,14 @@ color: #fff;
   font-weight: 500;
   text-decoration: none;
   font-size: 14px;
- padding: 10px;
-  transition: color 0.3s ease;
+  padding: 10px;
+  transition: all 0.3s ease;
+  border-radius: 10px;
 }
 
 .sidebar a:hover {
   background-color: #8cf5f5;
   color: rgb(70, 69, 69);
-  border-radius: 10px;
 }
 
 .sidebar.active {
@@ -122,7 +197,7 @@ color: #fff;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 1000;
 }
 
@@ -134,15 +209,14 @@ color: #fff;
   .menu-btn {
     display: flex;
   }
-  .logo{
+  .logo {
     margin: 0 40px 0 0;
   }
-  .loginBtn-container{
+  .loginBtn-container {
     flex-direction: column;
-      align-items: center;
-}
-.loginBtn-container button{
-
-width: 5rem;
-}
+    align-items: center;
+  }
+  .loginBtn-container button {
+    width: 5rem;
+  }
 }
