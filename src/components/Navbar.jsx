@@ -53,9 +53,9 @@ const Navbar = () => {
             <option value="" disabled>
               Choose Form
             </option>
-          <option value="form1">Complete Orientation Packet</option>
-          <option value="form2"> Consumer Packet</option>
-          <option value="form3"> HAB Consumer Packet</option>
+          <option value="consumer"> Consumer Packet</option>
+          {/* <option value="orientation">Complete Orientation Packet</option>
+          <option value="hab"> HAB Consumer Packet</option> */}
           </select>
 
           <div className="d-flex loginBtn-container mx-2 gap-3">
@@ -96,9 +96,9 @@ const Navbar = () => {
           <option value="" disabled>
             Choose Form
           </option>
-          <option value="form1">Complete Orientation Packet</option>
-          <option value="form2"> Consumer Packet</option>
-          <option value="form3"> HAB Consumer Packet</option>
+          <option value="consumer"> Consumer Packet</option>
+          {/* <option value="orientation">Complete Orientation Packet</option>
+          <option value="hab"> HAB Consumer Packet</option> */}
         </select>
 
         <div className="loginBtn-container d-flex mx-2 gap-3">

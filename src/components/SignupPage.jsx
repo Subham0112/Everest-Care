@@ -85,63 +85,56 @@ const [error, setError] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(formData.password !== formData.confirmPassword){
-      handleAlert("Password and Confirm Password do not match", "danger");
-      setError(true);
-      return;
-    }else{
-      setError(false);
-      console.log(formData);  
-    }
-  }
-  
-  //   const fullPhoneNumber = `${formData.countryCode}${formData.phone}`;
-  //   // console.log(formData);
-  //   const submitData = {
-  //     firstName: formData.firstName,
-  //     lastName: formData.lastName,
-  //     ssn: formData.ssn,
-  //     gender: formData.gender,
-  //     phone: fullPhoneNumber,
-  //     email: formData.email,
-  //     role: formData.role,
-  //     status: formData.status,
-  //     password: formData.password,
-  //     confirmPassword: formData.confirmPassword,
-  //   };
+     const fullPhoneNumber = `${formData.countryCode}${formData.phone}`;
+    // console.log(formData);
+    const submitData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      ssn: formData.ssn,
+      gender: formData.gender,
+      phone: fullPhoneNumber,
+      email: formData.email,
+      role: formData.role,
+      status: formData.status,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+    };
 
-  //   try {
-  //     const response = await fetch('https://localhost:44345/api/Auth/register', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(submitData),
-  //     });
+    try {
+      const response = await fetch('http://everesthomecare.runasp.net/api/Auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submitData),
+      });
 
-  //     // Check if the response is JSON before parsing
-  //     const contentType = response.headers.get("content-type");
-  //     let data;
+      // Check if the response is JSON before parsing
+      const contentType = response.headers.get("content-type");
+      let data;
       
-  //     if (contentType && contentType.includes("application/json")) {
-  //       data = await response.json();
-  //     } else {
-  //       // If not JSON, get it as text
-  //       data = await response.text();
-  //     }
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        // If not JSON, get it as text
+        data = await response.text();
+      }
 
-  //     if (response.ok) {
-  //       handleAlert("Your registration form has been successfully submitted. Please wait for admin approval", "success");
-  //       console.log("Success:");
-  //     } else {
-  //       handleAlert("Sorry, Your Registration Form has failed. Please Check and Fill your field properly.", "warning");
-  //       console.error("Error:",);
-  //     }
-  //   } catch (error) {
-  //     console.error("Request failed:", error);
-  //     handleAlert("An error occured during signup " + error.message, "warning");
-  //   }
-  // };
+      if (response.ok) {
+        handleAlert("Your registration form has been successfully submitted. Please wait for admin approval", "success");
+        console.log("Success:");
+      } else {
+        handleAlert("Sorry, Your Registration Form has failed. Please Check and Fill your field properly.", "warning");
+        console.error("Error:",);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+      handleAlert("An error occured during signup " + error.message, "warning");
+    }
+  };
+  
+  
+
 
 
   return (

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './assets/css/everestcare.css';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
-import Form from "./components/pages/PdfViewpage"
+import Form from "./components/pages/Formpage"
 import Main from './MainPage';
 import QuizTraining from './QuizTraining';
 import { useState } from 'react';
