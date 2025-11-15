@@ -8,13 +8,13 @@ const FormPreview = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { formType } = useParams();
-  const { previewHtml } = location.state || {};
+  const { previewHtml, patientName } = location.state || {};
   const contentRef = useRef(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleDownloadPDF = async () => {
-    if (!contentRef.current) return;
-    setIsGenerating(true);
+  const generatePDFBase64 = async () => {
+    if (!contentRef.current) return null;
 
     try {
       const element = contentRef.current;
@@ -65,8 +65,6 @@ const FormPreview = () => {
       if (sections.length === 0) {
         sections.push(allChildren);
       }
-
-      console.log(`Split into ${sections.length} sections for PDF`);
 
       let isFirstPage = true;
       let totalPageCount = 0;
@@ -120,29 +118,24 @@ const FormPreview = () => {
         allDescendants.forEach(el => {
           const tag = el.tagName;
           
-          // Universal resets
           el.style.setProperty('background', 'none', 'important');
           el.style.setProperty('background-color', 'transparent', 'important');
           el.style.setProperty('background-image', 'none', 'important');
           el.style.setProperty('box-shadow', 'none', 'important');
           el.style.setProperty('color', '#000', 'important');
           
-          // Force block display for vertical stacking
           if (tag === 'DIV' || tag === 'P' || tag === 'SECTION' || tag === 'ARTICLE') {
             el.style.setProperty('display', 'block', 'important');
             el.style.setProperty('width', '100%', 'important');
           }
           
-          // Remove flexbox/grid that causes horizontal layout
           el.style.setProperty('display', el.style.display === 'flex' ? 'block' : el.style.display, 'important');
           el.style.setProperty('display', el.style.display === 'grid' ? 'block' : el.style.display, 'important');
           
-          // Remove borders except tables
           if (!tag.match(/^(TABLE|TD|TH|TR|THEAD|TBODY)$/)) {
             el.style.setProperty('border', 'none', 'important');
           }
           
-          // Force form rows/cols to stack vertically
           if (el.classList.contains('row') || 
               el.className.includes('col-') ||
               el.classList.contains('d-flex') ||
@@ -153,7 +146,6 @@ const FormPreview = () => {
             el.style.setProperty('flex-direction', 'column', 'important');
           }
           
-          // Headings
           if (tag.match(/^H[1-6]$/)) {
             el.style.setProperty('font-weight', '700', 'important');
             el.style.setProperty('margin', '10px 0 8px 0', 'important');
@@ -162,11 +154,10 @@ const FormPreview = () => {
             el.style.setProperty('width', '100%', 'important');
             const size = tag === 'H1' ? '18pt' : tag === 'H2' ? '16pt' : tag === 'H3' ? '16pt' : '12pt';
             el.style.setProperty('font-size', size, 'important');
-            const color=tag ==='H1' ? '#29c7f7ff' : tag === 'H2' ? '#29c7f7ff' : tag === 'H3' ? '#191df7ff' : tag==='H4' ? '#020481ff' : '#29c7f7ff';
+            const color = tag === 'H1' ? '#29c7f7ff' : tag === 'H2' ? '#29c7f7ff' : tag === 'H3' ? '#191df7ff' : tag === 'H4' ? '#020481ff' : '#29c7f7ff';
             el.style.setProperty('color', color, 'important');
           }
           
-          // Paragraphs
           if (tag === 'P') {
             el.style.setProperty('margin', '5px 0', 'important');
             el.style.setProperty('padding', '0', 'important');
@@ -174,7 +165,6 @@ const FormPreview = () => {
             el.style.setProperty('width', '100%', 'important');
           }
           
-          // Divs - stack vertically
           if (tag === 'DIV') {
             el.style.setProperty('padding', '0', 'important');
             el.style.setProperty('border-radius', '0', 'important');
@@ -184,26 +174,22 @@ const FormPreview = () => {
             el.style.setProperty('margin-left', '0', 'important');
             el.style.setProperty('margin-right', '0', 'important');
             
-            // Remove page break visual indicator
             if (el.classList.contains('pdf-page-break')) {
               el.style.setProperty('border', 'none', 'important');
               el.style.setProperty('margin', '0', 'important');
             }
           }
           
-          // Labels - inline with content
           if (tag === 'LABEL') {
             el.style.setProperty('display', 'inline-block', 'important');
             el.style.setProperty('font-weight', '600', 'important');
             el.style.setProperty('margin-right', '5px', 'important');
           }
           
-          // Spans
           if (tag === 'SPAN') {
             el.style.setProperty('display', 'inline', 'important');
           }
           
-          // Tables
           if (tag === 'TABLE') {
             el.style.setProperty('border', '1px solid #000', 'important');
             el.style.setProperty('border-collapse', 'collapse', 'important');
@@ -218,7 +204,6 @@ const FormPreview = () => {
             el.style.setProperty('page-break-inside', 'avoid', 'important');
           }
           
-          // Lists
           if (tag === 'UL' || tag === 'OL') {
             el.style.setProperty('margin', '8px 0', 'important');
             el.style.setProperty('padding-left', '25px', 'important');
@@ -231,7 +216,6 @@ const FormPreview = () => {
             el.style.setProperty('page-break-inside', 'avoid', 'important');
           }
           
-          // Handle CANVAS signatures
           if (tag === 'CANVAS') {
             el.style.setProperty('border', '1px solid #000', 'important');
             el.style.setProperty('display', 'block', 'important');
@@ -242,9 +226,7 @@ const FormPreview = () => {
           }
         });
         
-        // Handle signature divs that have specific signature-related classes or IDs
         tempContainer.querySelectorAll('div').forEach(div => {
-          // Only process divs with signature-specific identifiers
           const hasSignatureClass = Array.from(div.classList).some(className => 
             className.toLowerCase().includes('signature') || 
             className.toLowerCase().includes('sign-pad') ||
@@ -257,13 +239,10 @@ const FormPreview = () => {
             div.id.toLowerCase().includes('signaturepad')
           );
           
-          // Check if this div has a data attribute indicating it's a signature area
           const hasSignatureData = div.hasAttribute('data-signature') || 
                                     div.hasAttribute('data-sign-area');
           
-          // Only process if it has specific signature identifiers
           if (hasSignatureClass || hasSignatureId || hasSignatureData) {
-            // This is a signature area - add border and sizing
             div.style.setProperty('border', '1px solid #000', 'important');
             div.style.setProperty('min-height', '50px', 'important');
             div.style.setProperty('width', '200px', 'important');
@@ -271,7 +250,6 @@ const FormPreview = () => {
             div.style.setProperty('display', 'block', 'important');
             div.style.setProperty('background', '#fff', 'important');
             
-            // If it contains an image (captured signature), make sure it displays
             const img = div.querySelector('img');
             if (img) {
               img.style.setProperty('max-width', '100%', 'important');
@@ -401,17 +379,124 @@ const FormPreview = () => {
         }
         
         isFirstPage = false;
-        console.log(`Section ${i + 1}/${sections.length} processed`);
       }
 
-      const timestamp = new Date().toISOString().split('T')[0];
-      const filename = `consumer_packet_${formType}_${timestamp}.pdf`;
-      pdf.save(filename);
+      // Return PDF as base64 string
+      return pdf.output('datauristring');
       
     } catch (error) {
       console.error('PDF generation error:', error);
-      alert('Failed to generate PDF. Please check console for details.');
+      throw error;
+    }
+  };
+
+  const extractConsumerName = () => {
+    // Try to extract consumer name from the preview HTML
+    if (!contentRef.current) return 'Unknown';
+    
+    const element = contentRef.current;
+    
+    // Method 1: Look for label with "ConsumerName" attribute
+    const consumerNameLabel = element.querySelector('label[for="ConsumerName"]');
+    if (consumerNameLabel) {
+      // Find the span that contains the actual name (next sibling or in parent's next element)
+      let nameSpan = consumerNameLabel.nextElementSibling;
+      
+      // If next sibling is not a span, look in parent's structure
+      if (!nameSpan || nameSpan.tagName !== 'SPAN') {
+        const parentDiv = consumerNameLabel.closest('.col-md-6, .row, div');
+        if (parentDiv) {
+          nameSpan = parentDiv.querySelector('span');
+        }
+      }
+      
+      if (nameSpan && nameSpan.textContent.trim()) {
+        return nameSpan.textContent.trim();
+      }
+    }
+    
+    // Method 2: Look for any label containing "Consumer's Name" text
+    const allLabels = element.querySelectorAll('label');
+    for (const label of allLabels) {
+      if (label.textContent.toLowerCase().includes('consumer') && 
+          label.textContent.toLowerCase().includes('name')) {
+        // Find the associated span
+        let nameSpan = label.nextElementSibling;
+        
+        // Check if it's a span with content
+        if (nameSpan && nameSpan.tagName === 'SPAN' && nameSpan.textContent.trim()) {
+          return nameSpan.textContent.trim();
+        }
+        
+        // Look in parent div structure
+        const parentDiv = label.parentElement;
+        if (parentDiv) {
+          nameSpan = parentDiv.querySelector('span');
+          if (nameSpan && nameSpan.textContent.trim()) {
+            return nameSpan.textContent.trim();
+          }
+        }
+      }
+    }
+    
+    // Method 3: Use regex pattern on full text
+    const consumerNamePattern = /Consumer'?s?\s+Name\s*:?\s*([A-Za-z\s]+?)(?=\s*Date|\s*$|<)/i;
+    const match = element.textContent.match(consumerNamePattern);
+    
+    if (match && match[1]) {
+      const extractedName = match[1].trim();
+      if (extractedName && extractedName.length > 2 && extractedName.length < 100) {
+        return extractedName;
+      }
+    }
+    
+    // Fallback to patientName prop or default
+    return patientName || 'Unknown Consumer';
+  };
+
+  const handleSubmitForm = async () => {
+    setIsSubmitting(true);
+    setIsGenerating(true);
+
+    try {
+      // Extract consumer name from the form (only first one)
+      const consumerName = extractConsumerName();
+      
+      // Generate PDF as base64
+      const pdfBase64 = await generatePDFBase64();
+      
+      if (!pdfBase64) {
+        throw new Error('Failed to generate PDF');
+      }
+
+      // Send to backend
+      const response = await fetch('http://www.EverestHealth.somee.com/api/document/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pdfBase64: pdfBase64,
+          formType: formType,
+          patientName: consumerName,
+          additionalNotes: `Form Type: ${formType}`
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert(`Form submitted successfully!\nConsumer: ${consumerName}\nThe document has been sent to the company email.`);
+        navigate('/'); // Redirect to home or forms list
+      } else {
+        throw new Error(result.message || 'Failed to submit form');
+      }
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Failed to submit form. Please try again or contact support.');
     } finally {
+      setIsSubmitting(false);
       setIsGenerating(false);
     }
   };
@@ -438,13 +523,17 @@ const FormPreview = () => {
         />
       </div>
       <div className="preview-actions no-print">
-        <button className="btn-back" onClick={handleBack} disabled={isGenerating}>
+        <button className="btn-back" onClick={handleBack} disabled={isGenerating || isSubmitting}>
           ← Back to Form
         </button>
-        <button className="btn-download" onClick={handleDownloadPDF} disabled={isGenerating}>
-          {isGenerating ? 'Generating PDF...' : '📥 Download PDF'}
+        <button 
+          className="btn-submit" 
+          onClick={handleSubmitForm} 
+          disabled={isGenerating || isSubmitting}
+        >
+          {isSubmitting ? 'Submitting...' : '📧 Submit Form'}
         </button>
-        <button className="btn-print" onClick={() => window.print()} disabled={isGenerating}>
+        <button className="btn-print" onClick={() => window.print()} disabled={isGenerating || isSubmitting}>
           🖨️ Print
         </button>
       </div>
