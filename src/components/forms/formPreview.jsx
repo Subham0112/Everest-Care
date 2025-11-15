@@ -29,8 +29,8 @@ const FormPreview = () => {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
       
-      const marginTop = 15;
-      const marginBottom = 20;
+      const marginTop = 10;
+      const marginBottom = 15;
       const marginLeft = 15;
       const marginRight = 15;
       
@@ -156,17 +156,19 @@ const FormPreview = () => {
           // Headings
           if (tag.match(/^H[1-6]$/)) {
             el.style.setProperty('font-weight', '700', 'important');
-            el.style.setProperty('margin', '12px 0 8px 0', 'important');
+            el.style.setProperty('margin', '10px 0 8px 0', 'important');
             el.style.setProperty('padding', '0', 'important');
             el.style.setProperty('display', 'block', 'important');
             el.style.setProperty('width', '100%', 'important');
-            const size = tag === 'H1' ? '14pt' : tag === 'H2' ? '13pt' : tag === 'H3' ? '12pt' : '11pt';
+            const size = tag === 'H1' ? '18pt' : tag === 'H2' ? '16pt' : tag === 'H3' ? '16pt' : '12pt';
             el.style.setProperty('font-size', size, 'important');
+            const color=tag ==='H1' ? '#29c7f7ff' : tag === 'H2' ? '#29c7f7ff' : tag === 'H3' ? '#191df7ff' : tag==='H4' ? '#020481ff' : '#29c7f7ff';
+            el.style.setProperty('color', color, 'important');
           }
           
           // Paragraphs
           if (tag === 'P') {
-            el.style.setProperty('margin', '8px 0', 'important');
+            el.style.setProperty('margin', '5px 0', 'important');
             el.style.setProperty('padding', '0', 'important');
             el.style.setProperty('display', 'block', 'important');
             el.style.setProperty('width', '100%', 'important');
@@ -177,7 +179,8 @@ const FormPreview = () => {
             el.style.setProperty('padding', '0', 'important');
             el.style.setProperty('border-radius', '0', 'important');
             el.style.setProperty('display', 'block', 'important');
-            el.style.setProperty('margin-bottom', '6px', 'important');
+            el.style.setProperty('margin-bottom', '5px', 'important');
+            el.style.setProperty('margin-top', '6px', 'important');
             el.style.setProperty('margin-left', '0', 'important');
             el.style.setProperty('margin-right', '0', 'important');
             
@@ -262,9 +265,9 @@ const FormPreview = () => {
           if (hasSignatureClass || hasSignatureId || hasSignatureData) {
             // This is a signature area - add border and sizing
             div.style.setProperty('border', '1px solid #000', 'important');
-            div.style.setProperty('min-height', '60px', 'important');
-            div.style.setProperty('width', '250px', 'important');
-            div.style.setProperty('margin', '8px 0 12px 0', 'important');
+            div.style.setProperty('min-height', '50px', 'important');
+            div.style.setProperty('width', '200px', 'important');
+            div.style.setProperty('margin', '8px 0 8px 0', 'important');
             div.style.setProperty('display', 'block', 'important');
             div.style.setProperty('background', '#fff', 'important');
             

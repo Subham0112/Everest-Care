@@ -519,7 +519,7 @@ const handlePreview = () => {
 
     navigate(targetPath, { state: { previewHtml: previewHtml } });
 };
- const handleDone = () => {
+ const handleDone =() => {
   const originalForm = document.getElementById("consumerPacket-pdf");
   const clonedForm = originalForm.cloneNode(true);
 
@@ -537,16 +537,34 @@ const handlePreview = () => {
   clonedForm.querySelectorAll("textarea").forEach((textarea) => {
     const div = document.createElement("div");
     div.textContent = textarea.value || "[No data provided]";
-    div.style.cssText = "margin: 10px 0; white-space: pre-wrap; border: 1px solid #ced4da; padding: 10px; background: #ffffff;";
+    div.style.cssText = "margin: 0 0 8px 0; white-space: pre-wrap; border: 1px solid #ced4da; background: #ffffff;";
     textarea.replaceWith(div);
   });
 
   // Replace selects
-  clonedForm.querySelectorAll("select").forEach((select) => {
-    const span = document.createElement("span");
-    span.textContent = select.options[select.selectedIndex]?.text || "___________";
-    select.replaceWith(span);
-  });
+  
+clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
+  const originalSelect = originalForm.querySelector(`[name="${clonedSelect.getAttribute('name')}"]`);
+  
+  const span = document.createElement("span");
+
+  if (originalSelect && originalSelect.options.length > 0) {
+    // 1. Get the index of the currently selected option from the LIVE/original element
+    const selectedIndex = originalSelect.selectedIndex;
+    
+    // 2. Get the TEXT content of the selected option
+    const selectedText = originalSelect.options[selectedIndex]?.text;
+    
+    span.textContent = selectedText || "___________";
+  } else {
+    span.textContent = "___________";
+  }
+
+  span.style.cssText = " padding: 2px 8px; display: inline-block; min-width: 150px;";
+  
+  // Replace the cloned select with the new span
+  clonedSelect.replaceWith(span);
+});
 
   // Replace checkboxes with symbols ONLY (no box)
   clonedForm.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
@@ -1017,18 +1035,15 @@ const handlePreview = () => {
                     name="waiverType"
                     className="form-select"
                     id="waiverType"
-                    defaultValue={coverSheetData.waiverType}
-                    // onChange={handleCoverSheetChange}
-                    onBlur={
-                      (e)=>{
-                        setCoverSheetData({...coverSheetData, [e.target.name]: e.target.value})
-                      }
-                    }
+                  value={coverSheetData.waiverType}
+                  onChange={(e) => {
+                  setCoverSheetData({...coverSheetData, [e.target.name]: e.target.value})
+                  
+                  }}
                   >
-                    <option value="" disabled>Select waiver type</option>
                     <option value="consolidated">Consolidated</option>
-                    <option value="p/fds">P/FDS</option>
-                    <option value="community-living">Community Living</option>
+                    <option value="p_fds">P/FDS</option>
+                    <option value="community_living">Community Living</option>
                   </select>
                 </div>
               </div>
@@ -1036,7 +1051,7 @@ const handlePreview = () => {
           </div>
 
           {/* Demographic and Emergency Contact Information */}
-          <div className="mb-5 pdf-section pdf-page-break">
+          <div className="mb-5 pdf-section">
             <div className="bg-success bg-opacity-10 p-3 rounded-top">
               <h3 className="text-success mb-0 fw-bold">
                 Demographic & Emergency Contact Information
@@ -1194,10 +1209,13 @@ const handlePreview = () => {
                     }
                   />
                 </div>
+                </div>
+                </div>
+                </div>
 
                 {/* Emergency Contact 1 */}
-                <div className="col-12 mt-4">
-                  <div className=" rounded pdf-section">
+                <div className="col-12 mt-4 ">
+                  <div className=" rounded">
                     <h5 className="fw-bold text-warning-emphasis mb-3">
                       Emergency Contact 1
                     </h5>
@@ -1273,7 +1291,7 @@ const handlePreview = () => {
                 </div>
 
                 {/* Emergency Contact 2 */}
-                <div className="col-12">
+                <div className="col-12 pdf-page-break">
                   <div className=" rounded pdf-section">
                     <h5 className="fw-bold text-warning-emphasis mb-3">
                       Emergency Contact 2
@@ -1347,7 +1365,7 @@ const handlePreview = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+              
 
                 {/* Medical Information */}
                 <div className="col-12 mt-4">
@@ -1439,8 +1457,7 @@ const handlePreview = () => {
                   />
                 </div>
               </div>
-            </div>
-          </div>
+         
 
           {/* Assessment and ISP Documentation */}
           <div className="mb-3 pdf-section pdf-page-break">
@@ -1521,7 +1538,7 @@ const handlePreview = () => {
             </div>
             </div>
             {/* Assessment Forms */}
-            <div className="border rounded p-4 pdf-section pdf-page-break">
+            <div className="border rounded p-4">
               <h4 className="fw-bold text-dark mb-4">
                 Assessment & ISP Documentation Forms
               </h4>
@@ -1637,8 +1654,9 @@ const handlePreview = () => {
                   />
                 </div>
               </div>
-
-              <div className="bg-light p-3 rounded mb-4">
+              </div>
+                <div className="pdf-page-break">
+              <div className="bg-light p-3 ">
                 <p className="fw-bold mb-2">Functional Areas Assessed:</p>
                 <ol className="mb-0">
                   <li>Communication</li>
@@ -1698,9 +1716,9 @@ const handlePreview = () => {
                   ></textarea>
                 </div>
                   </div>
-              </div>
+             
             
-            <h5 className="fw-bold text-secondary mb-3 pdf-page-break">
+            <h5 className="fw-bold text-secondary mb-3">
                 2. Individual Support Plan (ISP)
               </h5>
               <div className=" mb-3">
@@ -1739,9 +1757,11 @@ const handlePreview = () => {
                       
                       />
                     </div>
+                    </div>
                   </div>
-                </div>
+               
               </div>
+               </div>
               <div className="pdf-page-break">
               <h5 className="fw-bold text-secondary mb-3 ">
                 {" "}
@@ -2004,9 +2024,9 @@ const handlePreview = () => {
                 </ol>
               </div>
                  </div>
-            </div>
+           
             {/* Behavioral & Safety Documentation Forms */}
-            <div className="border rounded pdf-section p-4 pdf-page-break">
+            <div className="border rounded pdf-section p-4">
               <h4 className="fw-bold text-dark mb-4">
                 Behavioral & Safety Documentation Forms
               </h4>
@@ -2134,7 +2154,9 @@ const handlePreview = () => {
                     onChange={handleBehavioralChange}
                   />
                 </div>
-
+                
+                
+               
                 <div className="col-md-4">
                   <label
                     htmlFor="restrictiveProcedures_bsp"
@@ -2151,7 +2173,7 @@ const handlePreview = () => {
                     // onChange={handleBehavioralChange}
                   />
                 </div>
-                <div className="col-md-4">
+               <div className="col-md-4">
                   <label
                     htmlFor="bspDevelopedBy"
                     className="form-label fw-semibold"
@@ -2172,6 +2194,9 @@ const handlePreview = () => {
                     }
                   />
                 </div>
+               
+
+                
                 <div className="col-md-4">
                   <label
                     htmlFor="bspReviewedBy"
@@ -2193,6 +2218,12 @@ const handlePreview = () => {
                     }
                   />
                 </div>
+                 </div>
+                  </div>
+                   </div>
+
+                    <div className="pdf-page-break ">
+ 
                 <div>
                   <div className="col-md-4">
                     <SignatureCanvas
@@ -2208,10 +2239,10 @@ const handlePreview = () => {
                       
                     />
                   </div>
-                </div>
+                
               </div>
-                  </div>
-              <div className="pdf-page-break pdf-section">
+                
+              <div className="">
               <h5 className="fw-bold  text-secondary mb-3">
                 2. Crisis Intervention Plan (CIP)
               </h5>
@@ -2353,9 +2384,10 @@ const handlePreview = () => {
                 </div>
               </div>
               </div>
+              </div>
 
                   
-              <h5 className="fw-bold pdf-page-break text-secondary mb-3">
+              <h5 className="fw-bold  text-secondary mb-3">
                 3.Restrictive Procedure Consent Form
               </h5>
               <div>
@@ -2398,8 +2430,10 @@ const handlePreview = () => {
                     restrictive procedure(s):
                   </label>
                 </div>
+                
+                </div>
 
-                <div className="mb-3">
+                <div className=" pdf-page-break mb-3">
                   <label
                     className="form-label fw-semibold"
                     htmlFor="procedureDescription"
@@ -2483,7 +2517,7 @@ const handlePreview = () => {
                  
                   />
                 </div>
-              </div>
+           
            
         
        
@@ -2554,7 +2588,7 @@ const handlePreview = () => {
             </div>
 
             {/* Consent & Authorization Forms */}
-            <div className="border pdf-page-break rounded p-4">
+            <div className="border rounded p-4">
               <h4 className="fw-bold text-dark mb-4">
                 Consent & Authorization Forms
               </h4>
@@ -2578,21 +2612,7 @@ const handlePreview = () => {
                       }
                     }
                   />{" "}
-                  <select
-                    name="individualGuardianType_consent"
-                    className="form-select w-25 mx-1 d-inline-block"
-                    id="individualGuardianType_consent"
-                    defaultValue={consentData.individualGuardianType_consent}
-                    // onChange={handleConsentChange}
-                       onBlur={
-                      (e)=>{
-                        setConsentData({...consentData, [e.target.name]: e.target.value})
-                      }
-                    }
-                  >
-                    <option value="individual">Individual</option>
-                    <option value="guardian">Guardian</option>
-                  </select>
+                 (Individual/ Guardian)
                   consent to receive services provided by{" "}
                   <input
                     type="text"
@@ -2612,7 +2632,7 @@ const handlePreview = () => {
                   services have been explained to me. I understand my rights and
                   may withdraw this consent at any time.
                 </div>
-                <div className="d-flex gap-3 mt-5">
+               
                   <div className="col-md-3">
                     <SignatureCanvas
                       label="Individual/Guardian Signature"
@@ -2627,8 +2647,11 @@ const handlePreview = () => {
                      
                     />
                   </div>
-                </div>
+                
               </div>
+              </div>
+                </div>
+                <div className="pdf-page-break">
               <h5 className="fw-bold text-secondary mb-3">
                 2. Consent to Release Information
               </h5>
@@ -2756,6 +2779,7 @@ const handlePreview = () => {
                       
                     />
                   </div>
+                  </div>
                   <div className="col-md-3">
                     <SignatureCanvas
                       label="Staff/witness Signature"
@@ -2764,7 +2788,7 @@ const handlePreview = () => {
                     />
                   </div>
             
-              </div>
+              
 
               <h5 className="fw-bold text-secondary mb-3">
                 3.HIPAA Acknowledgement
@@ -2784,15 +2808,18 @@ const handlePreview = () => {
                    
                   />
                 </div>
-                <div className="col-md-3">
+                    <div className="col-md-3">
                   <SignatureCanvas
                     label="Staff/witness Signature"
                     name="staffWitnessSignature_auth3"
                 
                   />
                 </div>
-            
+                 
+                </div>
 
+                <div className="pdf-page-break">
+                 
               <h5 className="fw-bold text-secondary mt-3 mb-3">
                 4. Acknowledgement of Individual Rights
               </h5>
@@ -2863,7 +2890,7 @@ const handlePreview = () => {
                   </label>
                 </div>
               </div>
-
+                </div>
               <div>
                 <div className="col-md-3">
                   <SignatureCanvas
@@ -2879,9 +2906,10 @@ const handlePreview = () => {
                  
                   />
                 </div>
-              </div>
-            </div>
-          </div>
+                </div>
+           
+            
+        
 
           {/* Financial Policy Documents and Forms */}
           <div className="mb-5 pdf-section pdf-page-break">
@@ -3436,6 +3464,7 @@ const handlePreview = () => {
                 </ol>
               </div>
             </div>
+            </div>
 
             {/* Habilitation Service Plan Forms */}
             <div className="pdf-section border rounded p-4">
@@ -3591,6 +3620,8 @@ const handlePreview = () => {
                   />
                 </div>
               </div>
+              </div>
+              <div className="pdf-page-break">
               <p className="fw-bold text-secondary">
                 Measurable Outcomes from ISP:
               </p>
@@ -3782,7 +3813,8 @@ const handlePreview = () => {
                 </div>
               </div>
             </div>
-          </div>
+         
+         
 
           {/* Health & Safety Policy and Forms */}
           <div className="mb-5 pdf-section pdf-page-break">
@@ -3846,6 +3878,7 @@ const handlePreview = () => {
                 </ol>
               </div>
             </div>
+               </div>
 
             {/* Health & Safety Forms */}
             <div className="pdf-section border rounded p-4">
@@ -4020,25 +4053,30 @@ const handlePreview = () => {
                     }
                     />
                   </div>
-
-                  <div>
-                    <div className="col-md-3">
+                    </div>
+                    </div>
+                     </div>
+                  
+                
+                  
+                      <div className="pdf-page-break">
+                            <div className="col-md-3">
                       <SignatureCanvas
                         label="Individual/guardian Signature"
                         name="individualGuardianSignature_med"
                     
                       />
-                    </div>
-                    <div className="col-md-3">
+                        </div>
+                      <div className="col-md-3 ">
                       <SignatureCanvas
                         label="Staff/witness Signature"
                         name="staffWitnessSignature_med"
                       
                       />
                     </div>
-                  </div>
-                </div>
-              </div>
+                
+              
+             
 
               <h5 className="fw-bold text-secondary mb-3">
                 2.Individual-Speciﬁc Emergency Evacuation Plan
@@ -4398,7 +4436,11 @@ const handlePreview = () => {
                     }
                     />
                   </div>
-                  <div className="col-md-4">
+                   </div>
+              </div>
+              </div>
+             
+                  <div className="col-md-4 pdf-page-break">
                     <label
                       htmlFor="correctiveActionTaken"
                       className="form-label fw-semibold"
@@ -4419,16 +4461,16 @@ const handlePreview = () => {
                     }
                     />
                   </div>
+                    
                   <div className="col-md-3">
                     <SignatureCanvas
                       label="Completed By:"
                       name="completedBy_fire"
                     />
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            
+       
+       
 
           {/* Individual Rights Acknowledgment Policy and Forms */}
 
@@ -4497,7 +4539,7 @@ const handlePreview = () => {
             </div>
 
             {/* Individual Rights Acknowledgment Forms */}
-            <div className="pdf-section border rounded p-4">
+            <div className="pdf-section ">
               <h4 className="fw-bold text-dark mb-4">
                 Individual Rights Acknowledgment Forms
               </h4>
@@ -4510,8 +4552,8 @@ const handlePreview = () => {
                 Chapter 6100. My rights were explained to me in a manner I
                 understand.
               </p>
-              <div className="mt-2 mb-4">
-                <div className="col-md-3">
+              
+                <div className=" mt-2 col-md-3">
                   <SignatureCanvas
                     label="Individual Signature"
                     name="individualSignature_rights"
@@ -4525,14 +4567,17 @@ const handlePreview = () => {
                   
                   />
                 </div>
-                <div className="col-md-3">
+                 </div>
+          </div>
+                
+                <div className="col-md-3 pdf-page-break">
                   <SignatureCanvas
                     label="Staff/witness Signature"
                     name="staffSignature_rights"
                    
                   />
                 </div>
-              </div>
+              
 
               <h5 className="fw-bold text-secondary mb-3">
                 2.Rights Education Log
@@ -4776,8 +4821,7 @@ const handlePreview = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+           
 
           {/* Preferences & Cultural Proﬁle Policy and Forms */}
 
@@ -5245,7 +5289,7 @@ const handlePreview = () => {
 
           {/* Training & Orientation Acknowledgments Policy and Forms */}
 
-          <div className="mb-5 pdf-section pdf-page-break">
+          <div className=" pdf-section pdf-page-break">
             <div className=" mb-4">
               <h3 className="fw-bold text-primary">
                 Training & Orientation Acknowledgments Policy and Forms
@@ -5312,7 +5356,7 @@ const handlePreview = () => {
             </div>
 
             {/* Training & Orientation Acknowledgments Forms */}
-            <div className="pdf-section border rounded p-4">
+            <div className="pdf-section ">
               <h4 className="fw-bold text-dark mb-4">
                 Training & Orientation Acknowledgments Forms
               </h4>
@@ -5370,7 +5414,7 @@ const handlePreview = () => {
                   accessible format (check all completed):
                 </p>
 
-                <div className="d-flex flex-column gap-2">
+                <div >
                   <div className="d-flex gap-2">
                     <input
                       type="checkbox"
@@ -5454,7 +5498,12 @@ const handlePreview = () => {
                       Provider Policies and Expectations
                     </label>
                   </div>
-                  <div className="d-flex gap-2">
+               
+              </div>
+            </div>
+          </div>
+          </div>
+              <div className="d-flex pdf-page-break gap-2">
                     <input
                       type="checkbox"
                       id="fireSafety"
@@ -5466,7 +5515,7 @@ const handlePreview = () => {
                       Fire Safety and Emergency Preparedness 20
                     </label>
                   </div>
-                  <div className="d-flex gap-2">
+                  <div className="d-flex  gap-2">
                     <input
                       type="checkbox"
                       id="individeal_familyHandbook"
@@ -5517,7 +5566,7 @@ const handlePreview = () => {
                       I received a copy of the Individual/Family Handbook.
                     </label>
                   </div>
-                </div>
+                
 
                 <div>
                   <div className="col-md-3">
@@ -5535,12 +5584,10 @@ const handlePreview = () => {
                     />
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            
 
           {/* Transportation Plan Policy and Forms */}
-          <div className="mb-5 pdf-section pdf-page-break">
+          <div className=" pdf-section pdf-page-break">
             <div className=" mb-4">
               <h3 className="fw-bold text-primary">
                 Transportation Plan Policy and Forms
@@ -5607,7 +5654,7 @@ const handlePreview = () => {
             </div>
 
             {/* Transportation Plan Forms */}
-            <div className="pdf-section border rounded p-4">
+            <div className="pdf-section px-4">
               <h4 className="fw-bold text-dark mb-4">
                 Transportation Plan Forms
               </h4>
@@ -5615,7 +5662,7 @@ const handlePreview = () => {
                 1.Individual Transportation Plan
               </h5>
 
-              <div className=" row g-3 mb-4 pdf-form-container">
+              <div className=" row g-3  pdf-form-container">
                 <div className="col-md-4">
                   <label
                     htmlFor="individualName_trans"
@@ -5806,7 +5853,11 @@ const handlePreview = () => {
                     }
                         />
                       </div>
-                      <div className=" d-flex flex-column">
+                       </div>
+                         </div>
+                </div>
+                  <div className="pdf-page-break mt-4">
+                      <div className=" d-flex mb-4  px-4 flex-column">
                         <p className="fw-semibold">
                           Supervision Level During Transport (select one):
                         </p>
@@ -5842,8 +5893,8 @@ const handlePreview = () => {
                             Partial
                           </label>
                         </div>
-                        <div className="d-flex gap-2">
-                          <input
+                             <div className="d-flex  gap-2">
+                    <input
                             type="radio"
                             id="supervisionLevel_full"
                             name="supervisionLevel"
@@ -5858,7 +5909,7 @@ const handlePreview = () => {
                             Full
                           </label>
                         </div>
-                      </div>
+                        </div>
                       <div>
                         <label
                           htmlFor="medicalConsederation"
@@ -5882,9 +5933,9 @@ const handlePreview = () => {
                     }
                         ></textarea>
                       </div>
-                    </div>
+                    
 
-                    <h5 className="fw-bold text-secondary mb-3">
+                    <h5 className="fw-bold text-secondary mt-4 mb-3">
                       2.Transportation Consent Form
                     </h5>
                     <div className="mb-4">
@@ -5947,11 +5998,11 @@ const handlePreview = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                    </div>
+                  
 
                 {/* Final Signature & Veriﬁcation Policy andForms */}
-                <div className="mb-5 pdf-section pdf-page-break">
+                <div className=" pdf-section pdf-page-break">
                   <div className=" mb-4">
                     <h3 className="fw-bold text-primary">
                       Final Signature & Veriﬁcation Policy and Forms
@@ -6019,14 +6070,14 @@ const handlePreview = () => {
                   </div>
 
                   {/* Final Signature & Veriﬁcation Forms */}
-                  <div className="pdf-section border rounded p-4">
+                  <div className="pdf-section px-4">
                     <h4 className="fw-bold text-dark mb-4">
                       Final Signature & Veriﬁcation Forms
                     </h4>
                     <h5 className="fw-bold text-secondary mb-3">
                       1.Veriﬁcation Checklist
                     </h5>
-                    <div className="d-flex flex-column mb-5 gap-2">
+                    <div className="d-flex flex-column gap-2">
                       {/* --- CHECKBOXES UPDATED --- */}
                       <div className="d-flex gap-2">
                         <input
@@ -6236,6 +6287,10 @@ const handlePreview = () => {
                           Attached
                         </label>
                       </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div className="px-4 mt-2 mb-3 d-flex flex-column gap-2 pdf-page-break">
                       <div className="d-flex gap-2">
                         <input
                           type="checkbox"
@@ -6253,6 +6308,9 @@ const handlePreview = () => {
                           Transportation Plan Completed
                         </label>
                       </div>
+                    
+
+                      
                       <div className="d-flex gap-2">
                         <input
                           type="checkbox"
@@ -6324,7 +6382,7 @@ const handlePreview = () => {
                           All Documents Reviewed by Program Specialist
                         </label>
                       </div>
-                    </div>
+                   </div>
 
                     <h5 className="fw-bold text-secondary mb-3">
                       2.Final Signatures
@@ -6354,8 +6412,7 @@ const handlePreview = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                
 
                 {/* Submit and Download Buttons */}
                 <div id="form-buttons" className="text-center mt-5 pdf-section">
