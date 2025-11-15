@@ -3,6 +3,7 @@ import ConsumerPacket from '../forms/ConsumerPacket'
 import OrientationPacket from '../forms/OrientationPacket'
 import HabPacket from '../forms/HabPacket'
 import { useParams, useNavigate } from 'react-router-dom'
+import './Formpage.css'
 
 const Formpage = () => {
   const { formType } = useParams();

@@ -16,9 +16,9 @@ export default function LoginPage( {handleAlert} ) {
      const navigate = useNavigate();
 
 
-const handleClick=()=>{
-  navigate('/home')
-}
+// const handleClick=()=>{
+//   navigate('/home')
+// }
 
 
 const handleSubmit = async (e) => {
@@ -30,7 +30,7 @@ const handleSubmit = async (e) => {
     };
     console.log(submitData);
     try {
-      const response = await fetch('http://everesthomecare.runasp.net/api/Auth/login', {
+      const response = await fetch('https://localhost:44345/api/Auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const handleSubmit = async (e) => {
   </div>
 </div>
           <div className="login-items mt-2">
-            <button onClick={handleClick} className="login-btn">Login</button>
+            <button className="login-btn">Login</button>
           </div>
         </form>
       </div>

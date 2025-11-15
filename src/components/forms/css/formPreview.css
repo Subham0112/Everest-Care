@@ -1,0 +1,326 @@
+/* formPreview.css - Clean Preview with Plain PDF Output */
+
+.preview-page {
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.preview-container {
+  max-width: 8.5in;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ================================================= */
+/* PREVIEW STYLES (Good looking with proper spacing) */
+/* ================================================= */
+.document-preview {
+  padding: 0.75in;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+  line-height: 1.5;
+  color: #000;
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Headings - Preview style (slightly styled) */
+.document-preview h1,
+.document-preview h2,
+.document-preview h3,
+.document-preview h4,
+.document-preview h5,
+.document-preview h6 {
+  color: #1a1a1a;
+  font-weight: 700;
+  margin: 16px 0 10px 0;
+  padding: 0;
+  line-height: 1.3;
+}
+
+.document-preview h1 {
+  font-size: 16pt;
+  margin-top: 0;
+  text-transform: uppercase;
+  border-bottom: 2px solid #333;
+  padding-bottom: 8px;
+}
+
+.document-preview h2 {
+  font-size: 14pt;
+  border-bottom: 1px solid #666;
+  padding-bottom: 6px;
+}
+
+.document-preview h3 {
+  font-size: 12pt;
+  color: #333;
+}
+
+.document-preview h4,
+.document-preview h5,
+.document-preview h6 {
+  font-size: 11pt;
+  font-weight: 600;
+}
+
+/* Paragraphs - Good spacing for preview */
+.document-preview p {
+  margin: 10px 0;
+  font-size: 11pt;
+  color: #000;
+  line-height: 1.5;
+}
+
+/* Labels and spans */
+.document-preview label {
+  font-weight: 600;
+  font-size: 11pt;
+  color: #000;
+  display: inline;
+  margin-right: 5px;
+}
+
+.document-preview span {
+  font-size: 11pt;
+  color: #000;
+}
+
+/* Form groups with proper spacing */
+.document-preview .form-group,
+.document-preview > div {
+  margin-bottom: 12px;
+}
+
+/* Tables - Clean professional look */
+.document-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+  font-size: 10pt;
+  border: 1px solid #333;
+}
+
+.document-preview thead {
+  display: table-header-group;
+}
+
+.document-preview tbody {
+  display: table-row-group;
+}
+
+.document-preview tr {
+  page-break-inside: avoid;
+}
+
+.document-preview th,
+.document-preview td {
+  border: 1px solid #333;
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+  color: #000;
+}
+
+.document-preview th {
+  font-weight: 600;
+  background: #f8f9fa;
+}
+
+/* Lists */
+.document-preview ol,
+.document-preview ul {
+  margin: 12px 0;
+  padding-left: 30px;
+  color: #000;
+}
+
+.document-preview li {
+  margin: 6px 0;
+  color: #000;
+  line-height: 1.5;
+}
+
+/* Radio buttons and checkboxes */
+.document-preview input[type="radio"],
+.document-preview input[type="checkbox"] {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Images and signatures */
+.document-preview img,
+.document-preview canvas {
+  border: 1px solid #333;
+  padding: 3px;
+  max-width: 200px;
+  height: auto;
+  margin: 10px 0;
+  display: block;
+}
+
+/* Bootstrap margin utilities - Preview spacing */
+.document-preview .mb-1 { margin-bottom: 8px; }
+.document-preview .mb-2 { margin-bottom: 12px; }
+.document-preview .mb-3 { margin-bottom: 16px; }
+.document-preview .mb-4 { margin-bottom: 20px; }
+.document-preview .mb-5 { margin-bottom: 24px; }
+
+.document-preview .mt-1 { margin-top: 8px; }
+.document-preview .mt-2 { margin-top: 12px; }
+.document-preview .mt-3 { margin-top: 16px; }
+.document-preview .mt-4 { margin-top: 20px; }
+.document-preview .mt-5 { margin-top: 24px; }
+
+/* Page break marker (visible in preview) */
+.document-preview .pdf-page-break {
+  border-top: 2px dashed #999;
+  margin: 30px 0 20px 0;
+  padding-top: 20px;
+  position: relative;
+   page-break-before: always !important;
+}
+
+
+.document-preview .pdf-page-break::before {
+  content: "Page Break";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 0 10px;
+  color: #999;
+  font-size: 9pt;
+  font-weight: 600;
+}
+
+/* ================================================= */
+/* ACTION BUTTONS */
+/* ================================================= */
+.preview-actions {
+  max-width: 8.5in;
+  margin: 20px auto;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.btn-back,
+.btn-print,
+.btn-download {
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+.btn-back {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-back:hover:not(:disabled) {
+  background: #5a6268;
+}
+
+.btn-print {
+  background: #495057;
+  color: white;
+}
+
+.btn-print:hover:not(:disabled) {
+  background: #343a40;
+}
+
+.btn-download {
+  background: #28a745;
+  color: white;
+}
+
+.btn-download:hover:not(:disabled) {
+  background: #218838;
+}
+
+.btn-back:disabled,
+.btn-print:disabled,
+.btn-download:disabled {
+  background: #adb5bd;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ================================================= */
+/* PRINT STYLES - Plain document like preview */
+/* ================================================= */
+@media print {
+  .preview-page {
+    background: white;
+    padding: 0;
+  }
+  
+  .preview-container {
+    box-shadow: none;
+    max-width: 100%;
+  }
+  
+  .document-preview {
+    padding: 0.5in;
+  }
+  
+  .no-print,
+  .preview-actions {
+    display: none !important;
+  }
+
+  /* Remove page break indicators in print */
+  .pdf-page-break::before {
+    display: none !important;
+  }
+
+  .pdf-page-break {
+    page-break-before: always;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Force plain styling in print */
+  h1, h2, h3, h4, h5, h6 {
+    color: #000 !important;
+    background: none !important;
+  }
+}
+
+/* ================================================= */
+/* MOBILE RESPONSIVE */
+/* ================================================= */
+@media (max-width: 768px) {
+  .preview-container {
+    max-width: 100%;
+  }
+  
+  .document-preview {
+    padding: 0.35in 0.25in;
+    font-size: 10pt;
+  }
+  
+  .preview-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-back,
+  .btn-print,
+  .btn-download {
+    width: 100%;
+  }
+}

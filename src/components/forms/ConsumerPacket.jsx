@@ -1,8 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
-import axios from "axios"; // To send the file to the backend
-import "./css/consumerPacket.css";
+import { useNavigate, useParams } from "react-router-dom";
+// import axios from "axios"; // To send the file to the backend
+
+
 
 const ConsumerPacket = () => {
+  const navigate = useNavigate();
+  const [previewHtml, setPreviewHtml] = useState(null);
+  const [isPreviewEnabled, setIsPreviewEnabled] = useState(false);
+  const {formType} = useParams();
+
   // --- STATE MANAGEMENT ---
   // This one state object controls every field in the form.
   const [coverSheetData, setCoverSheetData] = useState({
@@ -382,15 +389,15 @@ const useThrottledHandler = (setter, limit = 200) => {
   };
 };
 
-  const handleCoverSheetChange = useThrottledHandler(setCoverSheetData,10);
-  const handleDemographicChange = useThrottledHandler(setDemographicData,10);
-  const handleAssessmentChange = useThrottledHandler(setAssessmentData,10);
-  const handleBehavioralChange = useThrottledHandler(setBehavioralData,10);
-  const handleConsentChange = useThrottledHandler(setConsentData,10);
-  const handleHabilitationChange = useThrottledHandler(setHabilitationData,10);
-  const handleHealthSafetyChange = useThrottledHandler(setHealthSafetyData,10);
-  const handlePreferencesChange = useThrottledHandler(setPreferencesData,10);
-  const handleTransportationChange = useThrottledHandler(setTransportationData,10);
+const handleDemographicChange = useThrottledHandler(setDemographicData,10);
+const handleBehavioralChange = useThrottledHandler(setBehavioralData,10);
+const handleConsentChange = useThrottledHandler(setConsentData,10);
+const handleHealthSafetyChange = useThrottledHandler(setHealthSafetyData,10);
+const handleTransportationChange = useThrottledHandler(setTransportationData,10);
+// const handleCoverSheetChange = useThrottledHandler(setCoverSheetData,10);
+  // const handleAssessmentChange = useThrottledHandler(setAssessmentData,10);
+  // const handleHabilitationChange = useThrottledHandler(setHabilitationData,10);
+  // const handlePreferencesChange = useThrottledHandler(setPreferencesData,10);
 
   // Handlers for complex states (nested objects or arrays)
   const handleFinancialChange = (e) => {
@@ -492,154 +499,297 @@ const useThrottledHandler = (setter, limit = 200) => {
   };
 
 
+
   // --- SUBMIT HANDLER ---
   const handleSubmit = async (e) => {
      e.preventDefault();
+  }
 
-    try {
-      setIsSubmitting(true);
-
-      // Clone the form container to avoid modifying the original
-      const originalForm = document.getElementById("consumerPacket-pdf");
-      const clonedForm = originalForm.cloneNode(true);
-
-      // Remove all buttons and interactive elements
-      clonedForm.querySelectorAll("button, .btn").forEach((el) => el.remove());
-
-      // Replace all input fields with their values as plain text
-      clonedForm.querySelectorAll("input[type='text'], input[type='tel'], input[type='date'], input[type='number']").forEach((input) => {
-        const span = document.createElement("span");
-        span.textContent = input.value;
-        span.style.cssText = " display: inline-block; min-width: 150px; padding: 2px 5px;margin-left:10px;";
-        input.replaceWith(span);
-      });
-
-      // Replace textareas with their values
-      clonedForm.querySelectorAll("textarea").forEach((textarea) => {
-        const div = document.createElement("div");
-        div.textContent = textarea.value ;
-        div.style.cssText = "border: 1px solid #000; padding: 8px; min-height: 80px; white-space: pre-wrap;";
-        textarea.replaceWith(div);
-      });
-
-      // Replace select dropdowns with selected values
-      clonedForm.querySelectorAll("select").forEach((select) => {
-        const span = document.createElement("span");
-        span.textContent = select.options[select.selectedIndex]?.text;
-        span.style.cssText = " display: inline-block; min-width: 100px; padding: 0px 5px;";
-        select.replaceWith(span);
-      });
-
-      // Replace checkboxes with checked/unchecked symbols
-      clonedForm.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
-        const span = document.createElement("span");
-        span.textContent = checkbox.checked ? "☑" : "☐";
-        span.style.cssText = "font-size: 18px; margin-right: 5px;";
-        checkbox.replaceWith(span);
-      });
-
-      // Replace radio buttons with selected/unselected symbols
-      clonedForm.querySelectorAll("input[type='radio']").forEach((radio) => {
-        const span = document.createElement("span");
-        span.textContent = radio.checked ? "◉" : "○";
-        span.style.cssText = "font-size: 18px; margin-right: 5px;";
-        radio.replaceWith(span);
-      });
-
-      // Replace signature canvases with images
-        // Replace signature canvases with images
-      const canvases = clonedForm.querySelectorAll("canvas");
-      const originalCanvases = originalForm.querySelectorAll("canvas");
-      
-      canvases.forEach((canvas, index) => {
-        // Match by index position instead of ID
-        const originalCanvas = originalCanvases[index];
-        
-        if (originalCanvas) {
-          const img = document.createElement("img");
-          img.src = originalCanvas.toDataURL("image/png");
-          img.style.cssText = "width: 200px; height: 80px; border: 1px solid #000;";
-          canvas.replaceWith(img);
-        }
-      });
-
-      // Remove signature clear buttons and date inputs
-      clonedForm.querySelectorAll(".signatureClear, .signature-date-input").forEach((el) => el.remove());
-
-      // Replace signature dates with plain text
-      clonedForm.querySelectorAll(".signature-date-text").forEach((dateText) => {
-        const span = document.createElement("span");
-        span.textContent = dateText.textContent ;
-        span.style.cssText = "border-bottom: 1px solid #000; display: inline-block; min-width: 100px;";
-        dateText.replaceWith(span);
-      });
-
-      // Create minimal HTML with basic styling for PDF
-      const pdfHtml = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="UTF-8">
-          <style>
-            body { 
-              font-family: Arial, sans-serif; 
-              line-height: 1.6; 
-              padding: 20px;
-              color: #000;
-            }
-            h3, h4, h5 { 
-              color: #0066cc; 
-              margin-top: 20px;
-            }
-            table { 
-              width: 100%; 
-              border-collapse: collapse; 
-              margin: 15px 0;
-            }
-            table, th, td { 
-              border: 1px solid #000; 
-            }
-            th, td { 
-              padding: 8px; 
-              text-align: left;
-            }
-            .pdf-page-break {
-              page-break-before: always;
-            }
-            p { 
-              margin: 10px 0;
-            }
-            ol, ul {
-              margin: 10px 0;
-              padding-left: 30px;
-            }
-          </style>
-        </head>
-        <body>
-          ${clonedForm.innerHTML}
-        </body>
-        </html>
-      `;
-
-      // Send HTML to backend for PDF generation & email delivery
-      const response = await axios.post(
-        "http://everesthomecare.runasp.net/api/pdf/send-email",
-        { html: pdfHtml },
-        { headers: { "Content-Type": "application/json" } }
-      );
-
-      if (response.status === 200) {
-        alert("✅ Form submitted successfully! PDF emailed to company.");
-      } else {
-        alert("❌ Submission failed: " + response.statusText);
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("❌ Error submitting form. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+const handlePreview = () => {
+   if (!previewHtml) {
+        alert('Please click "Done" first to generate the preview.');
+        return; 
     }
-  };
+
+    // --- ADD THIS LOGGING LINE ---
+    const targetPath = `/preview/${formType}`;
+    console.log("Attempting to navigate to:", targetPath);
+    console.log("formType value is:", formType);
+    // -----------------------------
+
+    navigate(targetPath, { state: { previewHtml: previewHtml } });
+};
+ const handleDone = () => {
+  const originalForm = document.getElementById("consumerPacket-pdf");
+  const clonedForm = originalForm.cloneNode(true);
+
+  // Remove all buttons and interactive elements
+  clonedForm.querySelectorAll("button, .btn, .signatureClear").forEach((el) => el.remove());
+
+  // Replace inputs with simple text
+  clonedForm.querySelectorAll("input[type='text'], input[type='tel'], input[type='date'], input[type='number']").forEach((input) => {
+    const span = document.createElement("span");
+    span.textContent = input.value || "_____" ;
+    input.replaceWith(span);
+  });
+
+  // Replace textareas
+  clonedForm.querySelectorAll("textarea").forEach((textarea) => {
+    const div = document.createElement("div");
+    div.textContent = textarea.value || "[No data provided]";
+    div.style.cssText = "margin: 10px 0; white-space: pre-wrap; border: 1px solid #ced4da; padding: 10px; background: #ffffff;";
+    textarea.replaceWith(div);
+  });
+
+  // Replace selects
+  clonedForm.querySelectorAll("select").forEach((select) => {
+    const span = document.createElement("span");
+    span.textContent = select.options[select.selectedIndex]?.text || "___________";
+    select.replaceWith(span);
+  });
+
+  // Replace checkboxes with symbols ONLY (no box)
+  clonedForm.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+    const span = document.createElement("span");
+    span.textContent = checkbox.checked ? "☑ " : "☐ ";
+    span.style.cssText = "font-size: 14pt; margin-right: 5px; display: inline;";
+    
+    // Find the label and prepend the symbol to it
+    const label = checkbox.nextElementSibling;
+    if (label && label.tagName === 'LABEL') {
+      label.insertBefore(span, label.firstChild);
+      checkbox.remove();
+    } else {
+      checkbox.replaceWith(span);
+    }
+  });
+
+  // Replace radio buttons with symbols ONLY (no box)
+  clonedForm.querySelectorAll("input[type='radio']").forEach((radio) => {
+    const span = document.createElement("span");
+    span.textContent = radio.checked ? "◉ " : "○ ";
+    span.style.cssText = "font-size: 14pt; margin-right: 5px; display: inline;";
+    
+    // Find the label and prepend the symbol to it
+    const label = radio.nextElementSibling;
+    if (label && label.tagName === 'LABEL') {
+      label.insertBefore(span, label.firstChild);
+      radio.remove();
+    } else {
+      radio.replaceWith(span);
+    }
+  });
+
+  // Replace signature canvases
+  const canvases = clonedForm.querySelectorAll("canvas");
+  const originalCanvases = originalForm.querySelectorAll("canvas");
+  
+  canvases.forEach((canvas, index) => {
+    const originalCanvas = originalCanvases[index];
+    
+    if (originalCanvas) {
+      const img = document.createElement("img");
+      img.src = originalCanvas.toDataURL("image/png");
+      img.style.cssText = "width: 200px; height: 80px; border: 1px solid #000; display: block; margin: 5px 0;";
+      canvas.replaceWith(img);
+    }
+  });
+
+  // Replace signature dates
+  clonedForm.querySelectorAll(".signature-date-text").forEach((dateText) => {
+    const span = document.createElement("span");
+    span.textContent = dateText.textContent ;
+    dateText.replaceWith(span);
+  });
+
+  // Remove date inputs
+  clonedForm.querySelectorAll(".signature-date-input").forEach((el) => el.remove());
+
+  setPreviewHtml(clonedForm.innerHTML);
+  setIsPreviewEnabled(true);
+  alert('Preview has been generated! Click "See Preview" to view it.');
+}
+//     try {
+//       setIsSubmitting(true);
+
+//       // Clone the form container to avoid modifying the original
+//       const originalForm = document.getElementById("consumerPacket-pdf");
+//       const clonedForm = originalForm.cloneNode(true);
+
+//       // Remove all buttons and interactive elements
+//       clonedForm.querySelectorAll("button, .btn").forEach((el) => el.remove());
+
+//       // Replace all input fields with their values as plain text
+//       clonedForm.querySelectorAll("input[type='text'], input[type='tel'], input[type='date'], input[type='number']").forEach((input) => {
+//         const span = document.createElement("span");
+//         span.textContent = input.value;
+//         span.style.cssText = " display: inline-block; min-width: 150px; padding: 2px 5px;margin-left:10px;";
+//         input.replaceWith(span);
+//       });
+
+//       // Replace textareas with their values
+//       clonedForm.querySelectorAll("textarea").forEach((textarea) => {
+//         const div = document.createElement("div");
+//         div.textContent = textarea.value ;
+//         div.style.cssText = "border: 1px solid #000; padding: 8px; min-height: 80px; white-space: pre-wrap;";
+//         textarea.replaceWith(div);
+//       });
+
+//       // Replace select dropdowns with selected values
+//       clonedForm.querySelectorAll("select").forEach((select) => {
+//         const span = document.createElement("span");
+//         span.textContent = select.options[select.selectedIndex]?.text;
+//         span.style.cssText = " display: inline-block; min-width: 100px; padding: 0px 5px;";
+//         select.replaceWith(span);
+//       });
+
+//       // Replace checkboxes with checked/unchecked symbols
+//       clonedForm.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+//         const span = document.createElement("span");
+//         span.textContent = checkbox.checked ? "☑" : "☐";
+//         span.style.cssText = "font-size: 18px; margin-right: 5px;";
+//         checkbox.replaceWith(span);
+//       });
+
+//       // Replace radio buttons with selected/unselected symbols
+//       clonedForm.querySelectorAll("input[type='radio']").forEach((radio) => {
+//         const span = document.createElement("span");
+//         span.textContent = radio.checked ? "◉" : "○";
+//         span.style.cssText = "font-size: 18px; margin-right: 5px;";
+//         radio.replaceWith(span);
+//       });
+
+//       // Replace signature canvases with images
+//         // Replace signature canvases with images
+//       const canvases = clonedForm.querySelectorAll("canvas");
+//       const originalCanvases = originalForm.querySelectorAll("canvas");
+      
+//       canvases.forEach((canvas, index) => {
+//         // Match by index position instead of ID
+//         const originalCanvas = originalCanvases[index];
+        
+//         if (originalCanvas) {
+//           const img = document.createElement("img");
+//           img.src = originalCanvas.toDataURL("image/png");
+//           img.style.cssText = "width: 200px; height: 80px; border: 1px solid #000;";
+//           canvas.replaceWith(img);
+//         }
+//       });
+
+//       // Remove signature clear buttons and date inputs
+//       clonedForm.querySelectorAll(".signatureClear, .signature-date-input").forEach((el) => el.remove());
+
+//       // Replace signature dates with plain text
+//       clonedForm.querySelectorAll(".signature-date-text").forEach((dateText) => {
+//         const span = document.createElement("span");
+//         span.textContent = dateText.textContent ;
+//         span.style.cssText = "border-bottom: 1px solid #000; display: inline-block; min-width: 100px;";
+//         dateText.replaceWith(span);
+//       });
+
+        
+
+//       // Create minimal HTML with basic styling for PDF
+// // const pdfHtml = `
+// //   <!DOCTYPE html>
+// //   <html>
+// //   <head>
+// //     <meta charset="UTF-8">
+// //     <style>
+// //       @page {
+// //         size: A4 portrait;
+// //         margin: 15mm;
+// //       }
+      
+// //       * {
+// //         box-sizing: border-box;
+// //       }
+      
+// //       body { 
+// //         font-family: Arial, sans-serif; 
+// //         font-size: 12px;
+// //         line-height: 1.4; 
+// //         color: #000;
+// //         margin: 0;
+// //         padding: 10px;
+// //       }
+      
+   
+      
+// //       .pdf-section {
+// //         page-break-inside: avoid;
+// //         break-inside: avoid;
+// //       }
+      
+// //       h3, h4, h5 { 
+// //         color: #0066cc; 
+// //         margin: 15px 0 10px 0;
+// //         page-break-after: avoid;
+// //       }
+      
+// //       table { 
+// //         width: 100%; 
+// //         border-collapse: collapse; 
+// //         margin: 10px 0;
+// //         font-size: 11px;
+// //       }
+      
+// //       table, th, td { 
+// //         border: 1px solid #000; 
+// //       }
+      
+// //       th, td { 
+// //         padding: 6px; 
+// //         text-align: left;
+// //       }
+      
+// //       p { 
+// //         margin: 8px 0;
+// //       }
+      
+// //       ol, ul {
+// //         margin: 8px 0;
+// //         padding-left: 25px;
+// //       }
+// //     </style>
+// //   </head>
+// //   <body>
+// //     ${clonedForm.innerHTML}
+// //   </body>
+// //   </html>
+// // `;
+
+//       // Send HTML to backend for PDF generation & email delivery
+// //     try {
+  
+// //   const response = await fetch("https://localhost:44345/api/pdf/send-email",
+// //     {
+// //       method: "POST",
+// //       headers: { "Content-Type": "application/json" },
+// //       body: JSON.stringify({ html: pdfHtml })
+// //     }
+// //   );
+
+// //   console.log("Response status:", response.status);
+// //   const responseText = await response.text();
+// //   console.log("Response body:", responseText);
+
+// //   if (response.ok) {
+// //     alert("✅ Form submitted successfully!");
+// //   } else {
+// //     alert(`❌ Server error: ${response.status} - ${responseText}`);
+// //   }
+// // } catch (error) {
+// //   console.error("Full error:", error);
+// //   alert(`❌ Error: ${error.message}`);
+// // }
+//     } catch (error) {
+//       console.error("Error submitting form:", error);
+//       alert("❌ Error submitting form. Please try again.");
+//     } finally {
+//       setIsSubmitting(false);
+//     }
+//   };
    // --- RENDER ---
   return (
     <div className="bg-light min-vh-100 py-5">
@@ -649,7 +799,7 @@ const useThrottledHandler = (setter, limit = 200) => {
         <form
           id="consumerPacket-pdf"
           className="bg-white consumerPdf shadow-sm rounded-3 p-4"
-      
+          onSubmit={handleSubmit}
         >
           {/* Header */}
           <div className=" mb-5 pb-4 border-bottom pdf-section">
@@ -886,7 +1036,7 @@ const useThrottledHandler = (setter, limit = 200) => {
           </div>
 
           {/* Demographic and Emergency Contact Information */}
-          <div className="mb-5 pdf-section">
+          <div className="mb-5 pdf-section pdf-page-break">
             <div className="bg-success bg-opacity-10 p-3 rounded-top">
               <h3 className="text-success mb-0 fw-bold">
                 Demographic & Emergency Contact Information
@@ -1369,9 +1519,9 @@ const useThrottledHandler = (setter, limit = 200) => {
                 </ol>
               </div>
             </div>
-
+            </div>
             {/* Assessment Forms */}
-            <div className="border rounded p-4 pdf-section">
+            <div className="border rounded p-4 pdf-section pdf-page-break">
               <h4 className="fw-bold text-dark mb-4">
                 Assessment & ISP Documentation Forms
               </h4>
@@ -1547,8 +1697,10 @@ const useThrottledHandler = (setter, limit = 200) => {
                     }
                   ></textarea>
                 </div>
+                  </div>
               </div>
-              <h5 className="fw-bold text-secondary mb-3">
+            
+            <h5 className="fw-bold text-secondary mb-3 pdf-page-break">
                 2. Individual Support Plan (ISP)
               </h5>
               <div className=" mb-3">
@@ -1590,7 +1742,8 @@ const useThrottledHandler = (setter, limit = 200) => {
                   </div>
                 </div>
               </div>
-              <h5 className="fw-bold text-secondary mb-3">
+              <div className="pdf-page-break">
+              <h5 className="fw-bold text-secondary mb-3 ">
                 {" "}
                 3.ISP Goal Review Log
               </h5>
@@ -1698,6 +1851,7 @@ const useThrottledHandler = (setter, limit = 200) => {
                     }
                   />
                 </div>
+                </div>
               </div>
               <div className="mt-3">
                 <p>Progress Summary:</p>
@@ -1781,8 +1935,8 @@ const useThrottledHandler = (setter, limit = 200) => {
                   />
                 </div>
               </div>
-            </div>
-          </div>
+          
+         
 
           {/* Behavioral & Safety Documentation Policy and Forms */}
           <div className="mb-5 pdf-section pdf-page-break">
@@ -1849,9 +2003,10 @@ const useThrottledHandler = (setter, limit = 200) => {
                   </li>
                 </ol>
               </div>
+                 </div>
             </div>
             {/* Behavioral & Safety Documentation Forms */}
-            <div className="border rounded p-4">
+            <div className="border rounded pdf-section p-4 pdf-page-break">
               <h4 className="fw-bold text-dark mb-4">
                 Behavioral & Safety Documentation Forms
               </h4>
@@ -2055,8 +2210,9 @@ const useThrottledHandler = (setter, limit = 200) => {
                   </div>
                 </div>
               </div>
-
-              <h5 className="fw-bold text-secondary mb-3">
+                  </div>
+              <div className="pdf-page-break pdf-section">
+              <h5 className="fw-bold  text-secondary mb-3">
                 2. Crisis Intervention Plan (CIP)
               </h5>
 
@@ -2196,11 +2352,13 @@ const useThrottledHandler = (setter, limit = 200) => {
                   </div>
                 </div>
               </div>
+              </div>
 
-              <h5 className="fw-bold text-secondary mb-3">
+                  
+              <h5 className="fw-bold pdf-page-break text-secondary mb-3">
                 3.Restrictive Procedure Consent Form
               </h5>
-              <div className="pdf-section">
+              <div>
                 <div className="mb-3 d-flex gap-2">
                   <input
                     type="radio"
@@ -2326,8 +2484,9 @@ const useThrottledHandler = (setter, limit = 200) => {
                   />
                 </div>
               </div>
-            </div>
-          </div>
+           
+        
+       
 
           {/* Consent & Authorization Policy and Forms */}
           <div className="mb-5 pdf-section pdf-page-break">
@@ -2395,7 +2554,7 @@ const useThrottledHandler = (setter, limit = 200) => {
             </div>
 
             {/* Consent & Authorization Forms */}
-            <div className="border rounded p-4">
+            <div className="border pdf-page-break rounded p-4">
               <h4 className="fw-bold text-dark mb-4">
                 Consent & Authorization Forms
               </h4>
@@ -5792,7 +5951,7 @@ const useThrottledHandler = (setter, limit = 200) => {
                 </div>
 
                 {/* Final Signature & Veriﬁcation Policy andForms */}
-                <div className="mb-5 pdf-section">
+                <div className="mb-5 pdf-section pdf-page-break">
                   <div className=" mb-4">
                     <h3 className="fw-bold text-primary">
                       Final Signature & Veriﬁcation Policy and Forms
@@ -6201,16 +6360,22 @@ const useThrottledHandler = (setter, limit = 200) => {
                 {/* Submit and Download Buttons */}
                 <div id="form-buttons" className="text-center mt-5 pdf-section">
                
-                  <button
+                  {/* <button
                     type="button"
                     onClick={handleSubmit}
                     className="btn btn-primary btn-lg px-5 shadow"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Submitting..." : "Submit Consumer Packet"}
-                  </button>
+                  </button> */}
                 </div>
+            <div className="d-flex gap-2 w-100 justify-content-center">
+              <button onClick={handleDone} className="btn btn-success px-3">Done</button>
+              <button onClick={handlePreview} className="btn btn-info px-3" disabled={!isPreviewEnabled}>See Preview
+              </button>
+            </div>
               </form>
+
             </div>
           </div>
         );
