@@ -30,7 +30,7 @@ const handleSubmit = async (e) => {
     };
     console.log(submitData);
     try {
-      const response = await fetch('http://www.EverestHealth.somee.com/api/Auth/login', {
+      const response = await fetch('https://www.EverestHealth.somee.com/api/Auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
