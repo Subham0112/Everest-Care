@@ -2732,7 +2732,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
         
 
           {/* Financial Policy Documents and Forms */}
-          <div className="mb-5 pdf-section pdf-page-break">
+          <div className=" pdf-section pdf-page-break">
             <div className=" mb-4">
               <h3 className="fw-bold text-primary">
                 Financial Policy Documents and Forms
@@ -2795,7 +2795,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
             </div>
 
             {/* Financial Documentation Forms */}
-            <div className="pdf-section border rounded p-4">
+            <div className="pdf-section border rounded py-4">
               <h4 className="fw-bold text-dark mb-4">
                 Financial Documentation Forms
               </h4>
@@ -2967,8 +2967,11 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
                   </label>
                 </div>
               </div>
-
-              <div>
+                     </div>
+          </div>
+              {/* {page break} */}
+              <div className="pdf-page-break py-4 mb-5">
+              <div >
                 <div className="col-md-3">
                   <SignatureCanvas
                     label="Staff Signature"
@@ -3213,8 +3216,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
                 </tbody>
               </table>
               </div>
-            </div>
-          </div>
+           </div>
 
           {/* Habilitation Service Plan Policy and Forms */}
           <div className="mb-5 pdf-section pdf-page-break">
@@ -4645,7 +4647,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
 
           {/* Preferences & Cultural Proﬁle Policy and Forms */}
 
-          <div className="mb-5 pdf-section pdf-page-break">
+          <div className=" pdf-section pdf-page-break">
             <h3 className="fw-bold text-info mb-2">
               Preferences & Cultural Proﬁle Policy and Forms
             </h3>
@@ -4706,7 +4708,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
             </div>
 
             {/* Preferences & Cultural Proﬁle Forms */}
-            <div className="pdf-section border rounded p-4">
+            <div className="pdf-section px-4">
               <h4 className="fw-bold text-dark mb-4">
                 Preferences & Cultural Proﬁle Forms
               </h4>
@@ -4949,6 +4951,11 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
                     }
                   />
                 </div>
+              </div>
+            </div>
+              </div>
+                {/* page break */}
+                <div className="pdf-page-break px-4 mb-5">
                 <div className="col-md-4">
                   <label
                     htmlFor="accessibilityNeeds"
@@ -5033,7 +5040,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
                     }
                   />
                 </div>
-              </div>
+            
 
               <div className="rounded mt-4">
                 <div className="d-flex flex-column flex-sm-row gap-3 mb-3">
@@ -5104,8 +5111,8 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+              </div>
+        
 
           {/* Training & Orientation Acknowledgments Policy and Forms */}
 

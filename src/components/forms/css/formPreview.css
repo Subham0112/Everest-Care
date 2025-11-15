@@ -177,11 +177,12 @@
 
 /* Page break marker (visible in preview) */
 .document-preview .pdf-page-break {
-  border-top: 2px dashed #999;
+  /* border-top: 2px dashed #999; */
   /* margin: 30px 0 20px 0;
   padding-top: 20px; */
   position: relative;
    page-break-before: always !important;
+  
 }
 
 
@@ -196,6 +197,7 @@
   color: #999;
   font-size: 9pt;
   font-weight: 600;
+  visibility: hidden;
 }
 
 /* ================================================= */
@@ -301,6 +303,7 @@
   }
 
   .pdf-page-break {
+   
     page-break-before: always;
     border: none;
     margin: 0;

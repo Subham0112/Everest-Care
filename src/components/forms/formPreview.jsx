@@ -30,7 +30,7 @@ const FormPreview = () => {
       const pdfHeight = pdf.internal.pageSize.getHeight();
       
       const marginTop = 10;
-      const marginBottom = 10;
+      const marginBottom = 15;
       const marginLeft = 15;
       const marginRight = 15;
       
