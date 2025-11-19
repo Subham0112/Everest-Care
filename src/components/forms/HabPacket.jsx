@@ -1629,21 +1629,25 @@ const HabPacket = () => {
               <h5 className='text-info'>16. Orientation Acknowledgment Form</h5>
               <p className='text-secondary'>For Individuals Receiving Habilitation Services Under ODP</p>
             </div>
-            <div className='mb-3 '> 
+            <div> 
               <h6 className='fw-bolder'> Consumer Information</h6>
               <div className='mb-3'>
                 <InputFields label="Full Name of Consumer:" inputId="consumerName_orientation" inputName="consumerName_orientation" value={inputValue.consumerName_orientation} onChange={handleChange}
                 />
                 <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_orientation" dateName="dateOfBirth_orientation" value={inputValue.dateOfBirth_orientation} onChange={handleChange}/>
-
-                <InputFields label="MA Number:" inputId="maNumber_orientation" inputName="maNumber_orientation" value={inputValue.maNumber_orientation} onChange={handleChange}
-                />
-              </div>
+                </div>
                </div>
           </section>
 
-          {/* page break */}
+            {/* page break */}
           <div className='pdf-page-break '>
+                <div className='mb-3'>
+                <InputFields label="MA Number:" inputId="maNumber_orientation" inputName="maNumber_orientation" value={inputValue.maNumber_orientation} onChange={handleChange}
+                />
+                </div>
+           
+
+        
               <h6 className='fw-bolder'> Provider Information</h6>
               <div className='mb-3'>
                 <InputFields label="Provider Name:" inputId="providerName_orientation" inputName="providerName_orientation" value={inputValue.providerName_orientation} onChange={handleChange}
@@ -1653,7 +1657,6 @@ const HabPacket = () => {
               </div>
              
 
-            {/* page break */}
               
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>1. Purpose of this form</h6>
