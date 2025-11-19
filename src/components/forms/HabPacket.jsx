@@ -1,8 +1,10 @@
+
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "./css/signatureCanvas.css";
 
-const InputFields=({label, inputId, inputName,value, onChange}) => {
-
+const InputFields=({label, inputId, inputName, value, onChange}) => {
   return (
       <div className='col-md-4'>
       <label htmlFor={inputId} className="form-label fw-semibold">
@@ -19,7 +21,8 @@ const InputFields=({label, inputId, inputName,value, onChange}) => {
                   </div>
   )
 }
-const TextAreaFields=({label, inputId, inputName}) => {
+
+const TextAreaFields=({label, inputId, inputName, value, onChange}) => {
   return (
       <div className='col-md-9'>
       <label htmlFor={inputId} className="form-label fw-semibold">
@@ -31,36 +34,40 @@ const TextAreaFields=({label, inputId, inputName}) => {
                     className="form-control"
                     id={inputId}
                     name={inputName}
+                    value={value || ""}
+                    onChange={onChange}
                   />
                   </div>
-
   )
 }
 
-const InputDate=({dateId, dateName, dateLabel})=>{
+const InputDate=({dateId, dateName, dateLabel, value, onChange})=>{
   return(
-<div className='col-md-4'>
-    <label htmlFor={dateId} className="form-label fw-semibold">
-                   {dateLabel}
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id={dateId}
-                    name={dateName}
-                  />
-      </div>
+    <div className='col-md-4'>
+      <label htmlFor={dateId} className="form-label fw-semibold">
+                     {dateLabel}
+                    </label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      id={dateId}
+                      name={dateName}
+                      value={value || ""}
+                      onChange={onChange}
+                    />
+        </div>
   )
-  
 }
 
-const InputCheckboxes=({checkId, checkName,checkLabel, className})=>{
+const InputCheckboxes=({checkId, checkName, checkLabel, className, checked, onChange})=>{
     return(
       <div className={`d-flex gap-2 `}>
                   <input
                     type="checkbox"
                     id={checkId}
-                    name={checkName}   
+                    name={checkName}
+                    checked={checked}
+                    onChange={onChange}
                   />
                   <label htmlFor={checkId} className={`form-check-label ${className}`}>
                   {checkLabel}
@@ -68,47 +75,91 @@ const InputCheckboxes=({checkId, checkName,checkLabel, className})=>{
                 </div>
     )
 }
+
 const SignatureCanvas = ({ label, name }) => {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [signatureDate, setSignatureDate] = useState("");
+  const [hasSignature, setHasSignature] = useState(false);
+  const savedDrawingRef = useRef(null); // Store the drawing data
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
     const resizeCanvas = () => {
+      // Save current drawing before resize
+      const tempData = savedDrawingRef.current || (hasSignature ? canvas.toDataURL() : null);
+      
       const rect = canvas.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0) {
         canvas.width = rect.width;
         canvas.height = rect.height;
       }
+      
       ctx.lineWidth = 2;
       ctx.lineCap = "round";
       ctx.strokeStyle = "#000";
+      ctx.imageSmoothingEnabled = true;
+      
+      // Restore drawing after resize
+      if (tempData) {
+        const img = new Image();
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = tempData;
+      }
     };
 
     setTimeout(resizeCanvas, 50);
-    window.addEventListener("resize", resizeCanvas);
-    return () => window.removeEventListener("resize", resizeCanvas);
-  }, []);
+    
+    // Only resize on actual window resize, not on every render
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resizeCanvas, 250);
+    };
+    
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimeout);
+    };
+  }, []); // Remove hasSignature from dependencies
+
+  // Save drawing data periodically
+  const saveDrawing = () => {
+    const canvas = canvasRef.current;
+    if (canvas && hasSignature) {
+      savedDrawingRef.current = canvas.toDataURL();
+    }
+  };
 
   const getCoords = (e) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
+    
+    // Prevent default to stop scrolling on mobile
     if (e.touches) {
+      e.preventDefault();
       return {
-        x: e.touches[0].clientX - rect.left,
-        y: e.touches[0].clientY - rect.top,
+        x: (e.touches[0].clientX - rect.left) * (canvas.width / rect.width),
+        y: (e.touches[0].clientY - rect.top) * (canvas.height / rect.height),
       };
     }
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    return { 
+      x: (e.clientX - rect.left) * (canvas.width / rect.width),
+      y: (e.clientY - rect.top) * (canvas.height / rect.height)
+    };
   };
 
   const startDrawing = (e) => {
-    // e.preventDefault();
+    e.preventDefault(); // Prevent scrolling on mobile
     setIsDrawing(true);
+    setHasSignature(true);
+    
     const ctx = canvasRef.current.getContext("2d");
     const { x, y } = getCoords(e);
     ctx.beginPath();
@@ -116,8 +167,9 @@ const SignatureCanvas = ({ label, name }) => {
   };
 
   const draw = (e) => {
-    // e.preventDefault();
+    e.preventDefault(); // Prevent scrolling on mobile
     if (!isDrawing) return;
+    
     const ctx = canvasRef.current.getContext("2d");
     const { x, y } = getCoords(e);
     ctx.lineTo(x, y);
@@ -125,10 +177,10 @@ const SignatureCanvas = ({ label, name }) => {
   };
 
   const stopDrawing = (e) => {
-    // e.preventDefault();
+    if (e) e.preventDefault();
     if (!isDrawing) return;
     setIsDrawing(false);
-
+    saveDrawing(); // Save when user stops drawing
   };
 
   const clearSignature = () => {
@@ -136,13 +188,13 @@ const SignatureCanvas = ({ label, name }) => {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setSignatureDate("");
-   
+    setHasSignature(false);
+    savedDrawingRef.current = null;
   };
 
   const handleDateChange = (e) => {
     const date = e.target.value;
     setSignatureDate(date);
- 
   };
 
   return (
@@ -162,14 +214,25 @@ const SignatureCanvas = ({ label, name }) => {
           onTouchStart={startDrawing}
           onTouchMove={draw}
           onTouchEnd={stopDrawing}
-          className="border  rounded bg-white w-100"
-          style={{ height: "100px", touchAction: "none", cursor: "crosshair" }}
+          onTouchCancel={stopDrawing}
+          className="border rounded bg-white w-100"
+          style={{ 
+            height: "100px", 
+            touchAction: "none", 
+            cursor: "crosshair",
+            WebkitTouchCallout: "none",
+            WebkitUserSelect: "none",
+            KhtmlUserSelect: "none",
+            MozUserSelect: "none",
+            msUserSelect: "none",
+            userSelect: "none"
+          }}
         />
         <button
           type="button"
           onClick={clearSignature}
           className="signatureClear btn btn-sm btn-outline-danger position-absolute"
-          style={{ top: "5px", right: "5px" }}
+          style={{ top: "5px", right: "5px", zIndex: 10 }}
         >
           Clear
         </button>
@@ -179,10 +242,6 @@ const SignatureCanvas = ({ label, name }) => {
         <label htmlFor={`${name}Date`} className="form-label fw-semibold">
           Date
         </label>
-        {/* This logic is important for your handleSubmit.
-          When a date is entered, it hides the input and shows <p>
-          so the DOM cloner can pick it up.
-        */}
         {signatureDate ? (
           <p className="signature-date-text">{signatureDate}</p>
         ) : (
@@ -200,19 +259,31 @@ const SignatureCanvas = ({ label, name }) => {
   );
 };
 
-
 const HabPacket = () => {
+  const navigate = useNavigate();
+  const { formType } = useParams();
   const [inputValue, setInputValue] = useState({});
+  const [checkboxValues, setCheckboxValues] = useState({});
+  const [previewHtml, setPreviewHtml] = useState(null);
+  const [isPreviewEnabled, setIsPreviewEnabled] = useState(false);
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setInputValue((prev) => ({
-    ...prev,
-    [name]: value, 
-  }));
-};
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    
+    if (type === 'checkbox') {
+      setCheckboxValues(prev => ({
+        ...prev,
+        [name]: checked
+      }));
+    } else {
+      setInputValue(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
 
-  const tableFields=[
+  const tableFields = [
     {tableName:"Consumer Face Sheet (Demographics)"},
     {tableName:"Copy of ISP (Individual Support Plan)"},
     {tableName:"Habilitation Goals and Outcomes (from ISP)"},
@@ -223,7 +294,7 @@ const handleChange = (e) => {
     {tableName:"Emergency Contact Information Form"},
     {tableName:"Emergency Medical Plan"},
     {tableName:"Medication Administration Record (if applicable)"},
-    {tableName:"Doctor’s Orders (if required for services)"},
+    {tableName:"Doctor's Orders (if required for services)"},
     {tableName:"Behavior Support Plan (if applicable)"},
     {tableName:"Incident Management Acknowledgment"},
     {tableName:"Rights of Individuals Receiving Services"},
@@ -234,7 +305,9 @@ const handleChange = (e) => {
     {tableName:"Photo Consent/Refusal Form"},
     {tableName:"Copy of Insurance Card and State ID"},
     {tableName:"Copy of Social Security Card"},
-    {tableName:"Emergency Evacuation Plan (home specific)"},
+    {tableName:"Emergency Evacuation Plan (home specific)"}
+  ];
+  const tableFields2=[
     {tableName:"Backup Plan / Contingency Plan"},
     {tableName:"ODP Required Assessments (like SIS, if available)"},
     {tableName:"Service Location & Community Integration Preferences"},
@@ -242,27 +315,118 @@ const handleChange = (e) => {
     {tableName:"Team Contact List"},
   ]
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log('Form submitted');
-};
+
+
+  const handleDone = () => {
+    const originalForm = document.getElementById("habPacket-pdf");
+    const clonedForm = originalForm.cloneNode(true);
+
+    // Remove all buttons and interactive elements
+    clonedForm.querySelectorAll("button, .btn, .signatureClear").forEach((el) => el.remove());
+
+    // Replace inputs with simple text
+    clonedForm.querySelectorAll("input[type='text'], input[type='tel'], input[type='date'], input[type='number'], input[type='time']").forEach((input) => {
+      const span = document.createElement("span");
+      span.textContent = input.value || "_____";
+      input.replaceWith(span);
+    });
+
+    // Replace textareas
+    clonedForm.querySelectorAll("textarea").forEach((textarea) => {
+      const div = document.createElement("div");
+      div.textContent = textarea.value || "[No data provided]";
+      div.style.cssText = "margin: 0 0 8px 0; white-space: pre-wrap; border: 1px solid #ced4da; background: #ffffff;";
+      textarea.replaceWith(div);
+    });
+
+    // Replace file inputs
+    clonedForm.querySelectorAll("input[type='file']").forEach((fileInput) => {
+      const span = document.createElement("span");
+      span.textContent = fileInput.files.length > 0 ? `${fileInput.files.length} file(s) attached` : "[No file attached]";
+      fileInput.replaceWith(span);
+    });
+
+    // Replace checkboxes with symbols
+    clonedForm.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+      const span = document.createElement("span");
+      span.textContent = checkbox.checked ? "☑ " : "☐ ";
+      span.style.cssText = "font-size: 14pt; margin-right: 5px; display: inline;";
+      
+      const label = checkbox.nextElementSibling;
+      if (label && label.tagName === 'LABEL') {
+        label.insertBefore(span, label.firstChild);
+        checkbox.remove();
+      } else {
+        checkbox.replaceWith(span);
+      }
+    });
+
+    // Replace radio buttons with symbols
+    clonedForm.querySelectorAll("input[type='radio']").forEach((radio) => {
+      const span = document.createElement("span");
+      span.textContent = radio.checked ? "◉ " : "○ ";
+      span.style.cssText = "font-size: 14pt; margin-right: 5px; display: inline;";
+      
+      const label = radio.nextElementSibling;
+      if (label && label.tagName === 'LABEL') {
+        label.insertBefore(span, label.firstChild);
+        radio.remove();
+      } else {
+        radio.replaceWith(span);
+      }
+    });
+
+    // Replace signature canvases
+    const canvases = clonedForm.querySelectorAll("canvas");
+    const originalCanvases = originalForm.querySelectorAll("canvas");
+    
+    canvases.forEach((canvas, index) => {
+      const originalCanvas = originalCanvases[index];
+      
+      if (originalCanvas) {
+        const img = document.createElement("img");
+        img.src = originalCanvas.toDataURL("image/png");
+        img.style.cssText = "width: 200px; height: 80px; border: 1px solid #000; display: block; margin: 5px 0;";
+        canvas.replaceWith(img);
+      }
+    });
+
+    // Replace signature dates
+    clonedForm.querySelectorAll(".signature-date-text").forEach((dateText) => {
+      const span = document.createElement("span");
+      span.textContent = dateText.textContent;
+      dateText.replaceWith(span);
+    });
+
+    // Remove date inputs
+    clonedForm.querySelectorAll(".signature-date-input").forEach((el) => el.remove());
+
+    setPreviewHtml(clonedForm.innerHTML);
+    setIsPreviewEnabled(true);
+    alert('Preview has been generated! Click "See Preview" to view it.');
+  };
+
+  const handlePreview = () => {
+    if (!previewHtml) {
+      alert('Please click "Done" first to generate the preview.');
+      return;
+    }
+
+    const targetPath = `/preview/${formType}`;
+    console.log("Attempting to navigate to:", targetPath);
+    console.log("formType value is:", formType);
+
+    navigate(targetPath, { state: { previewHtml: previewHtml } });
+  };
 
   return (
     <div className='bg-light  min-vh-100'>
       <div className='container-fluid full-form'>
-        <form onSubmit={handleSubmit} className='bg-white habpacketPdf shadow-sm rounded-3 p-4 py-2'>
-          <header className='d-flex flex-column align-items-center w-100 '>
-            <h2 className='m-0 text-info'>Everest Home Health</h2>
-            <div className='d-flex flex-column align-items-center text-secondary'>
-            <p className='m-0 '>109 DEWALT AVE SUITE 201B PITTSBURGH PA 15227</p>
-            <p className='m-0'>EMAIL: - everestopd2025@gmail.com</p>
-            <p className='m-0'>PHONE: - 412-484-6298, FAX: - 412-207-8661</p>
-            </div>
-          </header>
+        <form id='habPacket-pdf' className='bg-white habpacketPdf shadow-sm rounded-3 p-4 py-2'>
+ 
 {/* HAB Consumer Packet – Checklist of Required Documents: */}
 <section className='my-4'>
   <h4 className='text-info'>HAB Consumer Packet – Checklist of Required Documents:</h4>
-
   <div className='table-responsive'>
     <table className='table table-striped table-bordered'>
       <thead>
@@ -280,22 +444,38 @@ const handleSubmit = (e) => {
             <td className='text-center'><input type='checkbox'
                 id={`tableCheckbox-${index}`}
             name={`tableCheckbox_${index}`}
+            checked={checkboxValues[`tableCheckbox_${index}`]}
+             onChange={handleChange}
+            /></td>
+          </tr>
+        ))}
+      </tbody>
+      <tbody className='pdf-page-break'>
+        {tableFields2.map((item, index) => (
+          <tr key={index}>
+            <td>{index + 23}</td>
+            <td>{item.tableName}</td>
+            <td className='text-center'><input type='checkbox'
+                id={`tableCheckbox2-${index}`}
+            name={`tableCheckbox2_${index}`}
+            checked={checkboxValues[`tableCheckbox2_${index}`]}
+             onChange={handleChange}
             /></td>
           </tr>
         ))}
       </tbody>
     </table>
-
-  
   </div>
-
 </section>
+
+
 {/* 1. Consumer Face Sheet (Demographics) */}
+<div className='pdf-page-break'>
 <section className='my-4'>
-  <h5 className='text-info'>1. Consumer Face Sheet (Demographics)</h5>
+  <h3 className='text-info'>1. Consumer Face Sheet (Demographics)</h3>
   <div className='row row-cols-2 g-3'>
     <InputFields label='Consumer Name' inputId='ConsumerName' inputName='ConsumerName' value={inputValue.ConsumerName} onChange={handleChange}/>
-    <InputDate dateLabel='DOB' dateId='dateOfBirth' dateName='dateOfBirth'/>
+    <InputDate dateLabel='DOB' dateId='dateOfBirth' dateName='dateOfBirth' value={inputValue.dateOfBirth} onChange={handleChange}/>
     <InputFields label='MA#' inputId='maNumber' inputName='maNumber' value={inputValue.maNumber} onChange={handleChange}/>
     <InputFields label='Phone' inputId='phoneNo' inputName='phoneNo' value={inputValue.phoneNo} onChange={handleChange}/>
     <InputFields label='Address' inputId='address' inputName='address' value={inputValue.address} onChange={handleChange}/>
@@ -310,7 +490,7 @@ const handleSubmit = (e) => {
 {/* 2.ISP (Individual Support Plan) */}
     <section>
       <div className='mb-4'>
-        <h5 className='text-info'>2.ISP (Individual Support Plan)</h5>
+        <h3 className='text-info'>2.ISP (Individual Support Plan)</h3>
       </div>
     </section>
     <hr />
@@ -318,10 +498,10 @@ const handleSubmit = (e) => {
     {/* 3.Habilitation Goals and Outcomes (from ISP) */}
     <section>
         <div className='mb-4'>
-          <h5 className='text-info'>3.Habilitation Goals and Outcomes (from ISP)</h5>
+          <h3 className='text-info'>3.Habilitation Goals and Outcomes (from ISP)</h3>
           <div className='mb-3 '>
-            <TextAreaFields label="Goals" inputId="goals" inputName="goals"/>
-            <TextAreaFields label="Objectives" inputId="objectives" inputName="objectives"/>
+            <TextAreaFields label="Goals" inputId="goals" inputName="goals" value={inputValue.goals} onChange={handleChange}/>
+            <TextAreaFields label="Objectives" inputId="objectives" inputName="objectives" value={inputValue.objectives} onChange={handleChange}/>
             <InputFields label="Staff Support Instructions:" inputId="staffSupportInstructions" inputName="staffSupportInstructions"
             value={inputValue.staffSupportInstructions} onChange={handleChange}
             />
@@ -335,40 +515,46 @@ const handleSubmit = (e) => {
 
         </div>
     </section>
+    
         <hr  />
 
         {/* 4.Habilitation Daily/Monthly Progress Notes Template */}
-
+       
         <section>
             <div className='mb-4'>
-              <h5 className='text-info'>4.Habilitation Daily/Monthly Progress Notes Template</h5>
+              <h3 className='text-info'>4.Habilitation Daily/Monthly Progress Notes Template</h3>
               <div className='mb-3 '>
-              <InputDate dateLabel="Date" dateId="date_hab" dateName="date_hab"/>
+              <InputDate dateLabel="Date" dateId="date_hab" dateName="date_hab" value={inputValue.date_hab} onChange={handleChange}/>
               <InputFields label="Time Out" inputId="timeOut_hab" inputName="timeOut_hab" value={inputValue.timeOut_hab} onChange={handleChange}
               />
               <InputFields label="Time In" inputId="timeIn_hab" inputName="timeIn_hab" value={inputValue.timeIn_hab} onChange={handleChange}
               />
-              <TextAreaFields label="Summary of Activities" inputId="summaryOfActivities_hab" inputName="summaryOfActivities_hab"/>
-              <TextAreaFields label="Progress Toward Goals:" inputId="progressTowardGoals_hab" inputName="progressTowardGoals_hab"/>
+                </div>
+            </div>
+            </section>
+          </div>
+           <div className="pdf-page-break">
+            <div>
+              <TextAreaFields label="Summary of Activities" inputId="summaryOfActivities_hab" inputName="summaryOfActivities_hab" value={inputValue.summaryOfActivities_hab} onChange={handleChange}/>
+              <TextAreaFields label="Progress Toward Goals:" inputId="progressTowardGoals_hab" inputName="progressTowardGoals_hab" value={inputValue.progressTowardGoals_hab} onChange={handleChange}/>
               <InputFields label="Staff Initials:" inputId="staffInitials_hab" inputName="staffInitials_hab" value={inputValue.staffInitials_hab} onChange={handleChange}
               />
               </div>
-            </div>
-            </section>
+            
             <hr  />
 
             {/* 5. Service Note Log Sheet */}
 
             <section>
               <div className='mb-4'>
-                <h5 className='text-info'>5. Service Note Log Sheet</h5>
+                <h3 className='text-info'>5. Service Note Log Sheet</h3>
                 <div className='mb-3 '>
-                <InputDate dateLabel="Date" dateId="date_service" dateName="date_service"/>
+                <InputDate dateLabel="Date" dateId="date_service" dateName="date_service" value={inputValue.date_service} onChange={handleChange}/>
                 <InputFields label="Time In" inputId="timeIn_service" inputName="timeIn_service" value={inputValue.timeIn_service} onChange={handleChange}
                 />
                 <InputFields label="Time Out" inputId="timeOut_service" inputName="timeOut_service" value={inputValue.timeOut_service} onChange={handleChange}
                 />
-                <TextAreaFields label="Service Provided" inputId="serviceProvided" inputName="serviceProvided" />
+                <TextAreaFields label="Service Provided" inputId="serviceProvided" inputName="serviceProvided" value={inputValue.serviceProvided} onChange={handleChange}/>
                 <div className='col-md-3'>
                 <SignatureCanvas label="Staff Signature" name="staffSignature"/>
                 </div>
@@ -377,22 +563,21 @@ const handleSubmit = (e) => {
                 
             </section>
           <hr  /> 
-
-
+       
             {/* 6. Consent for Services Agreement */}
 
-            <section>
-              <div className='mb-4'>
-                <h5 className='text-info'>6. Consent for Services Agreement</h5>
+            <section >
+              <div>
+                <h3 className='text-info'>6. Consent for Services Agreement</h3>
                 <p className='text-secondary'>
                   This Consent for Services ("Agreement") is entered into between the Provider and the Consumer as part of the Service Agreement (ISP) and is applicable to the outlined in the Individual Support Plan (ISP) authorized by the Office of Developmental Programs (ODP).
                 </p>
                 <div className='mb-3'>
-                  <h6 className='fw-bolder'>Consumer Information</h6>
+                  <h5 className='fw-bolder'>Consumer Information</h5>
                   <div className='row row-cols-2 g-2'>
                 <InputFields label="Full Name of Consumer:" inputId="fullNameOfConsumer" inputName="fullNameOfConsumer" value={inputValue.fullNameOfConsumer} onChange={handleChange}
                 />
-                <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_consent" dateName="dateOfBirth_consent"/>
+                <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_consent" dateName="dateOfBirth_consent" value={inputValue.dateOfBirth_consent} onChange={handleChange}/>
                 <InputFields label="MA Number:" inputId="maNumber_consent" inputName="maNumber_consent" value={inputValue.maNumber_consent} onChange={handleChange}
                 />
                 </div>
@@ -400,17 +585,23 @@ const handleSubmit = (e) => {
                 <div className='mb-3'>
                   <h6 className='fw-bolder'>Provider Information</h6>
                   <div className='row row-cols-2 g-2'>
-                <InputFields label="Provider Name:" inputId="providerName" inputName="providerName"/>
-                <InputFields label="Contact Number:" inputId="contactNumber" inputName="contactNumber"/>
-                <InputFields label="Address:" inputId="providerAddress" inputName="providerAddress"/>
+                <InputFields label="Provider Name:" inputId="providerName" inputName="providerName" value={inputValue.providerName} onChange={handleChange}/>
+                <InputFields label="Contact Number:" inputId="contactNumber" inputName="contactNumber" value={inputValue.contactNumber} onChange={handleChange}/>
+                <InputFields label="Address:" inputId="providerAddress" inputName="providerAddress" value={inputValue.providerAddress} onChange={handleChange}/>
                 </div>
                 </div>
+              </div>
+            </section>
+             </div>
+                {/*page break  */}
+                <div className='pdf-page-break'>
                 <div className='mb-3'>
                   <h6 className='fw-bolder'>1. Purpose of the Service</h6>
                   <p className='text-secondary'>
                     The Provider agrees to deliver habilitation services that promote independence, skill-building, and inclusion in accordance with the Consumer’s ISP. These services are person-centered and will be implemented in accordance with the policies and procedures outlined by ODP.
                   </p>
                 </div>
+          
                 <div className='mb-3'>
                   <h6 className='fw-bolder'>2.Nature of Services</h6>
                   <p className='text-secondary'>
@@ -502,6 +693,11 @@ const handleSubmit = (e) => {
                   <li>The ISP changes significantly, requiring updated consent</li>
                   </ul>
                 </div>
+                </div>
+
+                {/* page break */}
+                <div className="pdf-page-break">
+                <div >
               <div className='mb-3'>
                 <h6 className='fw-bolder'>8.Acknowledgment and Agreement</h6>
                 <p className='text-secondary'>
@@ -517,16 +713,16 @@ const handleSubmit = (e) => {
                   </div>
                 </div>
                 <div className='mb-3'>
-                  <InputFields label="Provider Representative Name:" inputId="providerRepresentativeName" inputName="providerRepresentativeName" value={inputValue.providerRepresentativeName} onChange={handleChange}
+                  <InputFields label="Provider Representative Name:" inputId="providerRepresentativeName" inputName="providerRepresentativeName"
+                  value={inputValue.providerRepresentativeName} onChange={handleChange}
                   />
                   <div className='col-md-3'>
                   <SignatureCanvas label="Signature" name="providerSignature_consent"/>
                   </div>
                 </div>
+                </div>
                 
-              </div>
             
-          </section>
           <hr />
 
           {/* HIPAA Acknowledgment & Consent Form */}
@@ -538,7 +734,7 @@ const handleSubmit = (e) => {
                 <h6 className='fw-bolder'> Consumer Information</h6>
               <InputFields label="Consumer Name:" inputId="consumerName_hippa" inputName="consumerName_hippa" value={inputValue.consumerName_hippa} onChange={handleChange}
               />
-              <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_hippa" dateName="dateOfBirth_hippa"/>
+              <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_hippa" dateName="dateOfBirth_hippa" value={inputValue.dateOfBirth_hippa} onChange={handleChange}/>
               <InputFields label="MA Number:" inputId="maNumber_hippa" inputName="maNumber_hippa" value={inputValue.maNumber_hippa} onChange={handleChange}
               />
               </div>
@@ -557,6 +753,12 @@ const handleSubmit = (e) => {
                 This form serves as an acknowledgment that the Consumer (or legal guardian) has received, reviewed, and understands the Notice of Privacy Practices from the Provider in compliance with the Health Insurance Portability and Accountability Act (HIPAA). This form also provides consent for the Provider to use and disclose protected health information (PHI) for purposes related to treatment, payment, and healthcare operations.
               </p>
               </div>
+               </div>
+            </section>
+              </div>
+
+              {/* page break */}
+              <div className='pdf-page-break'>
               <div className='mb-3 '>
               <h6 className='fw-bolder'>2. Acknowledgment of Receipt of Notice of Privacy Practices</h6>
               <p className='text-secondary'>
@@ -576,6 +778,11 @@ const handleSubmit = (e) => {
                 <li>As required or permitted by law (e.g., for mandated reporting, audits, or court orders)</li>
               </ul>
               </div>
+ 
+         
+              {/* page break */}
+              <section className='pdf-page-break'>
+                 <div>
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>4. Consumer Rights Under HIPAA </h6>
                 <p className='text-secondary'>
@@ -603,17 +810,24 @@ const handleSubmit = (e) => {
                  This consent will remain in effect for the duration of services unless revoked in writing or otherwise required by law.
                 </p>
               </div>
+         
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>7. Additional Disclosure Authorizations</h6>
                 <p className='text-secondary'>
                  (Optional. Check any that apply)
                 </p>
                 <div>
-                  <InputCheckboxes checkId="disclosueAuthorization1" checkName="disclosueAuthorization1" checkLabel="I authorize the Provider to communicate with my emergency contact in the event of a health or safety concern."/>
-                  <InputCheckboxes checkId="disclosueAuthorization2" checkName="disclosueAuthorization2" checkLabel="I authorize the Provider to share relevant health information with other providers for care coordination."/>
-                  <InputCheckboxes checkId="disclosueAuthorization3" checkName="disclosueAuthorization3" checkLabel="I do not authorize any additional disclosures beyond those required for treatment, payment, and healthcare operations."/>
+                  <InputCheckboxes checkId="disclosueAuthorization1" checkName="disclosueAuthorization1" checkLabel="I authorize the Provider to communicate with my emergency contact in the event of a health or safety concern." checked={checkboxValues.disclosueAuthorization1} onChange={handleChange}/>
+                  <InputCheckboxes checkId="disclosueAuthorization2" checkName="disclosueAuthorization2" checkLabel="I authorize the Provider to share relevant health information with other providers for care coordination." checked={checkboxValues.disclosueAuthorization2} onChange={handleChange}/>
+                  <InputCheckboxes checkId="disclosueAuthorization3" checkName="disclosueAuthorization3" checkLabel="I do not authorize any additional disclosures beyond those required for treatment, payment, and healthcare operations." checked={checkboxValues.disclosueAuthorization3} onChange={handleChange}/>
                 </div>
               </div>
+                   </div>
+          </section>
+          </div>
+
+          {/* page break */}
+          <div className="pdf-page-break">
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>Acknowledgment and Consent</h6>
                 <p className='text-secondary'>I, the Consumer (or legal guardian), certify that I have read and understood this document, and that I voluntarily consent to the use and disclosure of my health information as outlined above.</p>
@@ -625,19 +839,18 @@ const handleSubmit = (e) => {
                   <SignatureCanvas label="Signature" name="consumerSignature_hippa"/>
                   </div>
               </div>
-              <div className='mb-3 '>
+            
+              <div className='mb-3'>
                 <InputFields label="Provider Representative Name:" inputId="providerRepresentativeName_hippa" inputName="providerRepresentativeName_hippa" value={inputValue.providerRepresentativeName_hippa} onChange={handleChange}
                 />
                 <div className='col-md-3'>
                   <SignatureCanvas label="Signature" name="providerSignature_hippa"/>
                   </div>
               </div>
-
-            </div>
-          </section>
           <hr/>
 
         {/* Emergency Contact Information Form */}
+       
         <section>
           <div className='mb-4'>
             <h5 className='text-info'>8. Emergency Contact Information Form</h5>
@@ -666,19 +879,27 @@ const handleSubmit = (e) => {
                     <InputFields label="Allergies:" inputId="allergies_emergencyMedical" inputName="allergies_emergencyMedical" value={inputValue.allergies_emergencyMedical} onChange={handleChange}
                     />
                     <TextAreaFields label="Medical Conditions:" inputId="medicalConditions_emergencyMedical" inputName="medicalConditions_emergencyMedical"
+                    value={inputValue.medicalConditions_emergencyMedical}
+                     onChange={handleChange}
                     />
                     <TextAreaFields label="Medications:" inputId="medications_emergencyMedical" inputName="medications_emergencyMedical"
+                    value={inputValue.medications_emergencyMedical}
+                    onChange={handleChange}
                     />
                     <TextAreaFields label="Emergency Instructions:" inputId="emergencyInstructions_emergencyMedical" inputName="emergencyInstructions_emergencyMedical"
+                    value={inputValue.emergencyInstructions_emergencyMedical}
+                    onChange={handleChange}
                     />
                     <InputFields label="Hospital Preference" inputId="preferredHospital_emergencyMedical" inputName="preferredHospital_emergencyMedical" value={inputValue.preferredHospital_emergencyMedical} onChange={handleChange}
                     />
                     </div>
                     </div>
                     </section>
+                    </div>
                     <hr />
                 
                     {/* Medication Administration Record (if applicable) */}
+                     <div className='pdf-page-break'>
                     <section>
                       <div className='mb-4'>
                         <h5 className='text-info'>10. Medication Administration Record (if applicable)</h5>
@@ -697,28 +918,26 @@ const handleSubmit = (e) => {
                             </thead>
                             <tbody>
                               <tr>
-                                <td><input type='date' className='form-control' id='date_medication1' name='date_medication1'/></td>
-                                <td><input type='text' className='form-control' id='medication_dose1' name='medication_dose1'/></td>
-                                <td><input type='time' className='form-control' id='time_medication1' name='time_medication1'/></td>
-                                <td><input type='text' className='form-control' id='administered_by1' name='administered_by1'/></td>
-                                <td style={{minWidth:'250px'}} ><input type='text'className='form-control' id='notes_medication1' name='notes_medication1'/></td>
-                             
+                                <td><input type='date' className='form-control' id='date_medication1' name='date_medication1' value={inputValue.date_medication1} onChange={handleChange}/></td>
+                                <td><input type='text' className='form-control' id='medication_dose1' name='medication_dose1' value={inputValue.medication_dose1} onChange={handleChange}/></td>
+                                <td><input type='time' className='form-control' id='time_medication1' name='time_medication1' value={inputValue.time_medication1} onChange={handleChange}/></td>
+                                <td><input type='text' className='form-control' id='administered_by1' name='administered_by1' value={inputValue.administered_by1} onChange={handleChange}/></td>
+                                <td style={{minWidth:'250px'}} ><input type='text'className='form-control' id='notes_medication1' name='notes_medication1' value={inputValue.notes_medication1} onChange={handleChange}/></td>
                               </tr>
                               <tr>
-                                <td><input type='date' className='form-control' id='date_medication2' name='date_medication2'/></td>
-                                <td><input type='text' className='form-control' id='medication_dose2' name='medication_dose2'/></td>
-                                <td><input type='time' className='form-control' id='time_medication2' name='time_medication2'/></td>
-                                <td><input type='text' className='form-control' id='administered_by2' name='administered_by2'/></td>
-                                <td style={{minWidth:'250px'}} ><input type='text'className='form-control' id='notes_medication2' name='notes_medication2'/></td>
-                             
+                                <td><input type='date' className='form-control' id='date_medication2' name='date_medication2' value={inputValue.date_medication2} onChange={handleChange}
+                                /></td>
+                                <td><input type='text' className='form-control' id='medication_dose2' name='medication_dose2' value={inputValue.medication_dose2} onChange={handleChange}/></td>
+                                <td><input type='time' className='form-control' id='time_medication2' name='time_medication2' value={inputValue.time_medication2} onChange={handleChange}/></td>
+                                <td><input type='text' className='form-control' id='administered_by2' name='administered_by2' value={inputValue.administered_by2} onChange={handleChange}/></td>
+                                <td style={{minWidth:'250px'}} ><input type='text'className='form-control' id='notes_medication2' name='notes_medication2' value={inputValue.notes_medication2} onChange={handleChange}/></td>
                               </tr>
                               <tr>
-                                <td><input type='date' className='form-control' id='date_medication3' name='date_medication3'/></td>
-                                <td><input type='text' className='form-control' id='medication_dose3' name='medication_dose3'/></td>
-                                <td><input type='time' className='form-control' id='time_medication3' name='time_medication3'/></td>
-                                <td><input type='text' className='form-control' id='administered_by3' name='administered_by3'/></td>
-                                <td style={{minWidth:'250px'}}><input type='text'className='form-control' id='notes_medication3' name='notes_medication3'/></td>
-                             
+                                <td><input type='date' className='form-control' id='date_medication3' name='date_medication3' value={inputValue.date_medication3} onChange={handleChange}/></td>
+                                <td><input type='text' className='form-control' id='medication_dose3' name='medication_dose3' value={inputValue.medication_dose3} onChange={handleChange}/></td>
+                                <td><input type='time' className='form-control' id='time_medication3' name='time_medication3' value={inputValue.time_medication3} onChange={handleChange}/></td>
+                                <td><input type='text' className='form-control' id='administered_by3' name='administered_by3' value={inputValue.administered_by3} onChange={handleChange}/></td>
+                                <td style={{minWidth:'250px'}}><input type='text'className='form-control' id='notes_medication3' name='notes_medication3' value={inputValue.notes_medication3} onChange={handleChange}/></td>
                               </tr>
                             </tbody>
                            </table>
@@ -726,16 +945,18 @@ const handleSubmit = (e) => {
                         </div>
                       </div>
                     </section>
+                 
 
                   {/* Doctor’s Orders (if required for services) */}
                   <section>
                     <div className='mb-4'>
                       <h5 className='text-info'>11. Doctor’s Orders (if required for services)</h5>
-                    
-                    <div class="mb-3">
+                      <p className='fst-italic text-secondary fw-semibold'>Attach latest doctor's orders (if applicable)</p>
+                    {/* <div class="mb-3">
                     <label for="signedPhysicianOrder" class="form-label">(Attach signed physician orders if applicable)</label>
                     <input class="form-control" type="file" id="signedPhysicianOrder" name='signedPhysicianOrder' multiple />
-                    </div>
+                   
+                    </div> */}
                     </div>
                     </section>
                   <hr />
@@ -744,15 +965,18 @@ const handleSubmit = (e) => {
       <section>
         <div className='mb-4'>
           <h5 className='text-info'>12. Behavior Support Plan (if applicable)</h5>
-        <div class="mb-3">
+          <p className='fst-italic text-secondary fw-semibold'>Attach latest plan with review dates and signatures</p>
+        {/* <div class="mb-3">
         <label for="behaviourSupportPlan_attach" class="form-label">(Attach latest plan with review dates and signatures)</label>
          <input class="form-control" type="file" name='behaviourSupportPlan_attach' id="behaviourSupportPlan_attach" multiple />
-         </div>
+         </div> */}
          </div>
     </section>
+      
     <hr />
     {/*  Incident Management Acknowledgment */}
-    <section>
+    
+    <section className='pdf-page-break'>
       <div className='mb-4'>
         <h5 className='text-info'>13. Incident Management Acknowledgment Form</h5>
         <div className='mb-3 '>
@@ -762,15 +986,17 @@ const handleSubmit = (e) => {
             <div className='mb-3 row row-cols-2 g-2'>
               <InputFields label="Full Name of Consumer:" inputId="consumerName_incident" inputName="consumerName_incident" value={inputValue.consumerName_incident} onChange={handleChange}
               />
-              <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_incident" dateName="dateOfBirth_incident"/>
+              <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_incident" dateName="dateOfBirth_incident" value={inputValue.dateOfBirth_incident} onChange={handleChange}/>
               <InputFields label="MA Number:" inputId="maNumber_incident" inputName="maNumber_incident" value={inputValue.maNumber_incident} onChange={handleChange}
               />
             </div>
             <h6 className='fw-bolder'> Provider Information</h6>
             <div className='mb-3'>
-              <InputFields label="Provider Name:" inputId="providerName_incident" inputName="providerName_incident" value={inputValue.providerName_incident} onChange={handleChange}
+              <InputFields label="Provider Name:" inputId="providerName_incident" inputName="providerName_incident" 
+              value={inputValue.providerName_incident} onChange={handleChange}
               />
-              <InputFields label="Provider Representative:" inputId="providerRepresentName_incident" inputName="providerRepresentName_incident" value={inputValue.providerRepresentativeName_incident} onChange={handleChange}
+              <InputFields label="Provider Representative:" inputId="providerRepresentName_incident" inputName="providerRepresentName_incident" 
+              value={inputValue.providerRepresentName_incident} onChange={handleChange}
               />
             
             </div>
@@ -797,6 +1023,15 @@ const handleSubmit = (e) => {
                 Requires immediate response, investigation, and documentation in HCSIS (Home and Community Services Information System)
              </li>
              </ul>
+              </div>
+                  </div>
+        </div>
+        </section>
+         </div>
+
+          {/* page break */}
+         <div className='pdf-page-break'>
+         <div className="mb-4">
              <p className='text-secondary fw-bold'>Examples of reportable incidents include (but are not limited to):</p>
              <ul className='text-secondary'>
              <li className="mb-2">
@@ -821,7 +1056,7 @@ const handleSubmit = (e) => {
               Restraints or restrictive procedures
                </li>
              </ul>
-        </div>
+       </div>
         <div className='mb-3 '>
           <h6 className='fw-bolder'>3. Incident Reporting Responsibilities</h6>
           <p className='text-secondary'>The Provider is responsible for:</p>
@@ -847,6 +1082,9 @@ const handleSubmit = (e) => {
           </ul>
 
         </div>
+      
+        {/* page-break */}
+        
         <div className='mb-3 '>
           <h6 className='fw-bolder'>4. Consumer Rights Regarding Incidents</h6>
           <p className='text-secondary'>  The Consumer has the right to:</p>
@@ -891,9 +1129,15 @@ const handleSubmit = (e) => {
         </div>
         <div className="mb-3">
           <InputFields label="Emergency Contact (Provider)" inputId="emergencyContact_incident" inputName="emergencyContact_incident" value={inputValue.emergencyContact_incident} onChange={handleChange}
+
           />
           <p className="text-secondary fw-bold mt-2">ODP Complaint Hotline: 1-888-565-9435</p>
         </div>
+</div>
+
+        {/* page break */}
+           <section className='pdf-page-break'>
+        <div >
         <div className="mb-3">
           <h6 className="fw-bolder">6. Training and Policy Review</h6>
           <p className="text-secondary">I acknowledge that:</p>
@@ -928,14 +1172,11 @@ const handleSubmit = (e) => {
 
           </div>
         </div>
-        </div>
-          </div>
-          </section>
+       </div>
           <hr />
 
           {/* Rights of Individuals Receiving Services */}
-          <section>
-            <div className='mb-4'>
+       
               <h5 className='text-info'>14. Rights of Individuals Receiving Services</h5>
               <div className='mb-3 '>
                 <p className='text-secondary m-0'>Acknowledgment Form</p>
@@ -946,7 +1187,7 @@ const handleSubmit = (e) => {
                   <div className='mb-3'>
                   <InputFields label="Consumer Name:" inputId="consumerName_rights" inputName="consumerName_rights" value={inputValue.consumerName_rights} onChange={handleChange}
                   />
-                  <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_rights" dateName="dateOfBirth_rights"/>
+                  <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_rights" dateName="dateOfBirth_rights" value={inputValue.dateOfBirth_rights} onChange={handleChange}/>
                   <InputFields label="MA Number:" inputId="maNumber_rights" inputName="maNumber_rights" value={inputValue.maNumber_rights} onChange={handleChange}
                   />
                   </div>
@@ -958,6 +1199,12 @@ const handleSubmit = (e) => {
                   <InputFields label="Provider Representative:" inputId="providerRepresentName_rights" inputName="providerRepresentName_rights" value={inputValue.providerRepresentativeName_rights} onChange={handleChange}
                   />
                 </div>
+                    </section>
+
+
+                    {/* page break */}
+                    <div className="pdf-page-break">
+                    <div className='mb-4'>
                 <div className='mb-3 '>
                   <h6 className='fw-bolder'>1. Purpose of this form</h6>
                   <p className='text-secondary'>
@@ -969,7 +1216,7 @@ const handleSubmit = (e) => {
                   <p className='text-secondary'>
                     As a Consumer receiving services through ODP, you have the right to:
                   </p>
-                  <ol className='text-secondary'>
+                  <ul className='text-secondary'>
                     <li className="mb-2 fw-bold">
                       Dignity, Respect, and Privacy
                     </li>
@@ -1055,9 +1302,16 @@ const handleSubmit = (e) => {
                                 </li>
                                 <li className="mb-2">
                                    Decide who has access to your records and information
-                                </li>
-                               
-                            </ul>
+                                </li>  
+                        </ul>
+                        </ul>
+                        </div>  
+                        </div>
+                        </div>
+
+                {/* page break */}
+                <div className='mb-3 pdf-page-break '>
+                <ul>
                     <li className="mb-2 fw-bold">
                    Grievance and Complaint Process
                     </li>
@@ -1099,8 +1353,9 @@ const handleSubmit = (e) => {
                                Receive assistance in navigating appeals and administrative processes
                              </li>
                             </ul>
-                  </ol>
-                </div>
+                          </ul>
+                
+                
                 <div className='mb-3 '>
                   <h6 className='fw-bolder'>3. Additional Rights in Residential or Shared Living Settings</h6>
                   <p className='text-secondary'>
@@ -1138,7 +1393,8 @@ const handleSubmit = (e) => {
                       </li>
                     </ol>
                 </div>
-                <div className='mb-3 '>
+               
+                
                   <h6 className='fw-bolder'>Acknowledgment of Rights</h6>
                   <p className='text-secondary'>I, the Consumer (or legal guardian), have received a copy of the “Rights of Individuals Receiving Services” and have had the opportunity to ask questions. I understand my rights and know whom to contact if I believe my rights are not being respected.</p>
                   <div>
@@ -1148,6 +1404,10 @@ const handleSubmit = (e) => {
                     <SignatureCanvas label="Signature" name="signature_rights"/>
                     </div>
                   </div>
+                  </div>
+
+                  {/* page break */}
+                  <section className='pdf-page-break'>
                   <div className='mb-3'>
                     <InputFields label="Provider Representative Name:" inputId="providerRepresentativeName_rights" inputName="providerRepresentativeName_rights" value={inputValue.providerRepresentativeName_rights} onChange={handleChange}
                     />
@@ -1155,7 +1415,6 @@ const handleSubmit = (e) => {
                     <SignatureCanvas label="Signature" name="providerSignature_rights"/>
                     </div>
                   </div>
-                  <hr />
                   <div className='mb-3'>
                     <p className='fw-bold'>I received and understand my rights.</p>
                     <div className='col-md-3'>
@@ -1163,14 +1422,10 @@ const handleSubmit = (e) => {
                     </div>
                   </div>
                   <hr />
-                </div>
-                </div>
-          </section>
-          <hr />
 
         {/* Grievance Policy Acknowledgment Form */}
 
-          <section>
+         
             <div className='mb-4'>
               <h5 className='text-info'>15. Grievance Policy Acknowledgment Form</h5>
               <p className='text-secondary'>For Consumers Receiving Habilitation Services under the Office of Developmental Programs (ODP)</p>
@@ -1180,7 +1435,7 @@ const handleSubmit = (e) => {
               <div className='mb-3'>
                 <InputFields label="Consumer Name:" inputId="consumerName_grievance" inputName="consumerName_grievance" value={inputValue.consumerName_grievance} onChange={handleChange}
                 />
-                <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_grievance" dateName="dateOfBirth_grievance"/>
+                <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_grievance" dateName="dateOfBirth_grievance" value={inputValue.dateOfBirth_grievance} onChange={handleChange}/>
                 <InputFields label="MA Number:" inputId="maNumber_grievance" inputName="maNumber_grievance" value={inputValue.maNumber_grievance} onChange={handleChange}
                 />
               </div>
@@ -1199,6 +1454,10 @@ const handleSubmit = (e) => {
                   This form documents that the Consumer (or their legal guardian) has been informed of the Provider’s Grievance Policy and Procedures and understands how to file a complaint or grievance regarding services received under the Office of Developmental Programs (ODP).
                 </p>
               </div>
+               </section>
+
+               {/* page break */}
+               <div className='pdf-page-break'>
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>2. What is a Grievance?</h6>
                 <p className='text-secondary'>
@@ -1228,6 +1487,11 @@ const handleSubmit = (e) => {
                Grievances may also include complaints about how the Provider responds to incidents, implements the ISP, or treats the Consumer.
                 </p>
               </div>
+              
+
+
+               {/* page break */}
+                
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>3. Consumer Rights Regarding Grievances</h6>
                 <p className='text-secondary'>
@@ -1255,6 +1519,9 @@ const handleSubmit = (e) => {
                  
               </ul>
               </div>
+                
+
+               
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>4. How to File a Grievance</h6>
                 <p className='text-secondary'>
@@ -1301,6 +1568,10 @@ const handleSubmit = (e) => {
                     </li>
                    </ul>
                 </div>
+                 </div>
+
+                 {/* page break */}
+                 <section className='pdf-page-break'>
                 <div className='mb-3 '>
                   <h6 className='fw-bolder'>6. Policy Availability</h6>
                   <p className='text-secondary'>
@@ -1324,6 +1595,11 @@ const handleSubmit = (e) => {
                 I understand that I will not be penalized for making a complaint
                 </li>
               </ul>
+                </div>
+               
+
+                {/* page Break */}
+
               <div className='mb-3 '>
                 <InputFields label="Consumer/Legal Guardian Name:" inputId="consumer_guardianName_grievance" inputName="consumer_guardianName_grievance" value={inputValue.consumer_guardianName_grievance} onChange={handleChange}
                 />
@@ -1344,14 +1620,11 @@ const handleSubmit = (e) => {
                   </div>
                   
                 </div>
-
-
-              </div>
-          </section>
+              
           <hr />
 
           {/* Orientation Acknowledgment Form */}
-          <section>
+          
             <div className='mb-4'>
               <h5 className='text-info'>16. Orientation Acknowledgment Form</h5>
               <p className='text-secondary'>For Individuals Receiving Habilitation Services Under ODP</p>
@@ -1361,11 +1634,16 @@ const handleSubmit = (e) => {
               <div className='mb-3'>
                 <InputFields label="Full Name of Consumer:" inputId="consumerName_orientation" inputName="consumerName_orientation" value={inputValue.consumerName_orientation} onChange={handleChange}
                 />
-                <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_orientation" dateName="dateOfBirth_orientation"/>
+                <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_orientation" dateName="dateOfBirth_orientation" value={inputValue.dateOfBirth_orientation} onChange={handleChange}/>
 
                 <InputFields label="MA Number:" inputId="maNumber_orientation" inputName="maNumber_orientation" value={inputValue.maNumber_orientation} onChange={handleChange}
                 />
               </div>
+               </div>
+          </section>
+
+          {/* page break */}
+          <div className='pdf-page-break '>
               <h6 className='fw-bolder'> Provider Information</h6>
               <div className='mb-3'>
                 <InputFields label="Provider Name:" inputId="providerName_orientation" inputName="providerName_orientation" value={inputValue.providerName_orientation} onChange={handleChange}
@@ -1373,8 +1651,10 @@ const handleSubmit = (e) => {
                 <InputFields label="Provider Representative:" inputId="providerRepresentName_orientation" inputName="providerRepresentName_orientation" value={inputValue.providerRepresentativeName_orientation} onChange={handleChange}
                 />
               </div>
-              </div>
+             
 
+            {/* page break */}
+              
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>1. Purpose of this form</h6>
                 <p className='text-secondary'>
@@ -1437,6 +1717,7 @@ const handleSubmit = (e) => {
                   The Consumer (or legal guardian) was given the opportunity to ask questions about services, rights, and provider procedures during orientation. All questions were answered to their satisfaction.
                 </p>
               </div>
+
               <div className='mb-3 '>
                 <h6 className='fw-bolder'>4. Acknowledgment </h6>
                 <p className='text-secondary'>
@@ -1456,6 +1737,11 @@ const handleSubmit = (e) => {
                     Have received a copy of the Consumer Handbook and/or other orientation materials (if applicable)
                   </li>
                 </ul>
+                </div>
+              </div>
+
+              {/* page break */}
+               <section className='pdf-page-break'>
                 <div className='mb-3 '>
                   <InputFields label="Consumer/Legal Guardian Name:" inputId="consumer_guardianName_orientation" inputName="consumer_guardianName_orientation" value={inputValue.consumer_guardianName_orientation} onChange={handleChange}
                   />
@@ -1468,9 +1754,9 @@ const handleSubmit = (e) => {
                   <SignatureCanvas label="Signature" name="providerSignature_orientation"/>
                   </div>
                   </div>
-              </div>
+              
 
-              </section>
+             
               <hr />
               {/* Staff Signature Sheet */} 
               <section>
@@ -1489,16 +1775,10 @@ const handleSubmit = (e) => {
                     </thead>
                     <tbody>
                       <tr>
-                        <td><input type='date' className='form-control' id='date_staff1' name='date_staff1'/></td>
-                        <td><input type='time' className='form-control' id='time_staff1' name='time_staff1'/></td>
-                        <td><input type='text' className='form-control' id='staffName1' name='staffName1'/></td>
-                        <td><input type='text'className='form-control' id='staffSignature1' name='staffSignature1'/></td>
-                      </tr>
-                      <tr>
-                        <td><input type='date' className='form-control' id='date_staff2' name='date_staff2'/></td>
-                        <td><input type='time' className='form-control' id='time_staff2' name='time_staff2'/></td>
-                        <td><input type='text' className='form-control' id='staffName2' name='staffName2'/></td>
-                        <td><input type='text'className='form-control' id='staffSignature2' name='staffSignature2'/></td>
+                        <td><input type='date' className='form-control' id='date_staff1' name='date_staff1' value={inputValue.date_staff1} onChange={handleChange}/></td>
+                        <td><input type='time' className='form-control' id='time_staff1' name='time_staff1' value={inputValue.time_staff1} onChange={handleChange}/></td>
+                        <td><input type='text' className='form-control' id='staffName1' name='staffName1' value={inputValue.staffName1} onChange={handleChange}/></td>
+                        <td><input type='text'className='form-control' id='staffSignature1' name='staffSignature1' value={inputValue.staffSignature1} onChange={handleChange}/></td>
                       </tr>
                       </tbody>
                       </table>
@@ -1523,24 +1803,19 @@ const handleSubmit = (e) => {
                     </thead>
                     <tbody>
                       <tr>
-                        <td><input type='text' className='form-control' id='staffName3' name='staffName3'/></td>
-                        <td><input type='text' className='form-control' id='trainingType' name='trainingType'/></td>
-                        <td><input type='date' className='form-control' id='dateCompleted' name='dateCompleted'/></td>
-                        <td><input type='text' className='form-control' id='verifiedBy' name='verifiedBy'/></td>
-                      </tr>
-                      <tr>
-                        <td><input type='text' className='form-control' id='staffName4' name='staffName4'/></td>
-                        <td><input type='text' className='form-control' id='trainingType2' name='trainingType2'/></td>
-                        <td><input type='date' className='form-control' id='dateCompleted2' name='dateCompleted2'/></td>
-                        <td><input type='text' className='form-control' id='verifiedBy2' name='verifiedBy2'/></td>
+                        <td><input type='text' className='form-control' id='staffName3' name='staffName3' value={inputValue.staffName3} onChange={handleChange}/></td>
+                        <td><input type='text' className='form-control' id='trainingType' name='trainingType' value={inputValue.trainingType} onChange={handleChange}/></td>
+                        <td><input type='date' className='form-control' id='dateCompleted' name='dateCompleted' value={inputValue.dateCompleted} onChange={handleChange}/></td>
+                        <td><input type='text' className='form-control' id='verifiedBy' name='verifiedBy' value={inputValue.verifiedBy} onChange={handleChange}/></td>
                       </tr>
                       </tbody>
                       </table>
                 </div>
               </section>
+             
 
               {/* Photo Consent/Refusal Form */}
-              <section>
+             
                 <div className='mb-4'>
                   <h5 className='text-info'>19. Photo Consent/Refusal Form</h5>
                   <p className=' fst-italic text-secondary'>For Consumers Receiving Habilitation Services under the Office of Developmental Programs (ODP)</p>
@@ -1550,7 +1825,7 @@ const handleSubmit = (e) => {
                   <div className='mb-3'>
                     <InputFields label="Full Name of Consumer:" inputId="consumerName_photo" inputName="consumerName_photo" value={inputValue.consumerName_photo} onChange={handleChange}
                     />
-                    <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_photo" dateName="dateOfBirth_photo"/>
+                    <InputDate dateLabel="Date of Birth:" dateId="dateOfBirth_photo" dateName="dateOfBirth_photo" value={inputValue.dateOfBirth_photo} onChange={handleChange}/>
                     <InputFields label="MA Number:" inputId="maNumber_photo" inputName="maNumber_photo" value={inputValue.maNumber_photo} onChange={handleChange}
                     />
                   </div>
@@ -1562,6 +1837,10 @@ const handleSubmit = (e) => {
                     />
                   </div>
                   </div>
+                   </section>
+
+                  {/* page break */}
+                      <div className='pdf-page-break'>
                   <div className='mb-3 '>
                     <h6 className='fw-bolder'>1. Purpose of this form</h6>
                     <p className='text-secondary'>
@@ -1598,9 +1877,9 @@ const handleSubmit = (e) => {
                 <div className='mb-3 '>
                   <h6 className='fw-bolder'>3. Consent Options (Check One)</h6>
                  <div>
-                   <InputCheckboxes className="fw-semibold" checkId="consentGiven" checkName="consentGiven" checkLabel="I GIVE CONSENT"/>
+                   <InputCheckboxes className="fw-semibold" checkId="consentGiven" checkName="consentGiven" checkLabel="I GIVE CONSENT" checked={checkboxValues.consentGiven} onChange={handleChange}/>
                    <p>I hereby authorize the Provider to take and use photographs, video, or audio recordings of me/my child for the purposes listed above. I understand that these may be shared publicly and that no personal identifying information will be disclosed without further consent.</p>
-                   <InputCheckboxes className="fw-semibold" checkId="consentRefused" checkName="consentRefused" checkLabel="I DO NOT GIVE CONSENT"/>
+                   <InputCheckboxes className="fw-semibold" checkId="consentRefused" checkName="consentRefused" checkLabel="I DO NOT GIVE CONSENT " checked={checkboxValues.consentRefused} onChange={handleChange}/>
                    <p>I do not authorize the Provider to take or use any photographs, video, or audio recordings of me/my child. I understand this choice will not affect the quality or delivery of services in any way</p>
                  </div>
                   </div>
@@ -1608,23 +1887,32 @@ const handleSubmit = (e) => {
                     <h6 className='fw-bolder'>4. Right to Withdraw Consent</h6>
                    <p>I understand that I may revoke this consent at any time by submitting a written request to the Provider. Any images already published or used before the withdrawal will not be recalled or destroyed.</p>
                   </div>
+                 
+
+                  {/* page break */}
+                  
                   <div className='mb-3 '>
                     <h6 className='fw-bolder'>Acknowledgment</h6>
                     <p>By signing below, I confirm that I have read and understood this form. I am aware that participation is voluntary and that refusal to consent will not affect access to services or supports.</p>
-                    <div>
                       <InputFields label="Consumer/Legal Guardian Name:" inputId="consumer_guardianName_photo" inputName="consumer_guardianName_photo" value={inputValue.consumer_guardianName_photo} onChange={handleChange}
                       />
                       <div className='col-md-3'>
                       <SignatureCanvas label="Signature" name="consumerSignature_photo"/>
                       </div>
+                  </div>
+           </div>
+
+
+
+                  {/* page break */}
+                   <section className='pdf-page-break'>
                       <InputFields label="Provider Representative Name:" inputId="providerRepresentativeName_photo" inputName="providerRepresentativeName_photo2" value={inputValue.providerRepresentativeName_photo2} onChange={handleChange}
                       />
                       <div className='col-md-3'>
                       <SignatureCanvas label="Signature" name="providerSignature_photo"/>
                       </div>
-                    </div>
-                  </div>
-                </section>
+                  
+                
                 <hr />
                 {/* Copy of Insurance Card and State ID*/}
                 <section>
@@ -1659,6 +1947,7 @@ const handleSubmit = (e) => {
                        </div>
                       </div>
                       </section>
+                    
                       <hr />
 
                       {/* ODP Required Assessments */}
@@ -1686,8 +1975,9 @@ const handleSubmit = (e) => {
                   </div>
                   </section>
                   <hr />
+                  
                   {/* Service Location & Community Integration Preferences */}
-                  <section>
+                 
                     <div className='mb-4'>
                       <h5 className='text-info'>25. Service Location & Community Integration Preferences</h5>
                       <div className='mb-3 '>
@@ -1700,10 +1990,11 @@ const handleSubmit = (e) => {
                       </div>
                     </div>
                    </section>
+                    
                    <hr />
 
                    {/* Most Recent ISP Signature Page */}
-                   <section>
+                   <section className='pdf-page-break'>
                      <div className='mb-4'>
                        <h5 className='text-info'>26. Most Recent ISP Signature Page</h5>
                        <p className='fst-italic text-secondary fw-semibold'>(Attach most recent ISP signature page)</p>
@@ -1726,22 +2017,22 @@ const handleSubmit = (e) => {
                              </thead>
                              <tbody>
                                <tr>
-                                 <td><input type='text' className='form-control' id='teamContactname1' name='teamContactname1'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactrole1' name='teamContactrole1'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactphone1' name='teamContactphone1'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactemail1' name='teamContactemail1'/></td>
+                                 <td><input type='text' className='form-control' id='teamContactname1' name='teamContactname1' value={inputValue.teamContactname1} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactrole1' name='teamContactrole1' value={inputValue.teamContactrole1} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactphone1' name='teamContactphone1' value={inputValue.teamContactphone1} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactemail1' name='teamContactemail1' value={inputValue.teamContactemail1} onChange={handleChange}/></td>
                                </tr>
                                <tr>
-                                 <td><input type='text' className='form-control' id='teamContactname2' name='teamContactname2'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactrole2' name='teamContactrole2'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactphone2' name='teamContactphone2'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactemail2' name='teamContactemail2'/></td>
+                                 <td><input type='text' className='form-control' id='teamContactname2' name='teamContactname2' value={inputValue.teamContactname2} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactrole2' name='teamContactrole2' value={inputValue.teamContactrole2} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactphone2' name='teamContactphone2' value={inputValue.teamContactphone2} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactemail2' name='teamContactemail2' value={inputValue.teamContactemail2} onChange={handleChange}/></td>
                                </tr>
                                <tr>
-                                 <td><input type='text' className='form-control' id='teamContactname3' name='teamContactname3'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactrole3' name='teamContactrole3'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactphone3' name='teamContactphone3'/></td>
-                                 <td><input type='text' className='form-control' id='teamContactemail3' name='teamContactemail3'/></td>
+                                 <td><input type='text' className='form-control' id='teamContactname3' name='teamContactname3' value={inputValue.teamContactname3} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactrole3' name='teamContactrole3' value={inputValue.teamContactrole3} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactphone3' name='teamContactphone3' value={inputValue.teamContactphone3} onChange={handleChange}/></td>
+                                 <td><input type='text' className='form-control' id='teamContactemail3' name='teamContactemail3' value={inputValue.teamContactemail3} onChange={handleChange}/></td>
                                </tr>
                                </tbody>
                             </table>
@@ -1752,9 +2043,23 @@ const handleSubmit = (e) => {
                         <p className='text-info fw-bold fst-italic'>Please Double Check All Information Before Submitting</p>
                        </div>
 
-              <div className='my-5 btn-container w-100 d-flex justify-content-center'>
-                <button className='btn btn-primary btn-lg px-4 btn-block'>Submit</button>
-              </div>
+              <div className='d-flex gap-2 w-100 justify-content-center my-5'>
+            <button 
+              type="button"
+              onClick={handleDone} 
+              className="btn btn-success px-3"
+            >
+              Done
+            </button>
+            <button 
+              type="button"
+              onClick={handlePreview} 
+              className="btn btn-info px-3" 
+              disabled={!isPreviewEnabled}
+            >
+              See Preview
+            </button>
+          </div>
         </form>
 
       </div>

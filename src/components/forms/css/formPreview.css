@@ -110,10 +110,11 @@
 
 .document-preview tbody {
   display: table-row-group;
+  page-break-inside: avoid !important;
 }
 
 .document-preview tr {
-  page-break-inside: avoid;
+  page-break-inside: avoid !important;
 }
 
 .document-preview th,

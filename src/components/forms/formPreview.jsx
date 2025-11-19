@@ -29,13 +29,51 @@ const FormPreview = () => {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
       
-      const marginTop = 10;
-      const marginBottom = 15;
+      // Minimal margins for tight spacing
+      const marginTop = 23; // Reduced for minimal gap after header
+      const marginBottom = 10;
       const marginLeft = 15;
       const marginRight = 15;
       
       const contentWidth = pdfWidth - marginLeft - marginRight;
       const contentHeight = pdfHeight - marginTop - marginBottom;
+
+      // Function to add header to each page
+      const addHeader = (pdf, pageNumber) => {
+        // Save the current state
+        pdf.saveGraphicsState();
+
+        // White background for header area
+        pdf.setFillColor(255, 255, 255);
+        pdf.rect(0, 0, pdfWidth, 20, 'F'); // Reduced height slightly
+
+        // Company name - centered, blue, bold
+        pdf.setTextColor(41, 199, 247);
+        pdf.setFontSize(14);
+        pdf.setFont(undefined, 'bold');
+        pdf.text('Everest Home Health', pdfWidth / 2, 6, { align: 'center' });
+
+        // Contact details - centered, gray, smaller
+        pdf.setTextColor(80, 80, 80);
+        pdf.setFontSize(7);
+        pdf.setFont(undefined, 'normal');
+        
+        const line1 = '109 DEWALT AVE SUITE 201B PITTSBURGH PA 15227';
+        const line2 = 'EMAIL: - everestopd2025@gmail.com';
+        const line3 = 'PHONE: - 412-484-6298, FAX: - 412-207-8661';
+        
+        pdf.text(line1, pdfWidth / 2, 11, { align: 'center' });
+        pdf.text(line2, pdfWidth / 2, 15, { align: 'center' });
+        pdf.text(line3, pdfWidth / 2, 19, { align: 'center' });
+
+        // Add a thin line separator
+        pdf.setDrawColor(200, 200, 200);
+        pdf.setLineWidth(0.3);
+        pdf.line(marginLeft, 21, pdfWidth - marginRight, 21); // Moved up slightly
+
+        // Restore the state
+        pdf.restoreGraphicsState();
+      };
 
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
@@ -80,7 +118,7 @@ const FormPreview = () => {
           width: ${contentWidth * 3.7795275591}px;
           max-width: ${contentWidth * 3.7795275591}px;
           background: #ffffff;
-          padding: 20px;
+          padding: 5px 20px 10px 20px;
           box-sizing: border-box;
           font-family: Arial, Helvetica, sans-serif;
           font-size: 11pt;
@@ -148,7 +186,7 @@ const FormPreview = () => {
           
           if (tag.match(/^H[1-6]$/)) {
             el.style.setProperty('font-weight', '700', 'important');
-            el.style.setProperty('margin', '10px 0 8px 0', 'important');
+            el.style.setProperty('margin', '5px 0 6px 0', 'important');
             el.style.setProperty('padding', '0', 'important');
             el.style.setProperty('display', 'block', 'important');
             el.style.setProperty('width', '100%', 'important');
@@ -156,6 +194,11 @@ const FormPreview = () => {
             el.style.setProperty('font-size', size, 'important');
             const color = tag === 'H1' ? '#29c7f7ff' : tag === 'H2' ? '#29c7f7ff' : tag === 'H3' ? '#191df7ff' : tag === 'H4' ? '#020481ff' : '#29c7f7ff';
             el.style.setProperty('color', color, 'important');
+            
+            // Remove top margin for first heading
+            if (el === tempContainer.firstElementChild || el.parentElement === tempContainer) {
+              el.style.setProperty('margin-top', '0', 'important');
+            }
           }
           
           if (tag === 'P') {
@@ -169,10 +212,15 @@ const FormPreview = () => {
             el.style.setProperty('padding', '0', 'important');
             el.style.setProperty('border-radius', '0', 'important');
             el.style.setProperty('display', 'block', 'important');
-            el.style.setProperty('margin-bottom', '5px', 'important');
-            el.style.setProperty('margin-top', '6px', 'important');
+            el.style.setProperty('margin-bottom', '4px', 'important');
+            el.style.setProperty('margin-top', '4px', 'important');
             el.style.setProperty('margin-left', '0', 'important');
             el.style.setProperty('margin-right', '0', 'important');
+            
+            // Remove top margin for first div
+            if (el === tempContainer.firstElementChild || el.parentElement === tempContainer) {
+              el.style.setProperty('margin-top', '0', 'important');
+            }
             
             if (el.classList.contains('pdf-page-break')) {
               el.style.setProperty('border', 'none', 'important');
@@ -200,7 +248,7 @@ const FormPreview = () => {
           
           if (tag === 'TH' || tag === 'TD') {
             el.style.setProperty('border', '1px solid #000', 'important');
-            el.style.setProperty('padding', '4px 6px', 'important');
+            el.style.setProperty('padding', '2px 5px', 'important');
             el.style.setProperty('page-break-inside', 'avoid', 'important');
           }
           
@@ -296,6 +344,9 @@ const FormPreview = () => {
           totalPageCount = 1;
         }
 
+        // Add header to the page BEFORE adding content
+        addHeader(pdf, totalPageCount);
+
         if (scaledHeight <= contentHeight) {
           pdf.addImage(
             imgData,
@@ -311,7 +362,7 @@ const FormPreview = () => {
           pdf.setFontSize(9);
           pdf.setTextColor(100);
           pdf.text(
-            `Page ${totalPageCount}`,
+            `${totalPageCount}`,
             pdfWidth / 2,
             pdfHeight - 10,
             { align: 'center' }
@@ -324,6 +375,8 @@ const FormPreview = () => {
             if (addedFirstPageOfSection) {
               pdf.addPage();
               totalPageCount++;
+              // Add header to each new page
+              addHeader(pdf, totalPageCount);
             }
             addedFirstPageOfSection = true;
             
@@ -447,6 +500,15 @@ const FormPreview = () => {
       const extractedName = match[1].trim();
       if (extractedName && extractedName.length > 2 && extractedName.length < 100) {
         return extractedName;
+      }
+    }
+
+    // Method 4: Look for "Consumer Name" in HAB packet format
+    const consumerNameInputs = element.querySelectorAll('input[name="ConsumerName"], input[id="ConsumerName"]');
+    for (const input of consumerNameInputs) {
+      const nextSpan = input.nextElementSibling;
+      if (nextSpan && nextSpan.tagName === 'SPAN' && nextSpan.textContent.trim()) {
+        return nextSpan.textContent.trim();
       }
     }
     
