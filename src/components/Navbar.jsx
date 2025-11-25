@@ -1,23 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import logo from "../assets/img/logo.png";
 import "../Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [sideDrop, setSideDrop] = useState(false);
+
+  const dropdownRef = useRef(null);
+  const sidebarDropRef = useRef(null);
   const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+  const toggleSidebar = () => setIsOpen(!isOpen);
+
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const toggleSideDrop = () => setSideDrop(!sideDrop);
+
+  const closeAll = () => {
+    setDropdownOpen(false);
+    setSideDrop(false);
   };
 
-  // 👇 handle dropdown navigation
-  const handleSelect = (e) => {
-    const selectedForm = e.target.value;
-    if (selectedForm) {
-      navigate(`/form/${selectedForm}`); // navigates to /form/form1 etc.
-      setIsOpen(false); // close sidebar if open
-    }
+  // 🔽 Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        sidebarDropRef.current &&
+        !sidebarDropRef.current.contains(e.target)
+      ) {
+        closeAll();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const go = (route) => {
+    navigate(route);
+    closeAll();
+    setIsOpen(false);
   };
 
   return (
@@ -37,26 +63,26 @@ const Navbar = () => {
         <div className="nav-links">
           <a href="#home">Home</a>
           <a href="#whyus">Why Us</a>
-
-          {/* ✅ Dropdown for PDF forms */}
-
           <a href="#about">About</a>
           <a href="#mission">Missions</a>
           <a href="#services">Services</a>
           <a href="#gallery">Gallery</a>
           <a href="#contact">Contact</a>
-          <select
-            className="select-option"
-            onChange={handleSelect}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Choose Form
-            </option>
-          <option value="consumer"> Consumer Packet</option>
-          <option value="orientation">Complete Orientation Packet</option>
-          <option value="hab"> HAB Consumer Packet</option>
-          </select>
+
+          {/* ⭐ Custom Dropdown */}
+          <div className="custom-dropdown" ref={dropdownRef}>
+            <button className="dropdown-btn" onClick={toggleDropdown}>
+              Forms ▾
+            </button>
+
+            <div className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
+              <div onClick={() => go("/form/consumer")}>Consumer Packet</div>
+              <div onClick={() => go("/form/orientation")}>
+                Orientation Packet
+              </div>
+              <div onClick={() => go("/form/hab")}>HAB Consumer Packet</div>
+            </div>
+          </div>
 
           <div className="d-flex loginBtn-container mx-2 gap-3">
             <Link to={"/login"}>
@@ -71,35 +97,27 @@ const Navbar = () => {
         <a href="#home" onClick={toggleSidebar}>
           Home
         </a>
-        <a href="#about" onClick={toggleSidebar}>
-          About
-        </a>
-        <a href="#mission" onClick={toggleSidebar}>
-          Mission & Values
-        </a>
-        <a href="#services" onClick={toggleSidebar}>
-          Services
-        </a>
-        <a href="#gallery" onClick={toggleSidebar}>
-          Gallery
-        </a>
-        <a href="#contact" onClick={toggleSidebar}>
-          Contact
-        </a>
+        <a href="#whyus" onClick={toggleSidebar}>Why Us</a>
+          <a href="#about" onClick={toggleSidebar}>About</a>
+          <a href="#mission" onClick={toggleSidebar}>Mission & Values</a>
+          <a href="#services" onClick={toggleSidebar}>Services</a>
+          <a href="#gallery" onClick={toggleSidebar}>Gallery</a>
+          <a href="#contact" onClick={toggleSidebar}>Contact</a>
 
-        {/* ✅ Dropdown inside sidebar (mobile view) */}
-        <select
-          className="select-option"
-          onChange={handleSelect}
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Choose Form
-          </option>
-          <option value="consumer"> Consumer Packet</option>
-          <option value="orientation">Complete Orientation Packet</option>
-          <option value="hab"> HAB Consumer Packet</option> 
-        </select>
+        {/* ⭐ Sidebar dropdown */}
+        <div className="custom-dropdown sidebar-dropdown" ref={sidebarDropRef}>
+          <button className="dropdown-btn" onClick={toggleSideDrop}>
+            Choose Form ▾
+          </button>
+
+          <div className={`dropdown-menu ${sideDrop ? "show" : ""}`}>
+            <div onClick={() => go("/form/consumer")}>Consumer Packet</div>
+            <div onClick={() => go("/form/orientation")}>
+              Orientation Packet
+            </div>
+            <div onClick={() => go("/form/hab")}>HAB Consumer Packet</div>
+          </div>
+        </div>
 
         <div className="loginBtn-container d-flex mx-2 gap-3">
           <Link to={"/login"}>
@@ -108,7 +126,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Overlay for sidebar */}
+      {/* Overlay */}
       {isOpen && <div className="overlay" onClick={toggleSidebar}></div>}
     </>
   );
