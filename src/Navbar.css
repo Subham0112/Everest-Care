@@ -163,7 +163,7 @@ body {
   top: 0;
   width: 100%;
    left: 0;
-  background: #2eb1b6;
+  background: #c9fdff;
   border-radius: 6px;
   padding: 0;
   box-shadow: none;
@@ -178,7 +178,7 @@ body {
 
 .sidebar-dropdown .dropdown-menu div {
   padding: 12px 14px;
-  color:rgba(122, 248, 221, 0.973);
+  color:rgba(2, 19, 15, 0.973);
   border-bottom: 1px solid #92f5f586;
 }
 
