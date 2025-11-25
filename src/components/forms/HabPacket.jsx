@@ -2023,22 +2023,22 @@ const HabPacket = () => {
                              </thead>
                              <tbody>
                                <tr>
-                                 <td><input type='text' className='form-control' id='teamContactname1' name='teamContactname1' value={inputValue.teamContactname1} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactrole1' name='teamContactrole1' value={inputValue.teamContactrole1} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactphone1' name='teamContactphone1' value={inputValue.teamContactphone1} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactemail1' name='teamContactemail1' value={inputValue.teamContactemail1} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactname1' name='teamContactname1' value={inputValue.teamContactname1} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactrole1' name='teamContactrole1' value={inputValue.teamContactrole1} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactphone1' name='teamContactphone1' value={inputValue.teamContactphone1} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactemail1' name='teamContactemail1' value={inputValue.teamContactemail1} onChange={handleChange}/></td>
                                </tr>
                                <tr>
-                                 <td><input type='text' className='form-control' id='teamContactname2' name='teamContactname2' value={inputValue.teamContactname2} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactrole2' name='teamContactrole2' value={inputValue.teamContactrole2} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactphone2' name='teamContactphone2' value={inputValue.teamContactphone2} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactemail2' name='teamContactemail2' value={inputValue.teamContactemail2} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactname2' name='teamContactname2' value={inputValue.teamContactname2} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactrole2' name='teamContactrole2' value={inputValue.teamContactrole2} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactphone2' name='teamContactphone2' value={inputValue.teamContactphone2} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactemail2' name='teamContactemail2' value={inputValue.teamContactemail2} onChange={handleChange}/></td>
                                </tr>
                                <tr>
-                                 <td><input type='text' className='form-control' id='teamContactname3' name='teamContactname3' value={inputValue.teamContactname3} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactrole3' name='teamContactrole3' value={inputValue.teamContactrole3} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactphone3' name='teamContactphone3' value={inputValue.teamContactphone3} onChange={handleChange}/></td>
-                                 <td><input type='text' className='form-control' id='teamContactemail3' name='teamContactemail3' value={inputValue.teamContactemail3} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactname3' name='teamContactname3' value={inputValue.teamContactname3} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactrole3' name='teamContactrole3' value={inputValue.teamContactrole3} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactphone3' name='teamContactphone3' value={inputValue.teamContactphone3} onChange={handleChange}/></td>
+                                 <td><input style={{minWidth:"120px"}} type='text' className='form-control' id='teamContactemail3' name='teamContactemail3' value={inputValue.teamContactemail3} onChange={handleChange}/></td>
                                </tr>
                                </tbody>
                             </table>
