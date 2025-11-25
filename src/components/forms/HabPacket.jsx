@@ -1618,7 +1618,6 @@ const HabPacket = () => {
                   <div className='col-md-3'>
                     <SignatureCanvas label="Signature" name="signature_grievance"/>
                   </div>
-                  
                 </div>
               
           <hr />
@@ -1766,6 +1765,7 @@ const HabPacket = () => {
                 <div className='mb-4'>
                   <h5 className='text-info'>17. Staff Signature Sheet</h5>
                 </div>
+                <div>
                 <div className='mb-3 table-responsive'>
                   <table className='table table-striped table-bordered'>
                     <thead>
@@ -1773,7 +1773,7 @@ const HabPacket = () => {
                         <td>Date</td>
                         <td>Time</td>
                         <td>Staff Name</td>
-                        <td>Staff Signature</td>
+                      
                       </tr>
                     </thead>
                     <tbody>
@@ -1781,12 +1781,15 @@ const HabPacket = () => {
                         <td><input type='date' className='form-control' id='date_staff1' name='date_staff1' value={inputValue.date_staff1} onChange={handleChange}/></td>
                         <td><input type='time' className='form-control' id='time_staff1' name='time_staff1' value={inputValue.time_staff1} onChange={handleChange}/></td>
                         <td><input type='text' className='form-control' id='staffName1' name='staffName1' value={inputValue.staffName1} onChange={handleChange}/></td>
-                        <td><input type='text'className='form-control' id='staffSignature1' name='staffSignature1' value={inputValue.staffSignature1} onChange={handleChange}/></td>
                       </tr>
                       </tbody>
                       </table>
                 </div>
-             
+                <div className='col-md-3'>
+                  <SignatureCanvas label="Staff Signature" name="staffSignature1"/>
+                  </div>
+                  </div>
+
               </section>
               <hr />
               {/* Training Verification for Staff Assigned to Consumer */}

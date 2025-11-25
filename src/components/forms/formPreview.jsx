@@ -265,15 +265,31 @@ const FormPreview = () => {
           }
           
           if (tag === 'CANVAS') {
-            el.style.setProperty('border', '1px solid #000', 'important');
-            el.style.setProperty('display', 'block', 'important');
-            el.style.setProperty('margin', '8px 0', 'important');
-            el.style.setProperty('max-width', '250px', 'important');
-            el.style.setProperty('min-height', '60px', 'important');
-            el.style.setProperty('background', '#fff', 'important');
+            // Check if this canvas is inside a signature container
+            const isSignatureCanvas = el.closest('div[class*="signature"], div[class*="sign-pad"], div[id*="signature"]');
+            
+            if (isSignatureCanvas) {
+              // Signature canvas - no border, smaller size
+              el.style.setProperty('border', 'none', 'important');
+              el.style.setProperty('display', 'block', 'important');
+              el.style.setProperty('margin', '0', 'important');
+              el.style.setProperty('max-width', '150px', 'important');
+              el.style.setProperty('max-height', '40px', 'important');
+              el.style.setProperty('min-height', 'auto', 'important');
+              el.style.setProperty('background', 'transparent', 'important');
+            } else {
+              // Regular canvas (charts, etc.)
+              el.style.setProperty('border', '1px solid #000', 'important');
+              el.style.setProperty('display', 'block', 'important');
+              el.style.setProperty('margin', '8px 0', 'important');
+              el.style.setProperty('max-width', '250px', 'important');
+              el.style.setProperty('min-height', '60px', 'important');
+              el.style.setProperty('background', '#fff', 'important');
+            }
           }
         });
         
+        // Signature container styling - UPDATED
         tempContainer.querySelectorAll('div').forEach(div => {
           const hasSignatureClass = Array.from(div.classList).some(className => 
             className.toLowerCase().includes('signature') || 
@@ -291,18 +307,36 @@ const FormPreview = () => {
                                     div.hasAttribute('data-sign-area');
           
           if (hasSignatureClass || hasSignatureId || hasSignatureData) {
-            div.style.setProperty('border', '1px solid #000', 'important');
-            div.style.setProperty('min-height', '50px', 'important');
-            div.style.setProperty('width', '200px', 'important');
+            // Remove box border, only show bottom line
+            div.style.setProperty('border', 'none', 'important');
+            div.style.setProperty('border-bottom', '1px solid #000', 'important');
+            div.style.setProperty('min-height', '40px', 'important'); // Reduced height
+            div.style.setProperty('max-height', '50px', 'important'); // Max height limit
+            div.style.setProperty('width', '150px', 'important');
             div.style.setProperty('margin', '8px 0 8px 0', 'important');
             div.style.setProperty('display', 'block', 'important');
-            div.style.setProperty('background', '#fff', 'important');
+            div.style.setProperty('background', 'transparent', 'important');
+            div.style.setProperty('padding', '0 0 2px 0', 'important'); // Padding only at bottom
             
             const img = div.querySelector('img');
             if (img) {
-              img.style.setProperty('max-width', '100%', 'important');
+              img.style.setProperty('max-width', '150px', 'important'); // Smaller signature
+              img.style.setProperty('max-height', '35px', 'important'); // Smaller height
               img.style.setProperty('height', 'auto', 'important');
               img.style.setProperty('display', 'block', 'important');
+              img.style.setProperty('object-fit', 'contain', 'important');
+              img.style.setProperty('margin-bottom', '0', 'important');
+            }
+            
+            // Handle canvas elements (if signature is drawn)
+            const canvas = div.querySelector('canvas');
+            if (canvas) {
+              canvas.style.setProperty('max-width', '150px', 'important');
+              canvas.style.setProperty('max-height', '35px', 'important');
+              canvas.style.setProperty('height', 'auto', 'important');
+              canvas.style.setProperty('display', 'block', 'important');
+              canvas.style.setProperty('background', 'transparent', 'important');
+              canvas.style.setProperty('border', 'none', 'important');
             }
           }
         });
@@ -325,7 +359,7 @@ const FormPreview = () => {
           continue;
         }
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.98);
+        const imgData = canvas.toDataURL('image/jpeg', 0.85);
         
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
@@ -407,7 +441,7 @@ const FormPreview = () => {
               pageCanvas.height
             );
             
-            const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98);
+            const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85);
             
             pdf.addImage(
               pageImgData,
