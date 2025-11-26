@@ -477,6 +477,7 @@ const FormPreview = () => {
     }
   };
 
+ 
   const extractConsumerName = () => {
     // Try to extract consumer name from the preview HTML
     if (!contentRef.current) return 'Unknown';
@@ -502,8 +503,10 @@ const FormPreview = () => {
       }
     }
     
-    // Method 2: Look for any label containing "Consumer's Name" text
+    // Method 2: Look for any label containing "Consumer's Name" OR "Individual's Name/Full Name" text
     const allLabels = element.querySelectorAll('label');
+    
+    // First try to find Consumer's Name
     for (const label of allLabels) {
       if (label.textContent.toLowerCase().includes('consumer') && 
           label.textContent.toLowerCase().includes('name')) {
@@ -525,6 +528,31 @@ const FormPreview = () => {
         }
       }
     }
+    
+    // If Consumer's Name not found, try Individual's Full Name or Individual's Name
+    for (const label of allLabels) {
+      const labelText = label.textContent.toLowerCase();
+      if (labelText.includes('individual') && 
+          (labelText.includes('full name') || labelText.includes('name'))) {
+        // Find the associated span
+        let nameSpan = label.nextElementSibling;
+        
+        // Check if it's a span with content
+        if (nameSpan && nameSpan.tagName === 'SPAN' && nameSpan.textContent.trim()) {
+          return nameSpan.textContent.trim();
+        }
+        
+        // Look in parent div structure
+        const parentDiv = label.parentElement;
+        if (parentDiv) {
+          nameSpan = parentDiv.querySelector('span');
+          if (nameSpan && nameSpan.textContent.trim()) {
+            return nameSpan.textContent.trim();
+          }
+        }
+      }
+    }
+
     
     // Method 3: Use regex pattern on full text
     const consumerNamePattern = /Consumer'?s?\s+Name\s*:?\s*([A-Za-z\s]+?)(?=\s*Date|\s*$|<)/i;
