@@ -22,7 +22,7 @@ export const OdpoptionsData = [
 ];
 
 
-export const HodoptionsData =[
+export const HaboptionsData =[
 { 
     title: 'Abuse, Neglect and Mandated Reporting', 
     color: '#FF6B6B',
@@ -74,7 +74,7 @@ export const HodoptionsData =[
     description: 'Click to access training materials and quizzes for Incident Management (IM)'
   },
   {  
-    title: 'Mission and Values',
+    title: 'ODP Mission and Values',
     color: '#4ECDC4',
     description: 'Click to access training materials and quizzes for Mission and Values'
   },

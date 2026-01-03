@@ -8,6 +8,7 @@ import Form from "./components/pages/Formpage"
 import Main from './MainPage';
 import QuizTraining from './QuizTraining';
 import { useState } from 'react';
+import { ProtectedRoute } from './components/Auth/ProtectedRoutes';
 import Alert from './components/Alert';
 
 function App() {
@@ -42,7 +43,14 @@ function App() {
         <Route path="/signup" element={<SignupPage handleAlert={handleAlert} />} />
         
         {/* This route catches /home and all sub-routes like /home/odp */}
-        <Route path="/home/*" element={<QuizTraining />} />
+         <Route 
+          path="/home/*" 
+          element={
+            <ProtectedRoute>
+              <QuizTraining handleAlert={handleAlert} />
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
     </Router>
   );

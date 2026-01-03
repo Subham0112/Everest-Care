@@ -6434,9 +6434,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
          <label htmlFor={`${name}Date`} className="form-label fw-semibold">
            Date
          </label>
-         {signatureDate ? (
-           <p className="signature-date-text">{signatureDate}</p>
-         ) : (
+       
            <input
              type="date"
              className="form-control signature-date-input"
@@ -6445,7 +6443,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
              value={signatureDate}
              onChange={handleDateChange}
            />
-         )}
+       
        </div>
      </div>
    );

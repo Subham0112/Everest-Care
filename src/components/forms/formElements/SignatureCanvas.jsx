@@ -167,9 +167,7 @@ const SignatureCanvas = ({ label, name }) => {
         <label htmlFor={`${name}Date`} className="form-label fw-semibold">
           Date
         </label>
-        {signatureDate ? (
-          <p className="signature-date-text">{signatureDate}</p>
-        ) : (
+      
           <input
             type="date"
             className="form-control signature-date-input"
@@ -178,7 +176,7 @@ const SignatureCanvas = ({ label, name }) => {
             value={signatureDate}
             onChange={handleDateChange}
           />
-        )}
+    
       </div>
     </div>
   );

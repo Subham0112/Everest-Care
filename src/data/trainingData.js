@@ -321,7 +321,7 @@ export const trainingData = {
     }
   },
   hab: {
-    "Abuse, Neglect and Mandated Reporting": {
+    "Abuse, Neglect & Mandated Reporting": {
       description: "Welcome to Abuse, Neglect & Mandated Reporting",
       objective: [
         "This training will help you identify, prevent, and report abuse and neglect in ODP settings.",
@@ -533,7 +533,7 @@ export const trainingData = {
         }
       ]
     },
-     "De-escalation and Behavioral Support Techniques": {
+     "De-escalation and Behavioural Support Techniques": {
     "description": "Welcome to De-escalation & Behavioral Support Training",
     "objective": [
       "Learn how to recognize, prevent, and respond to challenging behaviors while promoting dignity and safety.",
@@ -1386,7 +1386,7 @@ export const trainingData = {
       }
     ]
   },
-  "Mission and Values": {
+  "ODP Mission & Core Values": {
     "description": "Welcome to ODP Mission & Values",
     "objective": [
       "Build deeper understanding of ODP’s mission and core values through activities, real-life scenarios, and discussion."

@@ -1,19 +1,19 @@
+// Sidebar.jsx
 import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ImCross } from "react-icons/im";
-import { FaArrowLeft} from 'react-icons/fa';
-
-
-
+import { FaArrowLeft } from 'react-icons/fa';
 
 import logo from "./EHH_Final_logo.png";
-// import '../styles/Sidebar.css';
 
 function Sidebar() {
-
   const location = useLocation();
   const sidebarRef = useRef(null);
   const navigate = useNavigate();
+
+  // Get user from localStorage
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const isAdmin = user.role === 1; // 1 = admin, 0 = user
 
   const isActive = (path) => location.pathname === path;
 
@@ -21,12 +21,10 @@ function Sidebar() {
   const isODPActive = () => {
     return (
       location.pathname === "/home/odp" ||
-      // Check if we're in training/quiz for ODP (type = 'odp')
       (location.pathname.includes("/training") && location.pathname.includes("/home/odp/")) ||
       (location.pathname.includes("/quiz") && location.pathname.includes("/home/odp/")) ||
-      // Alternative check using URL segments for /training/odp/* or /quiz/odp/*
       location.pathname.startsWith("/home/training/odp") ||
-      location.pathname.startsWith("/homr/quiz/odp")
+      location.pathname.startsWith("/home/quiz/odp")
     );
   };
 
@@ -34,10 +32,8 @@ function Sidebar() {
   const isHODActive = () => {
     return (
       location.pathname === "/home/hab" ||
-      // Check if we're in training/quiz for HOD (type = 'hod')
       (location.pathname.includes("/training") && location.pathname.includes("/home/hab/")) ||
       (location.pathname.includes("/quiz") && location.pathname.includes("/home/hab/")) ||
-      // Alternative check using URL segments for /training/hod/* or /quiz/hod/*
       location.pathname.startsWith("/home/training/hab") ||
       location.pathname.startsWith("/home/quiz/hab")
     );
@@ -46,10 +42,13 @@ function Sidebar() {
   const handleClick = () => {
     document.getElementById("mySidebar").classList.remove("visibleNav");
   };
-const handleLogout = () => {
-  localStorage.removeItem('token');
-  navigate('/');
-}
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
+  }
+
   // Click outside functionality
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -76,15 +75,14 @@ const handleLogout = () => {
   return (
     <div className="sidebar2" id="mySidebar" ref={sidebarRef}>
       {/* Close button (X) */}
-      <button onClick={handleClick} className="cancel-btn  mb-4 ">
+      <button onClick={handleClick} className="cancel-btn mb-4">
         <ImCross />
       </button>
 
       {/* Sidebar brand */}
       <div className="sidebar-brand">
         <Link to="/home" className="brand-link d-flex flex-column align-items-center">
-        <img src={logo} height={110} width={110} alt="Everest Home Health Logo" className="sidebar-logo" />
-        
+          <img src={logo} height={110} width={110} alt="Everest Home Health Logo" className="sidebar-logo" />
         </Link>
       </div>
 
@@ -112,14 +110,28 @@ const handleLogout = () => {
         >
           👨‍💼 HAB Training
         </Link>
-        <Link
-          onClick={handleClick}
-          to="/home/member-approval"
-          className={`nav-link ${isActive("/home/member-approval") ? "active" : ""}`}
-        >
-          Member Approval
-        </Link>
-        {/* making logout */}
+
+        {/* Admin-only links */}
+        {isAdmin && (
+          <>
+            <Link
+              onClick={handleClick}
+              to="/home/member-list"
+              className={`nav-link ${isActive("/home/member-list") ? "active" : ""}`}
+            >
+              Members List
+            </Link>
+            <Link
+              onClick={handleClick}
+              to="/home/member-approval"
+              className={`nav-link ${isActive("/home/member-approval") ? "active" : ""}`}
+            >
+             Member Approval
+            </Link>
+          </>
+        )}
+
+        {/* Logout button */}
         <button
           onClick={handleLogout}
           className="btn btn-danger mt-5 m-auto w-50 btn-sm"
@@ -134,7 +146,7 @@ const handleLogout = () => {
         style={{ width: "50px" }}
         className="position-absolute closebtn-2 mt-3"
       >
-       <FaArrowLeft/>
+        <FaArrowLeft />
       </button>
     </div>
   );

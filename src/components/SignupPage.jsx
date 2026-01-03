@@ -59,7 +59,7 @@ const [error, setError] = useState(false);
     password: "",
     confirmPassword: "",
     status:0,
-    role:1
+    role:0
   });
 
   // Get selected country object
@@ -101,7 +101,7 @@ const [error, setError] = useState(false);
     };
 
     try {
-      const response = await fetch('https://www.EverestHealth.somee.com/api/Auth/register', {
+      const response = await fetch('https://www.everesthealth.somee.com/api/Auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

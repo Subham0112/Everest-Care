@@ -1,6 +1,6 @@
 export const HabgetQuizData = (option) => {
   switch (option) {
-    case "Abuse, Neglect and Mandated Reporting":
+    case "Abuse, Neglect & Mandated Reporting":
       return {
         questions: [
           {
@@ -1029,7 +1029,7 @@ export const HabgetQuizData = (option) => {
       }
     ]
         }
-      case "Mission and Values":
+      case "ODP Mission & Core Values":
         return{
           questions: [
       {

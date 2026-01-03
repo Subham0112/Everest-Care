@@ -594,7 +594,7 @@ const FormPreview = () => {
       }
 
       // Send to backend
-      const response = await fetch('https://www.EverestHealth.somee.com/api/document/submit-form', {
+      const response = await fetch('https://www.everesthealth.somee.com/api/document/submit-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
