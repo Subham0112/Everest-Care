@@ -142,7 +142,7 @@ const [error, setError] = useState(false);
     <div className="signup-container">
 
       <div className="signup-card shadow-lg">
-        <h2 className="text-center mb-1">Create an Account</h2>
+        <h2 className="text-center mb-1">Create Account</h2>
 
         <form onSubmit={handleSubmit}>
           {/* First + Last Name */}
