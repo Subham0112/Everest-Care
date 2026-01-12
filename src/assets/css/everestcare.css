@@ -1,0 +1,1107 @@
+/* ========================================
+   EVEREST HOME CARE - FIXED CSS
+   Scoped to prevent conflicts with Health CSS
+   ======================================== */
+
+/* ROOT SCOPING - Only apply to home care pages */
+.home-care-page {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff);
+  min-height: 100vh;
+}
+
+.home-care-page body,
+.home-care-page #root {
+  background: transparent;
+}
+
+/* HERO SECTION */
+.home-care-page #home {
+  width: 100%  !important;  
+  height: 70vh;
+  background: url("../img/hero-img.jpg") no-repeat right center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  color: #3b8f8b;
+  overflow: hidden;
+  background-color: #4bf7fd71;
+}
+
+/* Overlay */
+.home-care-page .hero-overlay {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  padding: 4rem;
+}
+
+/* Text Box - CRITICAL FIX */
+.home-care-page .hero-text-box {
+  background: rgba(0, 255, 255, 0.623) !important; /* Force the cyan background */
+  padding: 1.6rem 2rem;
+  border-radius: 12px;
+  max-width: 550px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Headings */
+.home-care-page .hero-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  color: #1a5364;
+}
+
+.home-care-page .hero-subtitle {
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+  color: #06323a;
+}
+
+/* Points */
+.home-care-page .hero-points {
+  list-style: none;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+.home-care-page .hero-points li {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+/* Actions */
+.home-care-page .hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.home-care-page .btn-custom {
+  background-color: #1abc9c;
+  color: #fff;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.home-care-page .btn-custom:hover {
+  background-color: #16a085;
+  transform: translateY(-2px);
+}
+
+.home-care-page .hero-call {
+  font-size: 0.95rem;
+  color: #2c3e50;
+}
+
+.home-care-page .hero-call a {
+  color: #088286;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.home-care-page .hero-call a:hover {
+  text-decoration: underline;
+}
+
+/* WHY US SECTION */
+.home-care-page .whyus-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.8rem 2rem;
+  text-align: center;
+  background: transparent !important;
+}
+
+.home-care-page .whyus-header {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+}
+
+.home-care-page .whyus-header h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.home-care-page .highlight {
+  color: #1abc9c;
+}
+
+.home-care-page .whyus-header p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Cards Layout */
+.home-care-page .whyus-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.home-care-page .whyus-cards .card {
+  background: #ffffff !important;
+  border-radius: 12px;
+  padding: 1.6rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+}
+
+.home-care-page .card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: #79eef7;
+}
+
+.home-care-page .card p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.home-care-page .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ABOUT SECTION */
+.home-care-page .about-section {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
+  padding: 60px 40px;
+}
+
+.home-care-page .about-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.home-care-page .about-text {
+  background-color: #e9f3ff;
+  padding: 20px 40px;
+  flex: 1 1 200px;
+}
+
+.home-care-page .about-text h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #2be9f7;
+  margin-bottom: 20px;
+}
+
+.home-care-page .about-text .highlight {
+  color: #0a6cff;
+}
+
+.home-care-page .about-text p {
+  color: #555;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.home-care-page .about-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.home-care-page .about-card {
+  display: flex;
+  gap: 15px;
+  background: #fff !important;
+  padding: 18px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-care-page .about-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.home-care-page .about-card .icon {
+  font-size: 2rem;
+  color: #0a6cff;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-care-page .about-card h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #37e7f3;
+}
+
+.home-care-page .about-card p {
+  margin-top: 5px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.home-care-page .about-image {
+  height: 450px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.home-care-page .about-image img {
+  width: 100%;
+  object-fit: cover;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-care-page .about-image img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* MISSION SECTION */
+.home-care-page .mission-section {
+  padding: 4rem 2rem;
+  background: #f9fafc !important;
+  text-align: center;
+}
+
+.home-care-page .mission-header {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+}
+
+.home-care-page .mission-header h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2ee6f3;
+}
+
+.home-care-page .icon {
+  color: #2ee6f3;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* SERVICES SECTION */
+.home-care-page .services-section {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
+  padding: 30px 20px 50px 20px;
+}
+
+.home-care-page .services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-care-page .services-title {
+  font-size: 1.6rem;
+  color: #37eaf7;
+  margin-bottom: 10px;
+}
+
+.home-care-page .services-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+
+.home-care-page .services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.home-care-page .service-card {
+  background: #fff !important;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+}
+
+.home-care-page .service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.home-care-page .service-img-wrapper img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.home-care-page .service-content {
+  padding: 20px;
+}
+
+.home-care-page .service-content h3 {
+  font-size: 1.2rem;
+  color: #45f1f7;
+  margin-bottom: 10px;
+}
+
+.home-care-page .service-content p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* CARE SECTION */
+.home-care-page .care-box {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 300px;
+  border: 1px solid #f1f1f1;
+}
+
+.home-care-page .care-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.home-care-page .icon-circle {
+  width: 50px;
+  height: 50px;
+  background: #c2d0f7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* GALLERY */
+.home-care-page .gallery-section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 15px;
+}
+
+.home-care-page .gallery-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #79eef7;
+}
+
+.home-care-page .gallery-subtitle {
+  color: #555;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.home-care-page .carousel-inner img {
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.home-care-page .carousel-indicators {
+  position: relative;
+  margin-top: 10px;
+}
+
+.home-care-page .carousel-indicators [data-bs-target] {
+  width: 8px;
+  height: 8px;
+  background-color: #007bff;
+}
+
+.home-care-page .carousel-indicators .active {
+  background-color: #0056b3;
+}
+
+/* CONTACT SECTION */
+.home-care-page .contact-section {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
+  margin: 0 auto;
+  padding: 60px 10px;
+}
+
+.home-care-page .contact-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #79eef7;
+}
+
+.home-care-page .contact-subtitle {
+  color: #555;
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 10px auto 0;
+}
+
+.home-care-page .maps-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  margin: 40px 10px;
+}
+
+.home-care-page .map-card {
+  background: #b4f2fd;
+  border: 1px solid #d39191;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.home-care-page .map-card iframe {
+  width: 100%;
+  height: 300px;
+  border: 0;
+}
+
+.home-care-page .contact-box {
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  background: #ffffffc2;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  margin-top: 20px;
+  max-width: 100%;
+}
+
+.home-care-page .contact-info {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.home-care-page .info-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.home-care-page .info-icon {
+  color: #07bae7;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.home-care-page .info-item h5 {
+  margin: 0 0 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.home-care-page .info-item p {
+  margin: 0;
+  color: #555;
+}
+
+.home-care-page .contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.home-care-page .form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.home-care-page .form-row input {
+  flex: 1;
+}
+
+.home-care-page .contact-form input,
+.home-care-page .contact-form textarea {
+  width: 80%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s;
+  background: #fff;
+}
+
+.home-care-page .contact-form input:focus,
+.home-care-page .contact-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.home-care-page .contact-btn {
+  width: 30%;
+  padding: 10px;
+  background-color: #52dafc;
+  border: transparent;
+  border-radius: 10px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 992px) {
+  .home-care-page #home {
+    height: auto;
+    background: url("../img/hero-img.jpg") no-repeat right center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #acf3f3;
+    padding: 1.6rem 1rem;
+  }
+
+  .home-care-page .hero-overlay {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .home-care-page .hero-text-box {
+    max-width: 100%;
+    padding: 1.2rem;
+  }
+
+  .home-care-page .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .home-care-page .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .home-care-page .hero-points li {
+    font-size: 0.9rem;
+  }
+
+  .home-care-page .whyus-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-care-page .card {
+    width: 70%;
+    text-align: left;
+  }
+
+  .home-care-page .about-container {
+    height: auto;
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .home-care-page .about-image img {
+    max-width: 90%;
+  }
+
+  .home-care-page .about-cards {
+    align-items: center;
+  }
+
+  .home-care-page .about-card {
+    max-width: 600px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-care-page .maps-container {
+    grid-template-columns: 1fr;
+    margin: 0px;
+  }
+
+  .home-care-page .contact-box {
+    grid-template-columns: 1fr;
+  }
+
+  .home-care-page .form-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .home-care-page .contact-form input,
+  .home-care-page .contact-form textarea {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .home-care-page .contact-btn {
+    width: 70%;
+    text-align: center;
+  }
+
+  .home-care-page .care-box {
+    text-align: left;
+  }
+
+  .home-care-page .mission-header h2 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-care-page #home {
+    height: auto;
+    background: url("../img/hero-img3.jpg") no-repeat;
+    background-size: contain;
+  }
+
+  .home-care-page .hero-title {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .home-care-page .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .home-care-page .btn-custom {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .home-care-page .hero-text-box {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .home-care-page .whyus-cards .card {
+    width: 95%;
+    text-align: left;
+  }
+}
+
+@media (max-width: 450px) {
+  .home-care-page .about-section {
+    padding: 50px 20px;
+  }
+
+  .home-care-page .about-text {
+    padding: 20px;
+  }
+}
+
+.login-container {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #E3F2FD 0%, #90CAF9 30%, #64d9f6 60%, #87fbff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Login Card */
+.login-form {
+  background-color: rgba(255, 255, 255, 0.35);
+  padding: 40px 25px;
+  width: 40%;
+  max-width: 480px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.login-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #386668;
+  margin-bottom: 25px;
+}
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Input Fields */
+.login-items {
+  width: 90%;
+  position: relative;
+}
+
+.login-items label {
+  font-size: 1.1rem;
+  color: #444;
+  font-weight: 600;
+  display: block;
+  text-align: left;
+  margin-bottom: 6px;
+  margin-left: 5px;
+}
+
+.login-items input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.login-items input:focus {
+  border-color: #00b0ff;
+  box-shadow: 0 0 5px rgba(0, 176, 255, 0.3);
+  outline: none;
+}
+
+/* Password Input Wrapper */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+/* Eye Icon Styling */
+.toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-icon:hover {
+  color: #00b0ff;
+}
+
+/* Button */
+.login-btn {
+  width: 45%;
+  padding: 10px 0;
+  background-color: #52dafc;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #04a4cc;
+  transform: scale(1.05);
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.login-footer a {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-form {
+    width: 85%;
+    padding: 30px 20px;
+  }
+  
+  .login-btn {
+    width: 60%;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form {
+    width: 100%;
+    padding: 25px 15px;
+  }
+  
+  .login-items input {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+  
+  .login-btn {
+    width: 70%;
+  }
+}
+
+
+/* Background */
+
+
+/* Signup.css */
+
+/* Signup.css */
+
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5faff, #87e0ff);
+  font-family: "Segoe UI", sans-serif;
+  padding: 15px;
+  overflow: auto;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 600px;
+  background-color: #ddf6f78e;
+  backdrop-filter: blur(10px);
+  padding: 15px 25px;
+  border-radius: 16px;
+}
+
+.signup-card h2 {
+  color: #222;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #52dafc;
+  box-shadow: 0 0 0 0.2rem rgba(82, 218, 252, 0.25);
+}
+
+/* Phone input with country code */
+.phone-input-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+/* Custom Country Select Dropdown */
+.custom-country-select {
+  position: relative;
+  width: 100px;
+}
+
+.country-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.country-select-trigger:hover {
+  border-color: #52dafc;
+}
+
+.selected-country {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.country-flag {
+  font-size: 18px;
+}
+
+.country-code {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  color: #666;
+  transition: transform 0.2s;
+}
+
+.country-select-trigger:hover .dropdown-arrow {
+  color: #52dafc;
+}
+
+/* Dropdown List */
+.country-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 250px;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.country-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.country-option:hover {
+  background-color: #f0f9ff;
+}
+
+.country-option.selected {
+  background-color: #e6f7ff;
+}
+
+.country-option .country-flag {
+  font-size: 20px;
+  min-width: 24px;
+}
+
+.country-option .country-name {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+}
+
+.country-option .country-code {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Scrollbar styling for dropdown */
+.country-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.country-dropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.country-dropdown::-webkit-scrollbar-thumb {
+  background: #52dafc;
+  border-radius: 8px;
+}
+
+.country-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #3bc5e8;
+}
+
+.phone-input {
+  flex: 1;
+}
+
+/* Password wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #4fa4e3;
+  font-size: 16px;
+}
+
+/* Submit button */
+.sign-btn {
+  background-color: #52dafc;
+  border: transparent;
+  border-radius: 8px;
+  padding: 10px 40px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sign-btn:hover {
+  opacity: 0.9;
+  background-color: #046b85;
+}
+
+/* Login link */
+.login-link {
+  color: #036f8a;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
