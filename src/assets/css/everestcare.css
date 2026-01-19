@@ -462,9 +462,11 @@
 
 .home-care-page .maps-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 15px;
-  margin: 40px 10px;
+  grid-template-columns: 1fr 1fr; /* Changed from 1fr 1fr 1fr to 1fr 1fr */
+  gap: 35px;
+  margin: 40px auto;
+  max-width: 1200px; /* Limit the width */
+  padding: 0 20px;
 }
 
 .home-care-page .map-card {

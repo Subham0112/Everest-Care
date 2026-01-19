@@ -355,6 +355,11 @@ export default function Content() {
     title="Office 3"
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3046.2347727650226!2d-76.93985882486088!3d40.22608196722208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c8c20d8dd0082b%3A0x7cf2b5bf76a315d3!2s3425%20Simpson%20Ferry%20Rd%20%23100%2C%20Camp%20Hill%2C%20PA%2017011%2C%20USA!5e0!3m2!1sen!2snp!4v1758898070721!5m2!1sen!2snp" loading="lazy" ></iframe>
         </div>
+      <div className="map-card">
+    <iframe
+    title="Office 4"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.220315685076!2d-80.77223927767255!3d35.20098080366557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88542031910c7ebb%3A0xbf6b5c923e6d8a0b!2s4037%20E%20Independence%20Blvd%2C%20Charlotte%2C%20NC%2028205%2C%20USA!5e0!3m2!1sen!2snp!4v1768826050997!5m2!1sen!2snp" loading="lazy" ></iframe>
+        </div>
       </div>
 
       {/* ----- CONTACT INFO + FORM ----- */}
@@ -368,6 +373,7 @@ export default function Content() {
               <p><span className="text-info font-smaller"><FaDotCircle/></span> 109 Dewalt Ave Suite 201, Pittsburgh, PA 15227, USA</p>
               <p> <span className="text-info"><FaDotCircle/></span> 2800 W 21st St, Erie, PA 16506, USA</p>
               <p><span className="text-info"><FaDotCircle/></span> 3425 Simpson Ferry Rd, Camp Hill, PA 17011, USA</p>
+              <p><span className="text-info"><FaDotCircle/></span> 4037 E Independence Blvd, Charlotte, NC 28205, USA</p>
             </div>
           </div>
 

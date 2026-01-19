@@ -53,6 +53,18 @@
   color: #ffffff;
 }
 
+.footer-policy a{
+  color: #23035f;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 600;
+}
+.footer-policy{
+  line-height: 1.2px;
+}
+.footer-policy a:hover {
+  color: #d1f5ed;
+}
 /* Contact */
 .footer-contact p {
   display: flex;
@@ -71,6 +83,7 @@
 .footer-social .social-icons {
   display: flex;
   gap: 12px;
+  margin-bottom: 25px;
 }
 
 .footer-social .social-icons a {

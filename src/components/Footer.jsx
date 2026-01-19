@@ -34,6 +34,7 @@ export default function Footer() {
           <p><FaMapMarkerAlt className="footer-icon" /> 109 Dewalt Ave Suite 201, Pittsburgh, PA 15227</p>
           <p><FaMapMarkerAlt className="footer-icon" /> 2800 W 21st St, Erie, PA 16506, USA</p>
           <p><FaMapMarkerAlt className="footer-icon" /> 3425 Simpson Ferry Rd, Camp Hill, PA 17011, USA</p>
+          <p><FaMapMarkerAlt className="footer-icon" /> 4037 E Independence Blvd, Charlotte, NC 28205, USA</p>
           <p><FaEnvelope className="footer-icon" /> everesthomecarellc@gmail.com</p>
           <p><FaPhoneAlt className="footer-icon" /> (412) 207-7383</p>
         </div>
@@ -47,6 +48,10 @@ export default function Footer() {
             <a href="#"><FaInstagram /></a>
             <a href="#"><FaLinkedinIn /></a>
           </div>
+        <div className="footer-policy footer-links">
+          <h4>Our Policy</h4>
+          <a href="/policy">Non-Descrimination Policy</a>
+        </div>
         </div>
       </div>
 
