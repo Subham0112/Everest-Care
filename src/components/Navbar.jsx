@@ -103,6 +103,7 @@ const Navbar = () => {
           <a href="/#mission" onClick={toggleSidebar}>Mission & Values</a>
           <a href="/#services" onClick={toggleSidebar}>Services</a>
           <a href="/#gallery" onClick={toggleSidebar}>Gallery</a>
+          <a href="/policy" onClick={toggleSidebar}>Policy</a>
           <a href="/#contact" onClick={toggleSidebar}>Contact</a>
 
         {/* ⭐ Sidebar dropdown */}
