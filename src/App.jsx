@@ -4,6 +4,7 @@ import './assets/css/everestcare.css';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import PreviewForm from "./components/forms/formPreview";
+import Policy from './components/Policy';
 import Form from "./components/pages/Formpage"
 import Main from './MainPage';
 import QuizTraining from './QuizTraining';
@@ -35,6 +36,7 @@ function App() {
        <Alert alert={alert} />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/policy" element={<Policy />} />
         <Route path="/form/:formType" element={<Form />} />
         <Route path="/preview/:formType" element={<PreviewForm />} />
 

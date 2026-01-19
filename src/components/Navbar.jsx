@@ -60,14 +60,15 @@ const Navbar = () => {
           <img src={logo} height={60} width={70} alt="Everest Home Care" />
         </div>
 
-        <div className="nav-links">
-          <a href="#home">Home</a>
-          <a href="#whyus">Why Us</a>
-          <a href="#about">About</a>
-          <a href="#mission">Missions</a>
-          <a href="#services">Services</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#contact">Contact</a>
+        <div className="nav-links text-base">
+          <a href="/">Home</a>
+          <a href="/#whyus">Why Us</a>
+          <a href="/#about">About</a>
+          <a href="/#mission">Missions</a>
+          <a href="/#services">Services</a>
+          <a href="/#gallery">Gallery</a>
+          <a href="/policy">Policy</a>
+          <a href="/#contact">Contact</a>
 
           {/* ⭐ Custom Dropdown */}
           <div className="custom-dropdown" ref={dropdownRef}>
@@ -94,15 +95,15 @@ const Navbar = () => {
 
       {/* Sidebar */}
       <div className={`sidebar ${isOpen ? "active" : ""}`}>
-        <a href="#home" onClick={toggleSidebar}>
+        <a href="/" onClick={toggleSidebar}>
           Home
         </a>
-        <a href="#whyus" onClick={toggleSidebar}>Why Us</a>
-          <a href="#about" onClick={toggleSidebar}>About</a>
-          <a href="#mission" onClick={toggleSidebar}>Mission & Values</a>
-          <a href="#services" onClick={toggleSidebar}>Services</a>
-          <a href="#gallery" onClick={toggleSidebar}>Gallery</a>
-          <a href="#contact" onClick={toggleSidebar}>Contact</a>
+        <a href="/#whyus" onClick={toggleSidebar}>Why Us</a>
+          <a href="/#about" onClick={toggleSidebar}>About</a>
+          <a href="/#mission" onClick={toggleSidebar}>Mission & Values</a>
+          <a href="/#services" onClick={toggleSidebar}>Services</a>
+          <a href="/#gallery" onClick={toggleSidebar}>Gallery</a>
+          <a href="/#contact" onClick={toggleSidebar}>Contact</a>
 
         {/* ⭐ Sidebar dropdown */}
         <div className="custom-dropdown sidebar-dropdown" ref={sidebarDropRef}>

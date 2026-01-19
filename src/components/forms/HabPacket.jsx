@@ -2,6 +2,7 @@
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Navbar from "../Navbar";
 import "./css/signatureCanvas.css";
 
 const InputFields=({label, inputId, inputName, value, onChange}) => {
@@ -419,7 +420,8 @@ const HabPacket = () => {
 
   return (
     <div className='bg-light  min-vh-100'>
-      <div className='container-fluid full-form'>
+      <Navbar />
+      <div className='container-fluid full-form py-3'>
         <form id='habPacket-pdf' className='bg-white habpacketPdf shadow-sm rounded-3 p-4 py-2'>
  
 {/* HAB Consumer Packet – Checklist of Required Documents: */}

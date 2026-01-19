@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import InputFields from './formElements/InputFields'
 import InputDate from './formElements/InputDate'
 import InputCheckboxes from './formElements/InputCheckboxes'
+import Navbar from '../Navbar';
 import TextAreaFields from './formElements/TextAreaFields'
 import SignatureCanvas from './formElements/SignatureCanvas'
 
@@ -139,7 +140,8 @@ const OrientationPacket = () => {
   ]
   return (
     <div className='bg-light  min-vh-100'>
-      <div className='container-fluid full-form'>
+      <Navbar />
+      <div className='container-fluid full-form py-3'>
         <form id='habPacket-pdf' className='bg-white habpacketPdf shadow-sm rounded-3 p-4 py-2'>
           <section style={{backgroundColor:"#C4E1E6"}} className='my-4 rounded-3 shadow-sm p-3 p-md-5 bg-'>
             <p className="text-secondary">Dear New Team Member,</p>
@@ -158,7 +160,7 @@ const OrientationPacket = () => {
             <p >Our Habilitation Program is designed to support individuals in achieving greater independence, community inclusion, and personal fulfillment. Services are delivered in-home and in the community and are based on each person’s unique strengths, preferences, and goals as outlined in their Individual Support Plan (ISP). </p>
 
             <p>Key Program Features:</p>
-            <ul>
+            <ul className='list-disc'>
               <li><b>Person-Centered Planning:</b> Services are based on what is important TO and FOR the individual.</li>
               <li><b>Skill Building:</b> We support individuals in learning life skills such as cooking, budgeting, hygiene, communication, and more</li>
               <li><b>Health & Safety:</b> Staff ensure a safe environment and support individuals in accessing healthcare and following medical protocols</li>
@@ -171,10 +173,10 @@ const OrientationPacket = () => {
             <h3 className='text-info'>Program Overview – Habilitation Services</h3>
             <p>Our Habilitation Services program, operating under the Pennsylvania Office of Developmental Programs (ODP), is designed to support individuals with intellectual and developmental disabilities in achieving greater independence, autonomy, and community engagement. Services are built around the principles of person-centered planning, Everyday Lives, and trauma-informed care </p>
             <ol>
-              <li className='fw-bold'>PURPOSE:</li>
+              <li className='fw-bold'> PURPOSE:</li>
               <p>The primary purpose of Habilitation Services is to teach, support, and empower individuals in developing skills that promote self-determination, meaningful relationships, personal fulfillment, and active participation in their communities. Services are individualized, goal-oriented, and culturally respectful.</p>
               <li className='fw-bold'>CORE SERVICE PRINCIPLES:</li>
-              <ul>
+              <ul className='list-disc'>
                 <li><b>Person-Centeredness:</b>Services reflect the goals, strengths, and preferences of the individual.</li>
                 <li><b>Person-Centeredness:</b>Services reflect the goals, strengths, and preferences of the individual.</li>
                 <li><b>Dignity and Respect:</b>All interactions promote the inherent value and rights of each person.</li>
@@ -197,7 +199,7 @@ const OrientationPacket = () => {
                </ol>
           </section>
           <section className='mt-3 pdf-page-break'>
-            <ul type="none">
+            <ol type="none">
               <li className='fw-bold'>5. STAFF RESPONSIBILITIES:</li>
               <ul>
                 <li>Build supportive relationships and promote skill development through daily interactions.</li>
@@ -212,7 +214,7 @@ const OrientationPacket = () => {
               <p>Direct Support Professionals are required to maintain accurate, timely records that reflect the services provided, progress made toward outcomes, any incidents or changes, and daily participation logs. Documentation is a legal requirement and an essential part of quality support.</p>
               <li className='fw-bold mt-3'>7. ALIGNMENT WITH ODP & DHS:</li>
               <p>Our program aligns with the values of Pennsylvania’s Office of Developmental Programs and the Department of Human Services (DHS). We operate in accordance with 55 Pa. Code regulations, ODP bulletins and communications, and Medicaid waiver requirements.</p>
-              </ul>
+              </ol>
 
               <p>By embracing inclusion, honoring individuality, and committing to best practices, we support each person in leading a life that is meaningful to them. Your role in this process is invaluable.</p>
             </section>

@@ -127,7 +127,7 @@ export default function Content() {
       <div className="about-container">
         {/* LEFT CONTENT */}
         <div className="about-text">
-          <h2>About Everest Home Care</h2>
+          <h2 className='fw-bold'>About Everest Home Care</h2>
           <p>
             Everest Home Care respects the rights of individuals to live their lives to the fullest, 
             even when facing health challenges or limitations. All team members are carefully 

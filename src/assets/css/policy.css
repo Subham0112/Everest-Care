@@ -1,0 +1,98 @@
+*{
+   font-family: 'Unna', sans-serif;
+   margin: 0;
+   padding: 0;
+}
+.policy-page{
+  background: linear-gradient(135deg, #f5faff, #e9f3ff);
+  min-height: 100vh;
+  z-index: -10;
+}
+.policy-header{
+  background-image: url("../img/policy-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 50vh;
+  
+}
+.policy-body{
+  width: 80% !important;
+  height: 100%;
+  position: relative;
+}
+
+/* Make policy-body responsive */
+@media (max-width: 768px) {
+  .policy-body {
+    width: 95% !important;
+    padding: 0px !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .policy-body {
+    width:80% !important;
+  }
+}
+
+.policy-body::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 5px;
+  box-shadow: 12px 12px 10px #787a7afa;
+  border-radius: 25px;
+  background-color: #026b66fa;
+}
+
+.policy-body h2{
+  color: #026b66fa;
+  margin-bottom: 15px;
+}
+.policy-body h3{
+  color: #026b66fa;
+  margin-bottom: 15px;
+}
+
+.policy-title{
+  position: relative;
+  z-index: 1000;
+}
+.policy-title h3, .policy-title h1{
+  color: #026b66fa;
+}
+.policy-icon{
+  position: absolute;
+  bottom: 45px;
+  left: -30px;
+  rotate: -20deg;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+/* Make icon responsive */
+@media (max-width: 460px) {
+  .policy-icon {
+    width: 60px !important;
+    height: 60px !important;
+    left: -20px;
+    bottom: 35px;
+  }
+  
+ 
+
+}
+
+.policy-title h1::after{
+  content: ".....";
+  position: absolute;
+  top:100%;
+  left: 25%;
+  width: 50%;
+  height:5px;
+  border-radius: 15px;
+  background-color: #01545771;
+}

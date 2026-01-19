@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // import axios from "axios"; // To send the file to the backend
+import Navbar from "../Navbar";
 
 import "./css/signatureCanvas.css";
 
@@ -632,7 +633,9 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
 
    // --- RENDER ---
   return (
-    <div className="bg-light min-vh-100 py-5">
+    <>
+      <Navbar />
+    <div className="bg-light min-vh-100 py-2">
       <div className="container-fluid full-form"
      
       >
@@ -6264,6 +6267,7 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
 
             </div>
           </div>
+          </>
         );
       };  // --- RENDER ---
 

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import ConsumerPacket from '../forms/ConsumerPacket'
 import OrientationPacket from '../forms/OrientationPacket'
 import HabPacket from '../forms/HabPacket'
+import Footer from '../Footer'
 import { useParams, useNavigate } from 'react-router-dom'
 import './Formpage.css'
 
@@ -34,9 +35,12 @@ const Formpage = () => {
   };
 
   return (
+    <>
     <div className="form-page-container">
       {renderForm()}
     </div>
+    <Footer />
+    </>
   );
 }
 
