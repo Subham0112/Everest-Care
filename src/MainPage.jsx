@@ -228,7 +228,6 @@ export default function Content() {
                 <h3>Home Health Services</h3>
                 <p className="service-description">
                   Skilled nursing care delivered by experienced professionals right in the comfort of your home. 
-                  Our team provides comprehensive medical support for adults with independence.
                 </p>
               </div>
             </div>
