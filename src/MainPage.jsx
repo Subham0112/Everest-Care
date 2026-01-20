@@ -230,9 +230,6 @@ export default function Content() {
                   Skilled nursing care delivered by experienced professionals right in the comfort of your home. 
                   Our team provides comprehensive medical support for adults with independence.
                 </p>
-                <div className="service-badge">
-                  <span>Professional Care</span>
-                </div>
               </div>
             </div>
 
@@ -250,9 +247,6 @@ export default function Content() {
                   Compassionate daily support to help with personal care, mobility, and everyday living while maintaining 
                   dignity and independence.
                 </p>
-                <div className="service-badge">
-                  <span>Daily Support</span>
-                </div>
               </div>
             </div>
 
@@ -269,9 +263,6 @@ export default function Content() {
                   Specialized support for adults with developmental and physical challenges, focused on 
                   dignity, independence, and quality of life.
                 </p>
-                <div className="service-badge">
-                  <span>Specialized Care</span>
-                </div>
               </div>
             </div>
           </div>
