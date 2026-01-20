@@ -84,7 +84,7 @@ const Policy = () => {
 
         <div className='container policy-contact mt-3 px-4 pb-5'>
           <div className='py-3 text-center'>
-            <p className='h5 bg-secondary bg-opacity-25 d-inline-block px-4 py-3 rounded shadow-sm'>
+            <p className='h5 policy-text bg-secondary bg-opacity-25 d-inline-block px-4 py-3 rounded shadow-sm'>
               Complaints of discrimination may also be made to the following agencies:
             </p>
           </div>
