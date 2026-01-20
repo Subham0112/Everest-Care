@@ -180,23 +180,26 @@
 }
 
 .hour-item {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 300px;
   gap: 12px;
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 6px;
+  /* border-bottom: 2px solid #ffffff6e; */
+  /* background: rgba(255, 255, 255, 0.5); */
+  /* border-radius: 6px; */
   transition: all 0.25s ease;
   align-items: center;
 }
+b
 
-.hour-item:hover {
+/* .hour-item:hover {
   background: rgba(255, 255, 255, 0.7);
   transform: translateX(3px);
-}
+} */
 
 .hour-item.weekend {
-  background: rgba(200, 200, 200, 0.25);
+  /* background: rgba(200, 200, 200, 0.25); */
   opacity: 0.9;
 }
 
@@ -210,15 +213,15 @@
   font-weight: 600;
   color: #074e52;
   font-size: 12px;
-  background: rgba(0, 180, 216, 0.2);
+  /* background: rgba(0, 180, 216, 0.2); */
   padding: 4px 10px;
   border-radius: 12px;
   white-space: nowrap;
 }
 
 .hour-item.weekend .time {
-  background: rgba(150, 150, 150, 0.25);
-  color: #666;
+  /* background: rgba(150, 150, 150, 0.25); */
+  color: #3a39399d;
 }
 
 .hours-note {
