@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
         {/* ---- Hours of Operation ---- */}
         <div className="footer-hours">
-          <h4><FaClock className="header-icon" /> Hours of Operation</h4>
+          <h4>Hours of Operation</h4>
           <div className="hours-list">
             <div className="hour-item">
               <span className="day">Monday - Friday</span>
@@ -38,9 +38,6 @@ export default function Footer() {
               <span className="time">Closed</span>
             </div>
           </div>
-          <p className="hours-note">
-            <strong>Note:</strong> For emergencies, please contact us directly
-          </p>
         </div>
 
 
