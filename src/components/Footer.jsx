@@ -21,6 +21,22 @@ export default function Footer() {
             you or your loved ones live comfortably and independently.
           </p>
         </div>
+         <div className="footer-contact">
+          <h4>Contact Us</h4>
+          <p><FaMapMarkerAlt className="footer-icon" /> 109 Dewalt Ave Suite 201, Pittsburgh, PA 15227</p>
+          <p><FaMapMarkerAlt className="footer-icon" /> 2800 W 21st St, Erie, PA 16506, USA</p>
+          <p><FaMapMarkerAlt className="footer-icon" /> 3425 Simpson Ferry Rd, Camp Hill, PA 17011, USA</p>
+          <p><FaMapMarkerAlt className="footer-icon" /> 4037 E Independence Blvd, Charlotte, NC 28205, USA</p>
+          <p><FaEnvelope className="footer-icon" /> everesthomecarellc@gmail.com</p>
+          <p><FaPhoneAlt className="footer-icon" /> (412) 207-7383</p>
+          
+          {/* ---- Social Media ---- */}
+        
+        </div>
+        
+       </div>
+        {/* ---- Contact Info ---- */}
+       
         {/* ---- Hours of Operation ---- */}
         <div className="footer-hours">
           <h4>Hours of Operation</h4>
@@ -58,18 +74,6 @@ export default function Footer() {
             <a href="/policy">Non-Discrimination Policy</a>
           </div>
         </div>
-       </div>
-        {/* ---- Contact Info ---- */}
-        <div className="footer-contact">
-          <h4>Contact Us</h4>
-          <p><FaMapMarkerAlt className="footer-icon" /> 109 Dewalt Ave Suite 201, Pittsburgh, PA 15227</p>
-          <p><FaMapMarkerAlt className="footer-icon" /> 2800 W 21st St, Erie, PA 16506, USA</p>
-          <p><FaMapMarkerAlt className="footer-icon" /> 3425 Simpson Ferry Rd, Camp Hill, PA 17011, USA</p>
-          <p><FaMapMarkerAlt className="footer-icon" /> 4037 E Independence Blvd, Charlotte, NC 28205, USA</p>
-          <p><FaEnvelope className="footer-icon" /> everesthomecarellc@gmail.com</p>
-          <p><FaPhoneAlt className="footer-icon" /> (412) 207-7383</p>
-          
-          {/* ---- Social Media ---- */}
           <div className="footer-social-inline">
             <h4>Follow Us</h4>
             <div className="social-icons">
@@ -79,7 +83,6 @@ export default function Footer() {
               <a href="#" aria-label="LinkedIn"><FaLinkedinIn /></a>
             </div>
           </div>
-        </div>
         
       </div>
 

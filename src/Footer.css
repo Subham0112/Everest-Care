@@ -361,9 +361,7 @@ b
     padding: 12px 14px;
   }
 
-  .footer-hours {
-    padding: 15px;
-  }
+ 
 
   .footer-hours h4 {
     font-size: 1rem;
@@ -431,9 +429,7 @@ b
     font-size: 10px;
   }
 
-  .footer-hours {
-    padding: 12px;
-  }
+
 
   .hour-item {
     grid-template-columns: 1fr auto;
