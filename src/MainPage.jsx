@@ -50,6 +50,18 @@ export default function Content() {
     gallery_5,
  
   ];
+  const countyServe = [
+    "Allegheny",
+    "Armstrong",
+    "Beaver",
+    "Fayette",
+    "Greene", 
+    "Washington",
+    "Westmoreland",
+    "Adams"
+   ];
+    const duplicatedCounties = [...countyServe, ...countyServe, ...countyServe];
+
 
 
   return (
@@ -237,6 +249,94 @@ export default function Content() {
         </div>
       </div>
     </section>
+    {/* county serve section */}
+     <section className="county-serve-scroll">
+      <div className="county-scroll-container">
+        <div className="county-header">
+          <h3 className="county-title">Counties We Serve</h3>
+          <p className="county-subtitle">
+            Providing exceptional care across Pennsylvania and beyond
+          </p>
+        </div>
+
+        <div className="scroll-wrapper">
+          {/* Gradient overlays for fade effect */}
+          <div className="fade-left"></div>
+          <div className="fade-right"></div>
+
+          {/* Scrolling container */}
+          <div className="scroll-track">
+            <div className="scroll-content">
+              {duplicatedCounties.map((county, index) => (
+                <div key={`${county}-${index}`} className="county-block">
+                  {/* Top accent bar */}
+                  <div className="county-accent"></div>
+                  
+                  <div className="county-inner">
+                    {/* Icon */}
+                    <div className="county-icon-wrapper">
+                      <svg 
+                        className="county-icon" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2.5} 
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" 
+                        />
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2.5} 
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" 
+                        />
+                      </svg>
+                    </div>
+
+                    {/* County name */}
+                    <h4 className="county-name">{county}</h4>
+                    
+                    <p className="county-label">County</p>
+
+                    {/* Decorative element */}
+                    <div className="county-divider"></div>
+
+                    {/* Service badge */}
+                    <div className="service-badge">
+                      <svg 
+                        className="badge-icon" 
+                        fill="currentColor" 
+                        viewBox="0 0 20 20"
+                      >
+                        <path 
+                          fillRule="evenodd" 
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" 
+                          clipRule="evenodd" 
+                        />
+                      </svg>
+                      <span>Serving</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Service note */}
+        <div className="service-note">
+          <div className="note-badge">
+            <svg className="note-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>Proudly serving 8 counties with compassionate care</span>
+          </div>
+        </div>
+      </div>
+      </section>
 {/* care section */}
       <section className="care-section py-5">
       <div className="container">
@@ -408,9 +508,6 @@ export default function Content() {
         </form>
       </div>
     </section>
-
-
-
 
     <Footer />
     </div>

@@ -1,5 +1,5 @@
 .footer {
-   background: linear-gradient(135deg, #c7f8fa, #2a9494);
+  background: linear-gradient(135deg, #c7f8fa, #2a9494);
   color: #000000;
   padding-top: 50px;
   font-size: 15px;
@@ -9,34 +9,109 @@
   max-width: 1200px;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 40px;
   padding: 0 20px 40px;
 }
 
-/* Logo + About */
+/* ------------------------------------------------------ */
+/* LOGO + SLOGAN + ABOUT                                  */
+/* ------------------------------------------------------ */
+
+.footer-about {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.logo-slogan{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .footer-about img.footer-logo {
-  max-width: 160px;
-  margin-bottom: 15px;
+  /* max-width: 120px; */
+  background-color: #ffffff;
+  border-radius: 50%;
+  /* padding: 5px; */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.footer-about p {
+/* Slogan Styling - Simplified */
+.footer-slogan {
+  position : relative;
+  font-style: italic;
+  max-height: 70px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.footer-slogan::after{
+  content: "''";
+  position: absolute;
+  bottom: 30px;
+  left: 0px;
+  font-style: italic; 
+  font-family:Georgia, 'Times New Roman', Times, serif;
+
+  font-size: 35px;
+  color:rgb(4, 100, 92);
+}
+/* .footer-slogan::before{
+  content: "''";
+  position: absolute;
+  top: 45px;
+  right: 5px;
+  font-style: italic;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size: 40px;
+  color:rgb(4, 100, 92);
+} */
+
+.slogan-main {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0a5a5d;
+  margin: 0 0 5px 0;
+  letter-spacing: 0.3px;
+}
+
+.slogan-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: #074e52;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.footer-description {
   color: #0d0d0e;
   line-height: 1.6;
+  margin-top: 4px;
+  font-size: 14px;
 }
 
-/* Quick Links */
+/* ------------------------------------------------------ */
+/* QUICK LINKS                                            */
+/* ------------------------------------------------------ */
+
 .footer-links h4,
 .footer-contact h4,
-.footer-social h4 {
-  color: #2c2b2b;
+.footer-hours h4 {
+  color: #0a5a5d;
   font-size: 1.1rem;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
 }
 
 .footer-links ul {
   list-style: none;
   padding: 0;
+  margin-bottom: 25px;
 }
 
 .footer-links ul li {
@@ -46,69 +121,325 @@
 .footer-links ul li a {
   color: #2a2a2b;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: all 0.3s;
+  display: inline-block;
+  padding: 2px 0;
+  font-size: 14px;
 }
 
 .footer-links ul li a:hover {
   color: #ffffff;
+  padding-left: 5px;
 }
 
-.footer-policy a{
+.footer-policy {
+  margin-top: 10px;
+}
+
+.footer-policy h4 {
+  margin-bottom: 10px;
+}
+
+.footer-policy a {
   color: #23035f;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: all 0.3s;
   font-weight: 600;
-}
-.footer-policy{
-  line-height: 1.2px;
-}
-.footer-policy a:hover {
-  color: #d1f5ed;
-}
-/* Contact */
-.footer-contact p {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  color: #1c1c1d;
+  display: inline-block;
+  padding: 5px 0;
+  font-size: 14px;
 }
 
-.footer-icon {
-  color: #00b4d8; /* accent light blue */
+.footer-policy a:hover {
+  color: #d1f5ed;
+  padding-left: 5px;
+}
+
+/* ------------------------------------------------------ */
+/* HOURS OF OPERATION - Compact Design                    */
+/* ------------------------------------------------------ */
+
+
+
+.footer-hours h4 {
+  color: #0a5a5d;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.header-icon {
+  color: #00b4d8;
   font-size: 18px;
 }
 
-/* Social Icons */
-.footer-social .social-icons {
+.hours-list {
   display: flex;
-  gap: 12px;
-  margin-bottom: 25px;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
-.footer-social .social-icons a {
-  width: 36px;
-  height: 36px;
+.hour-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  transition: all 0.25s ease;
+  align-items: center;
+}
+
+.hour-item:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateX(3px);
+}
+
+.hour-item.weekend {
+  background: rgba(200, 200, 200, 0.25);
+  opacity: 0.9;
+}
+
+.hour-item .day {
+  font-weight: 600;
+  color: #0a5a5d;
+  font-size: 13px;
+}
+
+.hour-item .time {
+  font-weight: 600;
+  color: #074e52;
+  font-size: 12px;
+  background: rgba(0, 180, 216, 0.2);
+  padding: 4px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.hour-item.weekend .time {
+  background: rgba(150, 150, 150, 0.25);
+  color: #666;
+}
+
+.hours-note {
+  font-size: 11.5px;
+  color: #0a5a5d;
+  font-style: italic;
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  border-left: 3px solid #00b4d8;
+  line-height: 1.4;
+}
+
+.hours-note strong {
+  color: #074e52;
+}
+
+/* ------------------------------------------------------ */
+/* CONTACT                                                */
+/* ------------------------------------------------------ */
+
+.footer-contact p {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #1c1c1d;
+  line-height: 1.5;
+  font-size: 13.5px;
+}
+
+.footer-icon {
+  color: #00b4d8;
+  font-size: 15px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------ */
+/* SOCIAL MEDIA (INLINE WITH CONTACT)                     */
+/* ------------------------------------------------------ */
+
+.footer-social-inline {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.footer-social-inline h4 {
+  color: #0a5a5d;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.footer-social-inline .social-icons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-social-inline .social-icons a {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: #578dd4;
+  background: rgba(87, 141, 212, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #1a1b1b;
   transition: all 0.3s ease;
   font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
-.footer-social .social-icons a:hover {
+.footer-social-inline .social-icons a:hover {
   background: #00b4d8;
   color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.35);
 }
 
-/* Bottom Bar */
+/* ------------------------------------------------------ */
+/* BOTTOM BAR                                             */
+/* ------------------------------------------------------ */
+
 .footer-bottom {
   text-align: center;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding: 15px 20px;
   font-size: 14px;
   color: #1e1e1f;
+}
+
+.footer-bottom strong {
+  color: #0a5a5d;
+}
+
+/* ------------------------------------------------------ */
+/* RESPONSIVE DESIGN                                      */
+/* ------------------------------------------------------ */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer {
+    padding-top: 35px;
+    font-size: 14px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 0 15px 30px;
+  }
+
+  .footer-about img.footer-logo {
+    max-width: 100px;
+  }
+
+  .slogan-main {
+    font-size: 14px;
+  }
+
+  .slogan-sub {
+    font-size: 11px;
+  }
+
+  .footer-slogan {
+    padding: 12px 14px;
+  }
+
+  .footer-hours {
+    padding: 15px;
+  }
+
+  .footer-hours h4 {
+    font-size: 1rem;
+  }
+
+  .hour-item {
+    padding: 7px 10px;
+    gap: 8px;
+  }
+
+  .hour-item .day {
+    font-size: 12.5px;
+  }
+
+  .hour-item .time {
+    font-size: 11.5px;
+    padding: 3px 8px;
+  }
+
+  .hours-note {
+    font-size: 11px;
+    padding: 7px 8px;
+  }
+
+  .footer-contact p {
+    font-size: 13px;
+  }
+
+  .footer-links h4,
+  .footer-contact h4 {
+    font-size: 1rem;
+  }
+
+  .footer-social-inline .social-icons a {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
+
+  .footer-bottom {
+    font-size: 13px;
+    padding: 12px 15px;
+  }
+}
+
+/* Very Small Mobile */
+@media (max-width: 480px) {
+  .footer {
+    padding-top: 30px;
+  }
+
+  .footer-container {
+    gap: 20px;
+  }
+
+  .footer-about img.footer-logo {
+    max-width: 90px;
+  }
+
+  .slogan-main {
+    font-size: 13px;
+  }
+
+  .slogan-sub {
+    font-size: 10px;
+  }
+
+  .footer-hours {
+    padding: 12px;
+  }
+
+  .hour-item {
+    grid-template-columns: 1fr auto;
+    gap: 6px;
+  }
+
+  .footer-links h4,
+  .footer-contact h4,
+  .footer-hours h4 {
+    font-size: 0.95rem;
+  }
 }

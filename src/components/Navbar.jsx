@@ -56,18 +56,22 @@ const Navbar = () => {
           <span></span>
         </div>
 
-        <div className="logo">
-          <img src={logo} height={60} width={70} alt="Everest Home Care" />
+        <div className="logo-container">
+          <div className="logo">
+            <img src={logo} height={50} width={60} alt="Everest Home Care" />
+          </div>
+          <div className="slogan">
+            <span className="slogan-text">Care you can trust,</span>
+            <span className="slogan-subtext">from home health to home care and ODP</span>
+          </div>
         </div>
 
         <div className="nav-links text-base">
           <a href="/">Home</a>
-          <a href="/#whyus">Why Us</a>
           <a href="/#about">About</a>
           <a href="/#mission">Missions</a>
           <a href="/#services">Services</a>
           <a href="/#gallery">Gallery</a>
-          <a href="/policy">Policy</a>
           <a href="/#contact">Contact</a>
 
           {/* ⭐ Custom Dropdown */}
@@ -98,12 +102,10 @@ const Navbar = () => {
         <a href="/" onClick={toggleSidebar}>
           Home
         </a>
-        <a href="/#whyus" onClick={toggleSidebar}>Why Us</a>
           <a href="/#about" onClick={toggleSidebar}>About</a>
           <a href="/#mission" onClick={toggleSidebar}>Mission & Values</a>
           <a href="/#services" onClick={toggleSidebar}>Services</a>
           <a href="/#gallery" onClick={toggleSidebar}>Gallery</a>
-          <a href="/policy" onClick={toggleSidebar}>Policy</a>
           <a href="/#contact" onClick={toggleSidebar}>Contact</a>
 
         {/* ⭐ Sidebar dropdown */}
