@@ -182,7 +182,7 @@
 .hour-item {
   display: flex;
   justify-content: space-between;
-  max-width: 300px;
+  max-width: 240px;
   gap: 12px;
   padding: 8px 12px;
   /* border-bottom: 2px solid #ffffff6e; */
@@ -221,7 +221,8 @@ b
 
 .hour-item.weekend .time {
   /* background: rgba(150, 150, 150, 0.25); */
-  color: #3a39399d;
+  color: rgba(58, 57, 57, 0.616);;
+  margin-right: 17px;
 }
 
 .hours-note {
