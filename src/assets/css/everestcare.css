@@ -311,73 +311,309 @@
   margin-bottom: 1rem;
 }
 
-/* SERVICES SECTION */
-.home-care-page .services-section {
-  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
-  padding: 30px 20px 50px 20px;
-}
+/* Service Section */
+.services-wrapper {
+          background: linear-gradient(135deg, #f5faff, #e9f3ff);
+          padding: 60px 20px;
+        }
 
-.home-care-page .services-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
+        .services-section .container {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
 
-.home-care-page .services-title {
-  font-size: 1.8rem;
-  color: #37eaf7;
-  margin-bottom: 10px;
-}
+        .services-header {
+          text-align: center;
+          max-width: 800px;
+          margin: 0 auto 50px;
+        }
 
-.home-care-page .services-subtitle {
-  font-size: 1.1rem;
-  color: #555;
-  max-width: 700px;
-  margin: 0 auto 40px;
-}
+        .services-header h2 {
+          font-size: 2.2rem;
+          font-weight: 700;
+          color: #2ee6f3;
+          margin-bottom: 15px;
+        }
 
-.home-care-page .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-}
+        .services-header p {
+          font-size: 1.05rem;
+          color: #555;
+          line-height: 1.6;
+        }
 
-.home-care-page .service-card {
-  background: #fff !important;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: left;
-}
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 30px;
+          margin-bottom: 50px;
+          max-width: 1400px;
+          margin-left: auto;
+          margin-right: auto;
+        }
 
-.home-care-page .service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-}
+        .service-card {
+          background: #ffffff;
+          border-radius: 20px;
+          padding: 35px 25px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+          transition: all 0.4s ease;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          border: 2px solid transparent;
+        }
 
-.home-care-page .service-img-wrapper img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
+        .service-card:hover {
+          transform: translateY(-12px);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+          border-color: #2ee6f3;
+        }
 
-.home-care-page .service-content {
-  padding: 20px;
-}
+        .service-card.featured {
+          border-color: #2ee6f3;
+          background: linear-gradient(135deg, #ffffff, #f0fbfc);
+        }
 
-.home-care-page .service-content h3 {
-  font-size: 1.2rem;
-  color: #45f1f7;
-  margin-bottom: 10px;
-}
+        .featured-badge {
+          position: absolute;
+          top: -12px;
+          right: 20px;
+          background: linear-gradient(135deg, #2ee6f3, #1abc9c);
+          color: #ffffff;
+          padding: 6px 18px;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          box-shadow: 0 4px 12px rgba(46, 230, 243, 0.3);
+        }
 
-.home-care-page .service-content p {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.5;
-}
+        .service-icon-wrapper {
+          text-align: center;
+          margin-bottom: 25px;
+        }
 
+        .service-icon-circle {
+          width: 90px;
+          height: 90px;
+          background: linear-gradient(135deg, #e3f9fc, #c8f3f7);
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.4s ease;
+          box-shadow: 0 4px 15px rgba(46, 230, 243, 0.2);
+        }
+
+        .service-card:hover .service-icon-circle {
+          background: linear-gradient(135deg, #2ee6f3, #1abc9c);
+          transform: scale(1.1) rotate(10deg);
+        }
+
+        .service-icon {
+          font-size: 2.5rem;
+          color: #2ee6f3;
+          transition: color 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+          color: #ffffff;
+        }
+
+        .service-content {
+          text-align: center;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .service-content h3 {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #2c3e50;
+          margin-bottom: 15px;
+          transition: color 0.3s ease;
+        }
+
+        .service-card:hover .service-content h3 {
+          color: #2ee6f3;
+        }
+
+        .service-description {
+          font-size: 0.95rem;
+          color: #666;
+          line-height: 1.6;
+          margin-bottom: 25px;
+          flex: 1;
+        }
+
+        
+
+        .check-icon {
+          color: #1abc9c;
+          font-size: 1rem;
+          flex-shrink: 0;
+        }
+
+        .service-badge {
+          text-align: center;
+          margin-top: auto;
+        }
+
+        .service-badge span {
+          display: inline-block;
+          background: linear-gradient(135deg, #e8f9fa, #d1f4f7);
+          color: #2ee6f3;
+          padding: 8px 20px;
+          border-radius: 25px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-badge span {
+          background: linear-gradient(135deg, #2ee6f3, #1abc9c);
+          color: #ffffff;
+        }
+
+        .services-cta {
+          background: linear-gradient(135deg, #2ee6f3, #1abc9c);
+          border-radius: 20px;
+          padding: 45px 30px;
+          text-align: center;
+          box-shadow: 0 10px 30px rgba(46, 230, 243, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .services-cta::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          right: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+          animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 0.5; }
+          50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .cta-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        .cta-content h3 {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: #ffffff;
+          margin-bottom: 12px;
+        }
+
+        .cta-content p {
+          font-size: 1.05rem;
+          color: #ffffff;
+          margin-bottom: 25px;
+          opacity: 0.95;
+        }
+
+        .cta-button {
+          background: #ffffff;
+          color: #2ee6f3;
+          padding: 14px 40px;
+          font-size: 1rem;
+          font-weight: 600;
+          border: none;
+          border-radius: 30px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+          background: #f8fbfc;
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+          .services-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+          }
+
+          .services-header h2 {
+            font-size: 1.8rem;
+          }
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+            grid-template-columns: 1/2fr;
+            gap: 25px;
+          }
+          .services-wrapper {
+            padding: 40px 15px;
+          }
+
+          .services-header {
+            margin-bottom: 35px;
+          }
+
+          .services-header h2 {
+            font-size: 1.6rem;
+          }
+
+          .services-header p {
+            font-size: 0.95rem;
+          }
+
+          .service-card {
+            padding: 30px 20px;
+          }
+
+          .services-cta {
+            padding: 35px 20px;
+          }
+
+          .cta-content h3 {
+            font-size: 1.5rem;
+          }
+
+          .cta-content p {
+            font-size: 0.95rem;
+          }
+        }
+
+        @media (max-width: 576px) {
+          .service-icon-circle {
+            width: 75px;
+            height: 75px;
+          }
+            .services-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+          }
+
+          .service-icon {
+            font-size: 2rem;
+          }
+
+          .service-content h3 {
+            font-size: 1.3rem;
+          }
+
+          .cta-button {
+            width: 100%;
+            max-width: 280px;
+          }
+        }
 /* County Serve */
 .county-serve-scroll {
   background: linear-gradient(135deg, #f5faff, #e9f3ff);

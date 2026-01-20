@@ -4,6 +4,8 @@ import Footer from "./components/Footer"
 import './assets/css/everestcare.css';
 
 import { FaHome, FaUserNurse,FaDotCircle, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import {FaHandHoldingHeart, FaCheckCircle } from "react-icons/fa";
+
 import { FaBullseye,FaEye, FaUsers, FaLightbulb } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import aboutImg from "./assets/img/about.jpg";
@@ -19,28 +21,7 @@ import transportationImg from "./assets/img/transportation.jpg";
 
 
 export default function Content() {
-  const services = [
-  {
-    img: personalCareImg,
-    title: "Personal Care",
-    desc: "Our personal care services are tailored to meet the unique needs of each client, ensuring dignity and comfort every day."
-  },
-  {
-    img: housekeepingImg,
-    title: "Housekeeping",
-    desc: "We create a clean, comfortable, and hygienic living space so our clients can enjoy a safe and relaxing home environment."
-  },
-  {
-    img: companionshipImg,
-    title: "Companionship",
-    desc: "Companionship care to reduce loneliness, encourage social interaction, and help maintain emotional well-being."
-  },
-  {
-    img: transportationImg,
-    title: "Transportation",
-    desc: "Safe and reliable transportation for appointments, errands, or social outings, keeping clients active and connected."
-  }
-];
+
   const images = [
     personalCareImg,
     companionshipImg,
@@ -225,30 +206,88 @@ export default function Content() {
         </div>
       </div>
     </section>
-
+{/* Services section */}
+<div className="services-wrapper">
       <section className="services-section" id="services">
-      <div className="services-container">
-        <h2 className="services-title">Our Services</h2>
-        <p className="services-subtitle">
-          We provide a range of personalized care services to support independence, comfort,
-          and well-being for our clients.
-        </p>
+        <div className="container">
+          {/* Header */}
+          <div className="services-header">
+            <h2>Our Services</h2>
+          </div>
 
-        <div className="services-grid">
-          {services.map((service, index) => (
-            <div className="service-card" key={index}>
-              <div className="service-img-wrapper">
-                <img src={service.img} alt={service.title} />
+          {/* Services Grid */}
+          <div className="services-grid">
+            {/* Home Health Services */}
+            <div className="service-card">
+              <div className="service-icon-wrapper">
+                <div className="service-icon-circle">
+                  <FaUserNurse className="service-icon" />
+                </div>
               </div>
               <div className="service-content">
-                <h3>{service.title}</h3>
-                <p>{service.desc}</p>
+                <h3>Home Health Services</h3>
+                <p className="service-description">
+                  Skilled nursing care delivered by experienced professionals right in the comfort of your home. 
+                  Our team provides comprehensive medical support for adults with independence.
+                </p>
+                <div className="service-badge">
+                  <span>Professional Care</span>
+                </div>
               </div>
             </div>
-          ))}
+
+            {/* Home Care Services */}
+            <div className="service-card featured">
+              <div className="featured-badge">Most Popular</div>
+              <div className="service-icon-wrapper">
+                <div className="service-icon-circle">
+                  <FaHome className="service-icon" />
+                </div>
+              </div>
+              <div className="service-content">
+                <h3>Home Care Services</h3>
+                <p className="service-description">
+                  Compassionate daily support to help with personal care, mobility, and everyday living while maintaining 
+                  dignity and independence.
+                </p>
+                <div className="service-badge">
+                  <span>Daily Support</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ODP Services */}
+            <div className="service-card">
+              <div className="service-icon-wrapper">
+                <div className="service-icon-circle">
+                  <FaHandHoldingHeart className="service-icon" />
+                </div>
+              </div>
+              <div className="service-content">
+                <h3>ODP Services (Adults 21+)</h3>
+                <p className="service-description">
+                  Specialized support for adults with developmental and physical challenges, focused on 
+                  dignity, independence, and quality of life.
+                </p>
+                <div className="service-badge">
+                  <span>Specialized Care</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="services-cta">
+            <div className="cta-content">
+              <h3>Need a Custom Care Plan?</h3>
+              <p>Every individual has unique needs. Let us create a personalized care plan for your loved one.</p>
+              <button className="cta-button">Contact Us Today</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
+     
     {/* county serve section */}
      <section className="county-serve-scroll">
       <div className="county-scroll-container">

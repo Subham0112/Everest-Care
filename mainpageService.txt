@@ -1,0 +1,115 @@
+ 
+   const services = [
+  {
+    img: personalCareImg,
+    title: "Personal Care",
+    desc: "Our personal care services are tailored to meet the unique needs of each client, ensuring dignity and comfort every day."
+  },
+  {
+    img: housekeepingImg,
+    title: "Housekeeping",
+    desc: "We create a clean, comfortable, and hygienic living space so our clients can enjoy a safe and relaxing home environment."
+  },
+  {
+    img: companionshipImg,
+    title: "Companionship",
+    desc: "Companionship care to reduce loneliness, encourage social interaction, and help maintain emotional well-being."
+  },
+  {
+    img: transportationImg,
+    title: "Transportation",
+    desc: "Safe and reliable transportation for appointments, errands, or social outings, keeping clients active and connected."
+  }
+];
+ 
+ {/* <section className="services-section" id="services">
+      <div className="services-container">
+        <h2 className="services-title">Our Services</h2>
+        <p className="services-subtitle">
+          We provide a range of personalized care services to support independence, comfort,
+          and well-being for our clients.
+        </p>
+
+        <div className="services-grid">
+          {services.map((service, index) => (
+            <div className="service-card" key={index}>
+              <div className="service-img-wrapper">
+                <img src={service.img} alt={service.title} />
+              </div>
+              <div className="service-content">
+                <h3>{service.title}</h3>
+                <p>{service.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section> */}
+
+
+    /* SERVICES SECTION */
+.home-care-page .services-section {
+  background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
+  padding: 30px 20px 50px 20px;
+}
+
+.home-care-page .services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-care-page .services-title {
+  font-size: 1.8rem;
+  color: #37eaf7;
+  margin-bottom: 10px;
+}
+
+.home-care-page .services-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+
+.home-care-page .services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.home-care-page .service-card {
+  background: #fff !important;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+}
+
+.home-care-page .service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.home-care-page .service-img-wrapper img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.home-care-page .service-content {
+  padding: 20px;
+}
+
+.home-care-page .service-content h3 {
+  font-size: 1.2rem;
+  color: #45f1f7;
+  margin-bottom: 10px;
+}
+
+.home-care-page .service-content p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
