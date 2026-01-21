@@ -31,7 +31,7 @@ export default function Content() {
     gallery_5,
  
   ];
-  const countyServe = [
+  const PittsburghcountyServe = [
     "Allegheny",
     "Armstrong",
     "Beaver",
@@ -39,10 +39,35 @@ export default function Content() {
     "Greene", 
     "Washington",
     "Westmoreland",
-    "Adams"
+    "Adams",
+    "Cumberland",
+    "Dauphin",
+    "Franklin",
+    "Lancaster",
+    "Lebanon",
+    "Perry",
+    "York"
    ];
-    const duplicatedCounties = [...countyServe, ...countyServe, ...countyServe];
-
+  const EriecountyServe = [
+    "Buttler",
+    "Cameron",
+    "Clarion",
+    "Clearfield",
+    "Crawford", 
+    "Washington",
+    "Elk",
+    "Erie",
+    "Forest",
+    "Jefferson",
+    "Lawrence",
+    "McKean",
+    "Mercer",
+    "Potter",
+    "Vennango",
+    "Warren"
+   ];
+    const duplicatedCounties = [...PittsburghcountyServe, ...PittsburghcountyServe, ...PittsburghcountyServe];
+    const duplicatedCounties2 = [...EriecountyServe, ...EriecountyServe, ...EriecountyServe];
 
 
   return (
@@ -233,8 +258,7 @@ export default function Content() {
             </div>
 
             {/* Home Care Services */}
-            <div className="service-card featured">
-              <div className="featured-badge">Most Popular</div>
+            <div className="service-card">
               <div className="service-icon-wrapper">
                 <div className="service-icon-circle">
                   <FaHome className="service-icon" />
@@ -243,8 +267,7 @@ export default function Content() {
               <div className="service-content">
                 <h3>Home Care Services</h3>
                 <p className="service-description">
-                  Compassionate daily support to help with personal care, mobility, and everyday living while maintaining 
-                  dignity and independence.
+                  Compassionate daily support to help with personal care, mobility, and everyday living while maintaining dignity and independence.
                 </p>
               </div>
             </div>
@@ -289,6 +312,7 @@ export default function Content() {
         </div>
 
         <div className="scroll-wrapper">
+           <h2>Pittsburgh & Harrisburgh Approved</h2>
           {/* Gradient overlays for fade effect */}
           <div className="fade-left"></div>
           <div className="fade-right"></div>
@@ -354,6 +378,82 @@ export default function Content() {
             </div>
           </div>
         </div>
+         <div className="service-note">
+          <div className="note-badge">
+            <svg className="note-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>Proudly serving {PittsburghcountyServe.length} counties with compassionate care</span>
+          </div>
+        </div>
+
+        <div className="scroll-wrapper mt-5">
+          <h2>Erie Approved</h2>
+          {/* Gradient overlays for fade effect */}
+          <div className="fade-left"></div>
+          <div className="fade-right"></div>
+
+          {/* Scrolling container */}
+          <div className="scroll-track">
+            <div className="scroll-content">
+              {duplicatedCounties2.map((county, index) => (
+                <div key={`${county}-${index}`} className="county-block">
+                  {/* Top accent bar */}
+                  <div className="county-accent"></div>
+                  
+                  <div className="county-inner">
+                    {/* Icon */}
+                    <div className="county-icon-wrapper">
+                      <svg 
+                        className="county-icon" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2.5} 
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" 
+                        />
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2.5} 
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" 
+                        />
+                      </svg>
+                    </div>
+
+                    {/* County name */}
+                    <h4 className="county-name">{county}</h4>
+                    
+                    <p className="county-label">County</p>
+
+                    {/* Decorative element */}
+                    <div className="county-divider"></div>
+
+                    {/* Service badge */}
+                    <div className="service-badge">
+                      <svg 
+                        className="badge-icon" 
+                        fill="currentColor" 
+                        viewBox="0 0 20 20"
+                      >
+                        <path 
+                          fillRule="evenodd" 
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" 
+                          clipRule="evenodd" 
+                        />
+                      </svg>
+                      <span>Serving</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Service note */}
         <div className="service-note">
@@ -361,7 +461,7 @@ export default function Content() {
             <svg className="note-icon" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span>Proudly serving 8 counties with compassionate care</span>
+            <span>Proudly serving {EriecountyServe.length} counties with compassionate care</span>
           </div>
         </div>
       </div>

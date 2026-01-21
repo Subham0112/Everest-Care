@@ -367,27 +367,11 @@
           transform: translateY(-12px);
           box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
           border-color: #2ee6f3;
+          cursor: pointer;
         }
 
-        .service-card.featured {
-          border-color: #2ee6f3;
-          background: linear-gradient(135deg, #ffffff, #f0fbfc);
-        }
 
-        .featured-badge {
-          position: absolute;
-          top: -12px;
-          right: 20px;
-          background: linear-gradient(135deg, #2ee6f3, #1abc9c);
-          color: #ffffff;
-          padding: 6px 18px;
-          border-radius: 20px;
-          font-size: 0.75rem;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          box-shadow: 0 4px 12px rgba(46, 230, 243, 0.3);
-        }
+
 
         .service-icon-wrapper {
           text-align: center;
@@ -628,7 +612,7 @@
 
 .county-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .county-title {
@@ -648,6 +632,16 @@
   position: relative;
   margin: 0 auto;
 }
+.scroll-wrapper h2{
+  position: relative;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2ee6f3;
+  text-transform: capitalize;
+}
+
 
 .fade-left,
 .fade-right {
