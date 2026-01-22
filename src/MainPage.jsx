@@ -4,7 +4,7 @@ import Footer from "./components/Footer"
 import './assets/css/everestcare.css';
 
 import { FaHome, FaUserNurse,FaDotCircle, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
-import {FaHandHoldingHeart, FaCheckCircle } from "react-icons/fa";
+import {FaHandHoldingHeart, FaClock } from "react-icons/fa";
 
 import { FaBullseye,FaEye, FaUsers, FaLightbulb } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
@@ -116,25 +116,42 @@ export default function Content() {
         </div>
 
         {/* Cards */}
+    
+     {/* Cards */}
         <div className="whyus-cards">
           <div className="card">
+            <div className="card-icon-wrapper">
+              <div className="card-icon-circle">
+                <FaClock className="card-icon" />
+              </div>
+            </div>
             <h3>Hourly Home Care</h3>
             <p>
-              Hourly home care allows clients to hire our caregivers on an as-needed basis, Our caregivers enable clients to maintain their normal daily routines.
+              Hourly home care allows clients to hire our caregivers on an as-needed basis. Our caregivers enable clients to maintain their normal daily routines with flexible, personalized support.
             </p>
           </div>
 
           <div className="card">
+            <div className="card-icon-wrapper">
+              <div className="card-icon-circle">
+                <FaHome className="card-icon" />
+              </div>
+            </div>
             <h3>24-Hour Home Care</h3>
             <p>
-             24 hour home care provides around-the-clock care for those who are homebound due to physical or other limitations. Families enjoy peace of mind knowing that our caregivers are monitoring their family member diligently.
+              24-hour home care provides around-the-clock care for those who are homebound due to physical or other limitations. Families enjoy peace of mind knowing our caregivers are monitoring their loved ones diligently.
             </p>
           </div>
 
           <div className="card">
+            <div className="card-icon-wrapper">
+              <div className="card-icon-circle">
+                <FaHandHoldingHeart className="card-icon" />
+              </div>
+            </div>
             <h3>Specialized Home Care</h3>
             <p>
-              Specialized Home Care offers personalized assistance for individuals with specific medical conditions or unique care requirements. Our trained professionals deliver tailored support, ensuring your loved one receives the specialized attention they deserve..
+              Specialized Home Care offers personalized assistance for individuals with specific medical conditions or unique care requirements. Our trained professionals deliver tailored support, ensuring your loved one receives the specialized attention they deserve.
             </p>
           </div>
         </div>
