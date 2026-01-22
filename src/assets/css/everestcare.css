@@ -121,7 +121,7 @@
 /* WHY US SECTION */
 .home-care-page .whyus-section {
   position: relative;
-  padding: 4rem 2rem;
+  padding: 2.5rem 1rem;
   background: linear-gradient(135deg, #f0fbff 0%, #e3f7fa 50%, #f8fdff 100%);
   overflow: hidden;
 }
@@ -218,7 +218,7 @@
   padding: 2rem 2rem 1.2rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  text-align: left;
+  text-align: center;
   position: relative;
   border: 2px solid rgba(26, 188, 156, 0.1);
   overflow: hidden;
@@ -299,6 +299,7 @@
   color: #1e3a5f;
   position: relative;
   z-index: 1;
+  text-align: center;
   transition: color 0.3s ease;
 }
 
@@ -307,6 +308,7 @@
   color: #5a6c7d;
   line-height: 1.8;
   position: relative;
+  text-align: center;
   z-index: 1;
 }
 
@@ -345,7 +347,7 @@
 /* Responsive Design */
 @media (max-width: 992px) {
   .home-care-page .whyus-cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
     max-width: 600px;
   }
@@ -355,7 +357,7 @@
   }
   
   .home-care-page .whyus-section {
-    padding: 3.5rem 1.5rem;
+    padding: 2rem 0;
   }
 }
 
@@ -1827,4 +1829,80 @@
 
 .login-link:hover {
   text-decoration: underline;
+}
+
+
+/* ========================================
+   SCROLL REVEAL ANIMATIONS
+   ======================================== */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Direction variants */
+.scroll-reveal.from-left {
+  transform: translateX(-60px);
+}
+
+.scroll-reveal.from-right {
+  transform: translateX(60px);
+}
+
+.scroll-reveal.from-top {
+  transform: translateY(-60px);
+}
+
+.scroll-reveal.from-bottom {
+  transform: translateY(60px);
+}
+
+.scroll-reveal.visible.from-left,
+.scroll-reveal.visible.from-right,
+.scroll-reveal.visible.from-top,
+.scroll-reveal.visible.from-bottom {
+  transform: translate(0, 0);
+}
+
+/* Zoom effect */
+.scroll-reveal.zoom {
+  transform: scale(0.8);
+}
+
+.scroll-reveal.visible.zoom {
+  transform: scale(1);
+}
+
+/* Staggered animations */
+.scroll-reveal.delay-100 {
+  transition-delay: 0.1s;
+}
+
+.scroll-reveal.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.scroll-reveal.delay-300 {
+  transition-delay: 0.3s;
+}
+
+.scroll-reveal.delay-400 {
+  transition-delay: 0.4s;
+}
+
+/* Speed variants */
+.scroll-reveal.slow {
+  transition-duration: 1.2s;
+}
+
+.scroll-reveal.fast {
+  transition-duration: 0.5s;
 }

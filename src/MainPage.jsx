@@ -2,10 +2,9 @@ import React from "react";
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import './assets/css/everestcare.css';
-
+import { useScrollReveal } from "./hooks/useScrollReveal";
 import { FaHome, FaUserNurse,FaDotCircle, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import {FaHandHoldingHeart, FaClock } from "react-icons/fa";
-
 import { FaBullseye,FaEye, FaUsers, FaLightbulb } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import aboutImg from "./assets/img/about.jpg";
@@ -21,6 +20,7 @@ import transportationImg from "./assets/img/transportation.jpg";
 
 
 export default function Content() {
+  useScrollReveal();
 
   const images = [
     personalCareImg,
@@ -102,7 +102,7 @@ export default function Content() {
         </div>
       </div>
     </section>
- <section className="whyus-section container-fluid" id="whyus">
+ <section className="whyus-section container-fluid scroll-reveal" id="whyus">
       <div className="container">
         {/* WHY US Heading */}
         <div className="whyus-header">
@@ -119,7 +119,7 @@ export default function Content() {
     
      {/* Cards */}
         <div className="whyus-cards">
-          <div className="card">
+          <div className="card scroll-reveal delay-100" >
             <div className="card-icon-wrapper">
               <div className="card-icon-circle">
                 <FaClock className="card-icon" />
@@ -131,7 +131,7 @@ export default function Content() {
             </p>
           </div>
 
-          <div className="card">
+          <div className="card scroll-reveal delay-200">
             <div className="card-icon-wrapper">
               <div className="card-icon-circle">
                 <FaHome className="card-icon" />
@@ -143,7 +143,7 @@ export default function Content() {
             </p>
           </div>
 
-          <div className="card">
+          <div className="card scroll-reveal delay-300">
             <div className="card-icon-wrapper">
               <div className="card-icon-circle">
                 <FaHandHoldingHeart className="card-icon" />
@@ -158,7 +158,7 @@ export default function Content() {
       </div>
     </section>
 
-  <section className="about-section" id="about">
+  <section className="about-section scroll-reveal from-left" id="about">
       <div className="about-container">
         {/* LEFT CONTENT */}
         <div className="about-text">
@@ -171,7 +171,7 @@ export default function Content() {
           </p>
 
           <div className="about-cards">
-            <div className="about-card">
+            <div className="about-card scroll-reveal from-right delay-100">
               <div className="icon"><FaBullseye /></div>
               <div>
                 <h4>Objectives</h4>
@@ -179,7 +179,7 @@ export default function Content() {
               </div>
             </div>
 
-            <div className="about-card">
+            <div className="about-card scroll-reveal from-right delay-200">
               <div className="icon"><FaUsers /></div>
               <div>
                 <h4>Beneficiaries</h4>
@@ -187,7 +187,7 @@ export default function Content() {
               </div>
             </div>
 
-            <div className="about-card">
+            <div className="about-card scroll-reveal from-right delay-300">
               <div className="icon"><FaLightbulb /></div>
               <div>
                 <h4>Strategy</h4>
@@ -198,14 +198,14 @@ export default function Content() {
         </div>
 
         {/* RIGHT IMAGE */}
-        <div className="about-image">
+        <div className="about-image scroll-reveal from-left delay-400">
           <img src={aboutImg} alt="Everest Home Care" />
         </div>
       </div>
     </section>
   
 
- <section className="mission-section container-fluid px-3 pt-3 pb-5" id="mission">
+ <section className="mission-section container-fluid px-3 pt-3 pb-5 scroll-reveal" id="mission">
       <div className="container text-center ">
         {/* Mission Heading */}
         <div className="mission-header">
@@ -214,7 +214,7 @@ export default function Content() {
 
         {/* Cards */}
         <div className="whyus-cards">
-          <div className="card">
+          <div className="card scroll-reveal delay-100">
             <div className="d-flex justify-content-center w-100 gap-2">
             <FaBullseye className="icon" />
             <h3>Mission</h3>
@@ -226,7 +226,7 @@ export default function Content() {
           </div>
           </div>
 
-          <div className="card">
+          <div className="card scroll-reveal delay-200">
             <div className="d-flex justify-content-center w-100 gap-2">
             <FaEye className="icon" />
             <h3>Visions</h3>
@@ -236,7 +236,7 @@ export default function Content() {
             </p>
           </div>
 
-          <div className="card">
+          <div className="card  scroll-reveal delay-300">
             <div className="d-flex justify-content-center w-100 gap-2">
             <IoDiamondOutline className="icon" />
             <h3>Value</h3>
@@ -248,8 +248,9 @@ export default function Content() {
         </div>
       </div>
     </section>
+
 {/* Services section */}
-<div className="services-wrapper">
+<div className="services-wrapper scroll-reveal">
       <section className="services-section" id="services">
         <div className="container">
           {/* Header */}
@@ -319,7 +320,7 @@ export default function Content() {
     </div>
      
     {/* county serve section */}
-     <section className="county-serve-scroll">
+     <section className="county-serve-scroll scroll-reveal ">
       <div className="county-scroll-container">
         <div className="county-header">
           <h3 className="county-title">Counties We Serve</h3>
@@ -483,8 +484,10 @@ export default function Content() {
         </div>
       </div>
       </section>
+
+
 {/* care section */}
-      <section className="care-section py-5">
+      <section className="care-section scroll-reveal py-5">
       <div className="container">
         <div className="row g-4">
           {/* Live In Care */}
@@ -508,7 +511,7 @@ export default function Content() {
 
           {/* Our Caregivers */}
           <div className="col-md-6">
-            <div className="care-box p-4 rounded shadow-sm ">
+            <div className="care-box p-4 rounded shadow-sm  scroll-reveal from-right">
               <div className="d-flex align-items-center icon-container mb-3">
                 <div className="icon-circle me-3">
                   <FaUserNurse className="text-danger fs-3" />
@@ -529,7 +532,7 @@ export default function Content() {
     </section>
 
 
-    <section className="gallery-section" id="gallery">
+    <section className="gallery-section scroll-reveal zoom" id="gallery"> 
       <div className="text-center mb-4">
         <h2 className="gallery-title">Gallery</h2>
         <p className="gallery-subtitle">
@@ -573,7 +576,7 @@ export default function Content() {
       </div>
     </section>
 
-           <section className="contact-section" id="contact">
+           <section className="contact-section scroll-reveal" id="contact">
       {/* ----- HEADER ----- */}
       <div className="text-center mb-5">
         <h2 className="contact-title">Contact</h2>
