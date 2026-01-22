@@ -395,14 +395,6 @@ export default function Content() {
             </div>
           </div>
         </div>
-         <div className="service-note">
-          <div className="note-badge">
-            <svg className="note-icon" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <span>Proudly serving {PittsburghcountyServe.length} counties with compassionate care</span>
-          </div>
-        </div>
 
         <div className="scroll-wrapper mt-5">
           <h2>Erie Approved</h2>
@@ -473,14 +465,6 @@ export default function Content() {
         </div>
 
         {/* Service note */}
-        <div className="service-note">
-          <div className="note-badge">
-            <svg className="note-icon" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <span>Proudly serving {EriecountyServe.length} counties with compassionate care</span>
-          </div>
-        </div>
       </div>
       </section>
 {/* care section */}
