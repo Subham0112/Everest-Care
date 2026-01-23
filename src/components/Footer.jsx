@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="logo-slogan">
             <div className="footer-logo-container">
           <img src={logo} height={100} width={100} className="footer-logo" alt="Everest Home Care" />
-          <img src={logo2} height={80} width={80} className="footer-logo" alt="Everest Home Care" />
+          <img src={logo2} height={85} width={85} className="footer-logo" alt="Everest Home Care" />
           </div>
           <div className="footer-slogan">
             <p className="slogan-main">Care you can trust,</p>
