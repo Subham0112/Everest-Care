@@ -1,6 +1,6 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import "../Footer.css";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/Everest_logo.png";
 
 export default function Footer() {
   return (

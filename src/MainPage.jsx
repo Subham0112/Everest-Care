@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./components/Navbar"
+import FamilyTestimonials from './components/MainpageComponents/FamilyThoughts'; 
 import Footer from "./components/Footer"
 import './assets/css/everestcare.css';
 
@@ -8,7 +9,7 @@ import {FaHandHoldingHeart, FaClock } from "react-icons/fa";
 
 import { FaBullseye,FaEye, FaUsers, FaLightbulb } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
-import aboutImg from "./assets/img/about.jpg";
+import aboutVideo from "./assets/video/everest-video.mp4";
 import personalCareImg from "./assets/img/personal-care.jpg";
 import gallery_1 from "./assets/img/caring-1.jpg";
 import gallery_2 from "./assets/img/caring-2.jpg";
@@ -158,16 +159,13 @@ export default function Content() {
       </div>
     </section>
 
-  <section className="about-section" id="about">
+ <section className="about-section" id="about">
       <div className="about-container">
         {/* LEFT CONTENT */}
         <div className="about-text">
           <h2 className='fw-bold'>About Everest Home Care</h2>
           <p>
-            Everest Home Care respects the rights of individuals to live their lives to the fullest, 
-            even when facing health challenges or limitations. All team members are carefully 
-            selected, insured, and bonded. Our commitment to excellence in home care makes an 
-            undeniable difference to the clients we proudly serve.
+            Everest Home Health was founded on the belief that care should feel like home. Serving our community since 2018, we expanded in 2021 to offer Home Health, Home Care, and ODP services for adults 21 and older. Our experienced nurses and compassionate caregivers deliver personalized, high quality care that promotes independence, dignity, and trust because to us, care is not just a service, it’s a commitment.
           </p>
 
           <div className="about-cards">
@@ -198,9 +196,21 @@ export default function Content() {
         </div>
 
         {/* RIGHT IMAGE */}
-        <div className="about-image">
-          <img src={aboutImg} alt="Everest Home Care" />
-        </div>
+  <div className="about-image">
+  <div className="video-wrapper">
+    <video
+      className="about-video"
+      src={aboutVideo}
+      autoPlay
+      loop
+      muted
+      playsInline
+      onClick={(e) => {
+        e.target.muted = !e.target.muted;
+      }}
+    />
+  </div>
+</div>
       </div>
     </section>
   
@@ -463,10 +473,17 @@ export default function Content() {
             </div>
           </div>
         </div>
-
-        {/* Service note */}
       </div>
       </section>
+
+      {/* Family thoughts section  */}
+
+      <section className="family-thoughts-section py-3">
+      <FamilyTestimonials />
+      </section>
+
+
+
 {/* care section */}
       <section className="care-section py-5">
       <div className="container">

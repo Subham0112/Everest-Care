@@ -384,7 +384,8 @@
   }
 }
 
-/* ABOUT SECTION */
+
+/* about */
 .home-care-page .about-section {
   background: linear-gradient(135deg, #f5faff, #e9f3ff) !important;
   padding: 60px 40px;
@@ -465,25 +466,42 @@
 }
 
 .home-care-page .about-image {
-  height: 450px;
   flex: 1;
+  height: 100%;
   display: flex;
   justify-content: center;
 }
 
-.home-care-page .about-image img {
+.video-wrapper {
   width: 100%;
-  object-fit: cover;
-  height: auto;
+  height: 450px;
+  overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-.home-care-page .about-image img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+.about-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .video-wrapper {
+    height: 280px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .video-wrapper {
+    height: 220px;
+  }
+}
+
+
 
 /* MISSION SECTION */
 .home-care-page .mission-section {

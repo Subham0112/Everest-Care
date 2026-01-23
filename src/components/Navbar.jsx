@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/Everest_logo.png";
 import "../Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -58,7 +58,7 @@ const Navbar = () => {
 
         <div className="logo-container">
           <div className="logo">
-            <img src={logo} height={50} width={60} alt="Everest Home Care" />
+            <img src={logo} height={75} width={75} alt="Everest Home Care" />
           </div>
           <div className="slogan">
             <span className="slogan-text">Care you can trust,</span>
@@ -75,7 +75,7 @@ const Navbar = () => {
           <a href="/#contact">Contact</a>
 
           {/* ⭐ Custom Dropdown */}
-          <div className="custom-dropdown" ref={dropdownRef}>
+          {/* <div className="custom-dropdown" ref={dropdownRef}>
             <button className="dropdown-btn" onClick={toggleDropdown}>
               Forms ▾
             </button>
@@ -87,7 +87,7 @@ const Navbar = () => {
               </div>
               <div onClick={() => go("/form/hab")}>HAB Consumer Packet</div>
             </div>
-          </div>
+          </div> */}
 
           <div className="d-flex loginBtn-container mx-2 gap-3">
             <Link to={"/login"}>
@@ -109,7 +109,7 @@ const Navbar = () => {
           <a href="/#contact" onClick={toggleSidebar}>Contact</a>
 
         {/* ⭐ Sidebar dropdown */}
-        <div className="custom-dropdown sidebar-dropdown" ref={sidebarDropRef}>
+        {/* <div className="custom-dropdown sidebar-dropdown" ref={sidebarDropRef}>
           <button className="dropdown-btn" onClick={toggleSideDrop}>
             Choose Form ▾
           </button>
@@ -121,7 +121,7 @@ const Navbar = () => {
             </div>
             <div onClick={() => go("/form/hab")}>HAB Consumer Packet</div>
           </div>
-        </div>
+        </div> */}
 
         <div className="loginBtn-container d-flex mx-2 gap-3">
           <Link to={"/login"}>
