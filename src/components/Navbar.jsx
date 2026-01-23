@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import logo from "../assets/img/Everest_logo.png";
+import logo2 from "../assets/img/logo.png";
 import "../Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -58,11 +59,14 @@ const Navbar = () => {
 
         <div className="logo-container">
           <div className="logo">
-            <img src={logo} height={75} width={75} alt="Everest Home Care" />
+            <img src={logo2} height={60} width={60} alt="Everest Home Care" />
           </div>
           <div className="slogan">
             <span className="slogan-text">Care you can trust,</span>
             <span className="slogan-subtext">from home health to home care and ODP</span>
+          </div>
+          <div className="logo-2">
+            <img src={logo} height={75} width={75} alt="Everest Home Care" />
           </div>
         </div>
 

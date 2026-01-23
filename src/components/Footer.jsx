@@ -1,6 +1,7 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import "../Footer.css";
 import logo from "../assets/img/Everest_logo.png";
+import logo2 from "../assets/img/logo.png";
 
 export default function Footer() {
   return (
@@ -10,7 +11,10 @@ export default function Footer() {
          <div>
         <div className="footer-about">
           <div className="logo-slogan">
+            <div className="footer-logo-container">
           <img src={logo} height={100} width={100} className="footer-logo" alt="Everest Home Care" />
+          <img src={logo2} height={80} width={80} className="footer-logo" alt="Everest Home Care" />
+          </div>
           <div className="footer-slogan">
             <p className="slogan-main">Care you can trust,</p>
             <p className="slogan-sub">from home health to home care and ODP</p>
