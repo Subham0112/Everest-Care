@@ -14,7 +14,7 @@ if (alert!=null) {
   
     return (
     
-    <div>
+    <div className="alert-container">
       {alertMsg}
     </div>
   )

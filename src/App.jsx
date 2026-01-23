@@ -37,8 +37,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/policy" element={<Policy />} />
-        <Route path="/form/:formType" element={<Form />} />
-        <Route path="/preview/:formType" element={<PreviewForm />} />
+        {/* <Route path="/form/:formType" element={<Form />} />
+        <Route path="/preview/:formType" element={<PreviewForm />} /> */}
 
        
         <Route path="/login" element={<LoginPage handleAlert={handleAlert} />} />

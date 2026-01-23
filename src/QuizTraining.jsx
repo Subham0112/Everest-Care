@@ -2,6 +2,8 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/SideNav';
 import MemberApprove from './components/MemberApprove';
+import Form from './components/pages/Formpage';
+import FormPreview from './components/forms/formPreview';
 import MemberList from './components/MemberList';
 import ContentPage from './components/Content';
 import Navbar2 from './components/Navbar2';
@@ -43,6 +45,8 @@ function QuizTraining({handleAlert}) {
               </AdminRoute>
             } 
           />
+          <Route path="form/:formType" element={<Form />} />
+          <Route path="/preview/:formType" element={<FormPreview />} />
           <Route path="training/:type/:option" element={<TrainingPage />} />
           <Route path="quiz/:type/:option" element={<QuizPage handleAlert={handleAlert} user={UserData} />} />
           <Route path="/" element={<Navigate to="odp" replace />} />

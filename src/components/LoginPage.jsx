@@ -3,6 +3,7 @@ import './login.css';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
+import Navbar from './Navbar';
 
 export default function LoginPage({ handleAlert }) {
   const [email, setEmail] = useState('');
@@ -43,6 +44,7 @@ export default function LoginPage({ handleAlert }) {
 
   return (
     <>
+      <Navbar />
       <div className='login-container'>
         <div className='login-form'>
           <div className="login-title">

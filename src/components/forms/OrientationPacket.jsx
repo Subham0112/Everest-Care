@@ -106,7 +106,7 @@ const OrientationPacket = () => {
       return;
     }
 
-    const targetPath = `/preview/${formType}`;
+    const targetPath = `home/preview/${formType}`;
     console.log("Attempting to navigate to:", targetPath);
     console.log("formType value is:", formType);
 
@@ -140,7 +140,6 @@ const OrientationPacket = () => {
   ]
   return (
     <div className='bg-light  min-vh-100'>
-      <Navbar />
       <div className='container-fluid full-form py-3'>
         <form id='habPacket-pdf' className='bg-white habpacketPdf shadow-sm rounded-3 p-4 py-2'>
           <section style={{backgroundColor:"#C4E1E6"}} className='my-4 rounded-3 shadow-sm p-3 p-md-5 bg-'>
@@ -1628,14 +1627,14 @@ const OrientationPacket = () => {
             >
               Done
             </button>
-            <button 
+            {/* <button 
               type="button"
               onClick={handlePreview} 
               className="btn btn-info px-3" 
               disabled={!isPreviewEnabled}
             >
               See Preview
-            </button>
+            </button> */}
           </div>
           </form>
           </div>

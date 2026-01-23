@@ -411,7 +411,7 @@ const HabPacket = () => {
       return;
     }
 
-    const targetPath = `/preview/${formType}`;
+    const targetPath = `home/preview/${formType}`;
     console.log("Attempting to navigate to:", targetPath);
     console.log("formType value is:", formType);
 
@@ -420,7 +420,6 @@ const HabPacket = () => {
 
   return (
     <div className='bg-light  min-vh-100'>
-      <Navbar />
       <div className='container-fluid full-form py-3'>
         <form id='habPacket-pdf' className='bg-white habpacketPdf shadow-sm rounded-3 p-4 py-2'>
  
@@ -2057,14 +2056,14 @@ const HabPacket = () => {
             >
               Done
             </button>
-            <button 
+            {/* <button 
               type="button"
               onClick={handlePreview} 
               className="btn btn-info px-3" 
               disabled={!isPreviewEnabled}
             >
               See Preview
-            </button>
+            </button> */}
           </div>
         </form>
 

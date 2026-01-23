@@ -16,7 +16,7 @@ const Formpage = () => {
   useEffect(() => {
     // Redirect if formType is invalid
     if (!validFormTypes.includes(formType)) {
-      navigate('/');
+      navigate('/home');
     }
   }, [formType, navigate]);
 
@@ -39,7 +39,6 @@ const Formpage = () => {
     <div className="form-page-container">
       {renderForm()}
     </div>
-    <Footer />
     </>
   );
 }

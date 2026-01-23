@@ -611,7 +611,7 @@ const FormPreview = () => {
 
       if (result.success) {
         alert(`Form submitted successfully!\nConsumer: ${consumerName}\nThe document has been sent to the company email.`);
-        navigate('/'); // Redirect to home or forms list
+        navigate('/home'); // Redirect to home or forms list
       } else {
         throw new Error(result.message || 'Failed to submit form');
       }
@@ -634,7 +634,7 @@ const FormPreview = () => {
     );
   }
 
-  const handleBack = () => navigate(`/form/${formType}`);
+  const handleBack = () => navigate(`/home/form/${formType}`);
 
   return (
     <div className="preview-page">

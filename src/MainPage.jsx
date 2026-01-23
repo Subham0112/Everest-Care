@@ -163,7 +163,7 @@ export default function Content() {
       <div className="about-container">
         {/* LEFT CONTENT */}
         <div className="about-text">
-          <h2 className='fw-bold'>About Everest Home Care</h2>
+          <h2 className='fw-bold'>About Everest Home Health</h2>
           <p>
             Everest Home Health was founded on the belief that care should feel like home. Serving our community since 2018, we expanded in 2021 to offer Home Health, Home Care, and ODP services for adults 21 and older. Our experienced nurses and compassionate caregivers deliver personalized, high quality care that promotes independence, dignity, and trust because to us, care is not just a service, it’s a commitment.
           </p>

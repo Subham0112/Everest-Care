@@ -84,6 +84,51 @@
   transition: all 0.3s ease;
   filter: brightness(1.1);
 }
+/* ------------------------------------------------------ */
+/* SIDEBAR DROPDOWN                                       */
+/* ------------------------------------------------------ */
+
+.sidebar-dropdown {
+  width: 100%;
+}
+
+.sidebar-dropdown .dropdown-btn {
+  width: 100%;
+  color:rgba(122, 248, 221, 0.973);
+}
+
+/* Sidebar menu */
+.sidebar-dropdown .dropdown-menu {
+  position: relative;
+  top: 0;
+  width: 100%;
+  left: 0;
+  background: linear-gradient(180deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+  border-radius: 6px;
+  padding: 0;
+  box-shadow: none;
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+.sidebar-dropdown .dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sidebar-dropdown .dropdown-menu div {
+  padding: 12px 14px;
+  color:rgba(2, 19, 15, 0.973);
+  border-bottom: 1px solid #92f5f586;
+}
+
+.sidebar-dropdown .dropdown-menu div:hover {
+  background: #e6ffff;
+}
+
+.sidebar-dropdown .dropdown-menu div:last-child {
+  border-bottom: none;
+}
 
 /* Navigation Section */
 .nav {

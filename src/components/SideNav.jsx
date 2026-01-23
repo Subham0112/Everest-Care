@@ -1,5 +1,5 @@
 // Sidebar.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 import { FaArrowLeft } from 'react-icons/fa';
@@ -9,7 +9,11 @@ import logo from "./EHH_Final_logo.png";
 function Sidebar() {
   const location = useLocation();
   const sidebarRef = useRef(null);
+  const [sideDrop, setSideDrop] = useState(false);
+   const toggleSideDrop = () => setSideDrop(!sideDrop);
+   const sidebarDropRef = useRef(null);
   const navigate = useNavigate();
+
 
   // Get user from localStorage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -110,6 +114,25 @@ function Sidebar() {
         >
           👨‍💼 HAB Training
         </Link>
+
+      {/* Forms */}
+      <div className="custom-dropdown sidebar-dropdown" ref={sidebarDropRef}>
+          <button className="nav-link " onClick={toggleSideDrop}>
+            Choose Form ▾
+          </button>
+
+          <div className={`dropdown-menu ${sideDrop ? "show" : ""}`}>
+            <Link onClick={handleClick} to="/home/form/consumer" className={`nav-link ${isActive("/home/form/consumer") ? "active" : ""}`}>
+              Consumer Packet
+            </Link>
+            <Link onClick={handleClick} to="/home/form/orientation" className={`nav-link ${isActive("/home/form/orientation") ? "active" : ""}`}>
+              Orientation Packet
+            </Link>
+            <Link onClick={handleClick} to="/home/form/hab" className={`nav-link ${isActive("/home/form/hab") ? "active" : ""}`}>
+              HAB Consumer Packet
+            </Link>
+          </div>
+        </div> 
 
         {/* Admin-only links */}
         {isAdmin && (

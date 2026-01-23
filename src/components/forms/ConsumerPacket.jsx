@@ -515,7 +515,7 @@ const handlePreview = () => {
     }
 
     // --- ADD THIS LOGGING LINE ---
-    const targetPath = `/preview/${formType}`;
+    const targetPath = `/home/preview/${formType}`;
     console.log("Attempting to navigate to:", targetPath);
     console.log("formType value is:", formType);
     // -----------------------------
@@ -634,7 +634,6 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
    // --- RENDER ---
   return (
     <>
-      <Navbar />
     <div className="bg-light min-vh-100 py-2">
       <div className="container-fluid full-form"
      
@@ -6260,8 +6259,8 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
                 </div>
             <div className="d-flex gap-2 w-100 justify-content-center">
               <button onClick={handleDone} className="btn btn-success px-3">Done</button>
-              <button onClick={handlePreview} className="btn btn-info px-3" disabled={!isPreviewEnabled}>See Preview
-              </button>
+              {/* <button onClick={handlePreview} className="btn btn-info px-3" disabled={!isPreviewEnabled}>See Preview
+              </button> */}
             </div>
               </form>
 

@@ -24,7 +24,7 @@ body {
 
 /* Fixed navbar only on desktop (>768px) */
 @media (min-width: 769px) {
-  body {
+  .home-care-page{
     padding-top: 65px; /* Add padding only on desktop */
   }
   
