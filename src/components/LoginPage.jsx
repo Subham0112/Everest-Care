@@ -45,7 +45,7 @@ export default function LoginPage({ handleAlert }) {
   return (
     <>
       <Navbar />
-      <div className='login-container'>
+      <div className='login-container mt-4'>
         <div className='login-form'>
           <div className="login-title">
             <h3>Login</h3>

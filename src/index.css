@@ -1,6 +1,6 @@
 .alert-container {
-  position: fixed;
-  top: 80px; /* Below navbar (navbar height is 75px) */
+  position: relative;
+  top: 130px; /* Below navbar (navbar height is 75px) */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
