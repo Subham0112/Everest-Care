@@ -46,7 +46,7 @@ function QuizTraining({handleAlert}) {
             } 
           />
           <Route path="form/:formType" element={<Form />} />
-          <Route path="/preview/:formType" element={<FormPreview />} />
+          <Route path="preview/:formType" element={<FormPreview />} />
           <Route path="training/:type/:option" element={<TrainingPage />} />
           <Route path="quiz/:type/:option" element={<QuizPage handleAlert={handleAlert} user={UserData} />} />
           <Route path="/" element={<Navigate to="odp" replace />} />

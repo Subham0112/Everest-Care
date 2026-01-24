@@ -411,7 +411,7 @@ const HabPacket = () => {
       return;
     }
 
-    const targetPath = `home/preview/${formType}`;
+    const targetPath = `/home/preview/${formType}`;
     console.log("Attempting to navigate to:", targetPath);
     console.log("formType value is:", formType);
 
@@ -2056,14 +2056,14 @@ const HabPacket = () => {
             >
               Done
             </button>
-            {/* <button 
+            <button 
               type="button"
               onClick={handlePreview} 
               className="btn btn-info px-3" 
               disabled={!isPreviewEnabled}
             >
               See Preview
-            </button> */}
+            </button>
           </div>
         </form>
 

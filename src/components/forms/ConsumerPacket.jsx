@@ -6259,8 +6259,8 @@ clonedForm.querySelectorAll("select").forEach((clonedSelect) => {
                 </div>
             <div className="d-flex gap-2 w-100 justify-content-center">
               <button onClick={handleDone} className="btn btn-success px-3">Done</button>
-              {/* <button onClick={handlePreview} className="btn btn-info px-3" disabled={!isPreviewEnabled}>See Preview
-              </button> */}
+              <button onClick={handlePreview} className="btn btn-info px-3" disabled={!isPreviewEnabled}>See Preview
+              </button>
             </div>
               </form>
 
