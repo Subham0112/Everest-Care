@@ -22,7 +22,7 @@ function Quiz({ user, handleAlert }) {
   useEffect(() => {
     const fetchTrainingId = async () => {
       try {
-        const response = await fetch(`https://localhost:44345/api/Training/category/${type}`);
+        const response = await fetch(`https://everesthealth.somee.com/api/Training/category/${type}`);
         if (response.ok) {
           const trainings = await response.json();
           const training = trainings.find(t => t.trainingName === option);
@@ -142,7 +142,7 @@ function Quiz({ user, handleAlert }) {
   setSubmitting(true);
 
   try {
-    const response = await fetch('https://localhost:44345/api/TrainingComplete', {
+    const response = await fetch('https://everesthealth.somee.com/api/TrainingComplete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

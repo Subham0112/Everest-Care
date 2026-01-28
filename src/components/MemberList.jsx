@@ -24,7 +24,7 @@ export default function MemberList() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://www.everesthealth.somee.com/api/Auth/approved-users"
+        "https://everesthealth.somee.com/api/Auth/approved-users"
       );
       const data = await response.json();
       setMembers(data);

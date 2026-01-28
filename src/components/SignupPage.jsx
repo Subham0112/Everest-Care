@@ -102,7 +102,7 @@ const [error, setError] = useState(false);
     };
 
     try {
-      const response = await fetch('https://www.everesthealth.somee.com/api/Auth/register', {
+      const response = await fetch('https://everesthealth.somee.com/api/Auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -26,7 +26,7 @@ export default function MemberApprove() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://www.everesthealth.somee.com/api/Auth/pending-users"
+        "https://everesthealth.somee.com/api/Auth/pending-users"
       );
 
       if (!response.ok) {
@@ -65,7 +65,7 @@ export default function MemberApprove() {
   const updateStatus = async (id, status) => {
     try {
       await fetch(
-        `https://www.everesthealth.somee.com/api/Auth/update-status/${id}`,
+        `https://everesthealth.somee.com/api/Auth/update-status/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

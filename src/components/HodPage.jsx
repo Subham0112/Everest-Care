@@ -18,7 +18,7 @@ function HodContent() {
     const fetchTrainings = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`https://www.everesthealth.somee.com/api/Training/category/${type}`);
+        const response = await fetch(`https://everesthealth.somee.com/api/Training/category/${type}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
