@@ -1458,22 +1458,25 @@
   }
 }
 
+/* FIXED LOGIN CONTAINER - Solves navbar overlap issue */
+
 .login-container {
-  min-height: 100vh;
-  width: 100%;
-  background: linear-gradient(135deg, #E3F2FD 0%, #90CAF9 30%, #64d9f6 60%, #87fbff 100%);
+  min-height: calc(100vh - 75px); /* Subtract navbar height (75px) */
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  padding: 30px 20px 30px 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  align-items: center;
+  background: linear-gradient(135deg, #f5faff, #87e0ff);
+  font-family: "Segoe UI", sans-serif;
+  padding: 30px 15px; /* Add padding for breathing room */
+  overflow: auto;
 }
 
 /* Login Card */
 .login-form {
   background-color: rgba(255, 255, 255, 0.35);
-  padding: 20px 25px;
-  width: 40%;
+  padding: 30px 25px;
+  width: 90%;
   max-width: 480px;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
@@ -1526,6 +1529,7 @@
   box-shadow: 0 0 5px rgba(0, 176, 255, 0.3);
   outline: none;
 }
+
 .form-text {
   font-size: 12px;
   color: #6c757d;
@@ -1582,6 +1586,31 @@
   transform: scale(1.05);
 }
 
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Spinner for loading state */
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* Footer */
 .login-footer {
   margin-top: 25px;
@@ -1589,46 +1618,102 @@
   color: #333;
 }
 
-.login-footer a {
+.login-link {
   color: #007bff;
   font-weight: 600;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.login-footer a:hover {
+.login-link:hover {
   text-decoration: underline;
-}
-@media (min-width: 769px) {
-  .login-container {
-    padding-top: 90px; /* navbar height */
-  }
+  color: #0056b3;
 }
 
-/* Responsive */
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablet */
 @media (max-width: 768px) {
+  .login-container {
+    min-height: calc(100vh - 75px);
+    padding: 20px 15px;
+  }
+  
   .login-form {
     width: 85%;
-    padding: 20px 20px;
+    padding: 25px 20px;
   }
   
   .login-btn {
     width: 60%;
   }
+  
+  .login-title {
+    font-size: 1.6rem;
+  }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
+  .login-container {
+    /* Critical fix for mobile - ensure proper spacing */
+    min-height: calc(100vh - 75px);
+    padding: 15px 10px;
+    justify-content: flex-start; /* Changed from center to start */
+    padding-top: 30px; /* Add explicit top padding */
+  }
+  
   .login-form {
-    width: 100%;
-    padding: 15px 15px;
+    width: 95%;
+    padding: 20px 15px;
+    margin-top: 0; /* Remove any margin */
+  }
+  
+  .login-title h3 {
+    font-size: 1.4rem;
+  }
+  
+  .login-items {
+    width: 95%;
+  }
+  
+  .login-items label {
+    font-size: 1rem;
   }
   
   .login-items input {
     font-size: 0.95rem;
-    padding: 10px;
+    padding: 10px 12px;
   }
   
   .login-btn {
     width: 70%;
+    padding: 12px 0;
+  }
+  
+  .toggle-icon {
+    right: 12px;
+    font-size: 1rem;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .login-container {
+    padding: 10px 5px;
+    padding-top: 20px;
+  }
+  
+  .login-form {
+    width: 98%;
+    padding: 15px 12px;
+  }
+  
+  .login-items {
+    width: 98%;
+    gap: 15px;
   }
 }
 
@@ -1650,11 +1735,7 @@
   font-family: "Segoe UI", sans-serif;
   overflow: auto;
 }
-@media (min-width: 769px) {
-  .signup-container {
-    padding-top: 90px; /* navbar height */
-  }
-}
+
 
 .signup-card {
   width: 100%;

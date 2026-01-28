@@ -72,8 +72,9 @@ export default function Content() {
 
 
   return (
-    <div  className="home-care-page">
+    <>
      <Navbar />
+    <div  className="home-care-page">
     <section className="hero-section container-fluid" id="home">
       <div className="hero-overlay">
         <div className="hero-text-box">
@@ -658,5 +659,6 @@ export default function Content() {
 
     <Footer />
     </div>
+    </>
   );
 }

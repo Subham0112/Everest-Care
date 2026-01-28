@@ -24,12 +24,12 @@ body {
 
 /* Fixed navbar only on desktop (>768px) */
 @media (min-width: 769px) {
-  .home-care-page{
-    padding-top: 65px; /* Add padding only on desktop */
-  }
+  /* .home-care-page{
+    padding-top: 65px; 
+  } */
   
   .navbar {
-    position: fixed !important;
+    position: sticky !important;
     top: 0 !important;
     left: 0;
     right: 0;
