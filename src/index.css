@@ -1,15 +1,35 @@
+/* Alert Container - Fixed positioning that works on all pages */
 .alert-container {
-  position: relative;
-  top: 130px; /* Below navbar (navbar height is 75px) */
+  position: fixed;
+  top: 85px; /* Just below navbar (75px height + 10px gap) */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
   max-width: 600px;
-  z-index: 9999; /* Higher than navbar's z-index */
+  z-index: 10000; /* Higher than navbar */
+  pointer-events: none; /* Allow clicks to pass through empty space */
 }
 
 .alert {
-  margin: 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: auto; /* But alert itself should be clickable */
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .alert-container {
+    width: 95%;
+    top: 80px; /* Slightly closer on mobile */
+  }
 }

@@ -45,7 +45,7 @@ export default function LoginPage({ handleAlert }) {
   return (
     <>
       <Navbar />
-      <div className='login-container mt-4'>
+      <div className='login-container'>
         <div className='login-form'>
           <div className="login-title">
             <h3>Login</h3>
@@ -83,6 +83,11 @@ export default function LoginPage({ handleAlert }) {
                   </span>
                 </div>
               </div>
+              {/* <div className="login-items text-end">
+  <Link to="/forgot-password" className="login-link">
+    Forgot password?
+  </Link>
+</div> */}
               <div className="login-items mt-2">
                 <button className="login-btn" disabled={isLoading}>
                   {isLoading ? (

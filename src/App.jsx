@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './assets/css/everestcare.css';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
-import PreviewForm from "./components/forms/formPreview";
+// import ForgetPassword from './components/ForgetPassword';
+// import PreviewForm from "./components/forms/formPreview";
 import Policy from './components/Policy';
-import Form from "./components/pages/Formpage"
+// import Form from "./components/pages/Formpage"
 import Main from './MainPage';
 import QuizTraining from './QuizTraining';
 import { useState } from 'react';
@@ -43,6 +44,7 @@ function App() {
        
         <Route path="/login" element={<LoginPage handleAlert={handleAlert} />} />
         <Route path="/signup" element={<SignupPage handleAlert={handleAlert} />} />
+        {/* <Route path="/forgot-password" element={<ForgetPassword />} /> */}
         
         {/* This route catches /home and all sub-routes like /home/odp */}
          <Route 

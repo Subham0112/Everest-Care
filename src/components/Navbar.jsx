@@ -1,3 +1,5 @@
+// Navbar.jsx
+
 import React, { useState, useRef, useEffect } from "react";
 import logo from "../assets/img/Everest_logo.png";
 import logo2 from "../assets/img/logo.png";

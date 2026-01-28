@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaChevronDown } from "react-icons/fa";
+import Navbar from "./Navbar";
 
 import Alert from "./Alert";
 
@@ -58,7 +59,7 @@ const [error, setError] = useState(false);
     email: "",
     password: "",
     confirmPassword: "",
-    status:0,
+    status:1,
     role:0
   });
 
@@ -119,14 +120,17 @@ const [error, setError] = useState(false);
         // If not JSON, get it as text
         data = await response.text();
       }
-
-      if (response.ok) {
-        handleAlert("Your registration form has been successfully submitted. Please wait for admin approval", "success");
-        console.log("Success:");
-      } else {
-        handleAlert("Sorry, Your Registration Form has failed. Please Check and Fill your field properly.", "warning");
-        console.error("Error:",);
-      }
+if (response.ok) {
+  handleAlert(
+    data.message || "Registration successful. Please wait for admin approval.",
+    "success"
+  );
+} else {
+  handleAlert(
+    data.message || "Registration failed. Please check your details.",
+    "warning"
+  );
+}
     } catch (error) {
       console.error("Request failed:", error);
       handleAlert("An error occured during signup " + error.message, "warning");
@@ -139,8 +143,8 @@ const [error, setError] = useState(false);
 
   return (
     <>
+    <Navbar />
     <div className="signup-container">
-
       <div className="signup-card shadow-lg">
         <h2 className="text-center mb-1">Create Account</h2>
 
