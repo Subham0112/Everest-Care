@@ -83,11 +83,11 @@ export default function LoginPage({ handleAlert }) {
                   </span>
                 </div>
               </div>
-              {/* <div className="login-items text-end">
+              <div className="login-items text-end">
   <Link to="/forgot-password" className="login-link">
     Forgot password?
   </Link>
-</div> */}
+</div>
               <div className="login-items mt-2">
                 <button className="login-btn" disabled={isLoading}>
                   {isLoading ? (

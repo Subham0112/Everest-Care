@@ -1,108 +1,79 @@
-// import React, { useState } from "react";
-// import { Link } from "react-router-dom";
-// import Navbar from "./Navbar";
-// import "./login.css"; // reuse styles
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
+import "./login.css";
 
-// export default function ForgotPassword({ handleAlert }) {
-//   const [email, setEmail] = useState("");
-//   const [newPassword, setNewPassword] = useState("");
-//   const [confirmPassword, setConfirmPassword] = useState("");
-//   const [isLoading, setIsLoading] = useState(false);
+export default function ForgotPassword({ handleAlert }) {
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-//   const validatePassword = (password) => {
-//     if (password.length < 8){
-//       return "Password must be at least 8 characters.";
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-//     }
-//     return null;
-//   };
+    try {
+      const response = await fetch("https://localhost:44345/api/Auth/forgot-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
+      const data = await response.json();
 
-//     const passwordError = validatePassword(newPassword);
-//     if (passwordError) {
-//       handleAlert(passwordError, "warning");
-//       return;
-//     }
+      if (response.ok) {
+        handleAlert(data.message, "success");
+        setEmail("");
+      } else {
+        handleAlert(data.message || "Failed to send reset link.", "error");
+      }
+    } catch (error) {
+      handleAlert("Network error. Please try again.", "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-//     if (newPassword !== confirmPassword) {
-//       handleAlert("Passwords do not match.", "warning");
-//       return;
-//     }
+  return (
+    <>
+      <Navbar />
+      <div className="login-container">
+        <div className="login-form">
+          <div className="login-title">
+            <h3>Forgot Password</h3>
+          </div>
 
-//     setIsLoading(true);
+          <form className="login-form-container" onSubmit={handleSubmit}>
+            <div className="login-items">
+              <label>Email Address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+                disabled={isLoading}
+              />
+              <small className="form-text">
+                Enter the email address associated with your account. We'll send you a password reset link.
+              </small>
+            </div>
 
-//     // 🔴 TEMP: no real API call
-//     setTimeout(() => {
-//       handleAlert("Password reset successfully (demo).", "success");
-//       setIsLoading(false);
-//     }, 1000);
-//   };
+            <div className="login-items mt-2">
+              <button className="login-btn" disabled={isLoading}>
+                {isLoading ? "Sending..." : "Send Reset Link"}
+              </button>
+            </div>
+          </form>
 
-//   return (
-//     <>
-//       <Navbar />
-//       <div className="login-container">
-//         <div className="login-form">
-//           <div className="login-title">
-//             <h3>Reset Password</h3>
-//           </div>
-
-//           <form className="login-form-container" onSubmit={handleSubmit}>
-//             <div className="login-items">
-//               <label>Email</label>
-//               <input
-//                 type="email"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//                 placeholder="Enter your email"
-//                 required
-//                 disabled={isLoading}
-//               />
-//               <small className="form-text">
-//                 Enter the email whose password you want to reset
-//               </small>
-//             </div>
-
-//             <div className="login-items">
-//               <label>New Password</label>
-//               <input
-//                 type="password"
-//                 value={newPassword}
-//                 onChange={(e) => setNewPassword(e.target.value)}
-//                 placeholder="Enter new password"
-//                 required
-//                 disabled={isLoading}
-//               />
-//             </div>
-
-//             <div className="login-items">
-//               <label>Confirm New Password</label>
-//               <input
-//                 type="password"
-//                 value={confirmPassword}
-//                 onChange={(e) => setConfirmPassword(e.target.value)}
-//                 placeholder="Confirm new password"
-//                 required
-//                 disabled={isLoading}
-//               />
-//             </div>
-
-//             <div className="login-items mt-2">
-//               <button className="login-btn" disabled={isLoading}>
-//                 {isLoading ? "Resetting..." : "Reset Password"}
-//               </button>
-//             </div>
-//           </form>
-
-//           <p className="text-center mt-3">
-//             <Link to="/login" className="login-link">
-//               Back to Login
-//             </Link>
-//           </p>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
+          <p className="text-center mt-3">
+            <Link to="/login" className="login-link">
+              Back to Login
+            </Link>
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
