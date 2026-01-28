@@ -28,7 +28,7 @@ export default function ResetPassword({ handleAlert }) {
 
     try {
       const response = await fetch(
-        `https://localhost:44345/api/Auth/verify-reset-token?token=${token}`
+        `https://www.everesthealth.somee.com/api/Auth/verify-reset-token?token=${token}`
       );
 
       const data = await response.json();
@@ -71,7 +71,7 @@ export default function ResetPassword({ handleAlert }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://localhost:44345/api/Auth/reset-password", {
+      const response = await fetch("https://www.everesthealth.somee.com/api/Auth/reset-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
