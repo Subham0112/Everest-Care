@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {FaEye, FaEyeSlash} from "react-icons/fa";
 import Navbar from "./Navbar";
 import "./login.css";
 
@@ -7,8 +8,9 @@ export default function ResetPassword({ handleAlert }) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const token = searchParams.get("token");
-
-  const [newPassword, setNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
+   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isVerifying, setIsVerifying] = useState(true);
@@ -157,13 +159,20 @@ export default function ResetPassword({ handleAlert }) {
             <div className="login-items">
               <label>New Password</label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter new password"
                 required
                 disabled={isLoading}
               />
+              <span 
+                className="toggle-icon"
+                onClick={() => setShowPassword(!showPassword)}
+
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
               <small className="form-text">
                 Password must be at least 8 characters long.
               </small>
@@ -172,13 +181,19 @@ export default function ResetPassword({ handleAlert }) {
             <div className="login-items">
               <label>Confirm New Password</label>
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm new password"
                 required
                 disabled={isLoading}
               />
+              <span 
+                className="toggle-icon-reset"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
 
             <div className="login-items mt-2">
