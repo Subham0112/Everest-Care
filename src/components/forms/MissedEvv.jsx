@@ -610,7 +610,7 @@ const MissedEvv = () => {
       formData.append('issueType', inputValue.issueType || '');
 
       // Submit to backend for email
-      const response = await fetch('https://localhost:44345/api/EvvDocument/submit-evv', {
+      const response = await fetch('https://www.everesthealth.somee.com/api/EvvDocument/submit-evv', {
         method: 'POST',
         body: formData
       });
