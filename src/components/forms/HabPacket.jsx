@@ -411,7 +411,7 @@ const HabPacket = () => {
       return;
     }
 
-    const targetPath = `/home/preview/${formType}`;
+    const targetPath = `/preview/${formType}`;
     console.log("Attempting to navigate to:", targetPath);
     console.log("formType value is:", formType);
 

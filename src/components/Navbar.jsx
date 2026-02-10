@@ -79,6 +79,7 @@ const Navbar = () => {
           <a href="/#mission">Missions</a>
           <a href="/#services">Services</a>
           <a href="/#gallery">Gallery</a>
+          <a href="/miss-evv">Missed EVV</a>
           <a href="/#contact">Contact</a>
 
           {/* ⭐ Custom Dropdown */}
@@ -110,9 +111,10 @@ const Navbar = () => {
           Home
         </a>
           <a href="/#about" onClick={toggleSidebar}>About</a>
-          <a href="/#mission" onClick={toggleSidebar}>Mission & Values</a>
+          <a href="/#mission" onClick={toggleSidebar}>Mission</a>
           <a href="/#services" onClick={toggleSidebar}>Services</a>
           <a href="/#gallery" onClick={toggleSidebar}>Gallery</a>
+           <a href="/miss-evv" onClick={toggleSidebar}>Missed EVV</a>
           <a href="/#contact" onClick={toggleSidebar}>Contact</a>
 
         {/* ⭐ Sidebar dropdown */}

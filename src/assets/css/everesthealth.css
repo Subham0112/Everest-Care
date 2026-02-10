@@ -133,6 +133,7 @@
 /* Navigation Section */
 .nav {
   padding: 15px 0;
+  overflow-y: auto;
 }
 
 .nav-section-header {

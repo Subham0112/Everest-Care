@@ -5,7 +5,8 @@ import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import ForgetPassword from './components/ForgetPassword';
 import ResetPassword from './components/ResetPassword';
-// import PreviewForm from "./components/forms/formPreview";
+import PreviewForm from "./components/forms/formPreview";
+import MissedEvv from './components/forms/MissedEvv';
 import Policy from './components/Policy';
 // import Form from "./components/pages/Formpage"
 import Main from './MainPage';
@@ -45,6 +46,8 @@ function App() {
        
         <Route path="/login" element={<LoginPage handleAlert={handleAlert} />} />
         <Route path="/signup" element={<SignupPage handleAlert={handleAlert} />} />
+    <Route path="/preview/:formType" element={<PreviewForm />} />
+    <Route path="/miss-evv" element={<MissedEvv />} />
         <Route path="/forgot-password" element={<ForgetPassword handleAlert={handleAlert} />} />
         <Route path="/reset-password" element={<ResetPassword handleAlert={handleAlert} />} />
         

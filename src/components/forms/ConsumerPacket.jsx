@@ -515,7 +515,7 @@ const handlePreview = () => {
     }
 
     // --- ADD THIS LOGGING LINE ---
-    const targetPath = `/home/preview/${formType}`;
+    const targetPath = `/preview/${formType}`;
     console.log("Attempting to navigate to:", targetPath);
     console.log("formType value is:", formType);
     // -----------------------------
