@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import SignatureCanvas from 'react-signature-canvas';
 import Navbar from '../Navbar';
 import jsPDF from 'jspdf';
+import logo from '../../assets/img/Everest_logo.png';
 
 const MissedEvv = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({});
   const [checkboxValues, setCheckboxValues] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Logo source - uses imported logo from top of file
+  const LOGO_SRC = logo;
   
   // Signature refs
   const consumerSigRef = useRef(null);
@@ -81,23 +85,40 @@ const MissedEvv = () => {
       const AcroForm = jsPDF.AcroForm;
       const Appearance = AcroForm.Appearance;
 
-      // Company Header at top
+      // Company Header at top with blue color
+      // Logo - uses LOGO_SRC constant defined at top of component
+      try {
+        // Add logo image - bigger and closer to text on the side, moved up
+        doc.addImage(LOGO_SRC, 'PNG', 40, 5, 30, 30); // x, y, width, height (moved from y:8 to y:5)
+      } catch (error) {
+        console.log('Logo not loaded, using placeholder');
+        // Fallback: Draw placeholder circle if image fails to load
+        doc.setDrawColor(0, 112, 192);
+        doc.setFillColor(0, 112, 192);
+        doc.circle(55, 20, 12, 'FD'); // Adjusted position
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'bold');
+        doc.text('EH', 55, 21, { align: 'center' });
+      }
+      
+      // Company name in blue
+      doc.setTextColor(0, 112, 192); // Blue color (RGB: 0, 112, 192)
       doc.setFontSize(12);
       doc.setFont(undefined, 'bold');
       doc.text('EVEREST HOME HEALTH LLC', 105, 12, { align: 'center' });
       
+      // Contact information in blue
       doc.setFontSize(8);
       doc.setFont(undefined, 'normal');
-      // doc.setTextColor(10, 196, 224)
       doc.text('109 DeWalt Ave, Suite 201 B, Pittsburgh, PA 15227', 105, 17, { align: 'center' });
-      // doc.setTextColor(10, 196, 224)
-
       doc.text('Ph: (412) 207-7383 Fax: (412) 207-8661', 105, 21, { align: 'center' });
-      // doc.setTextColor(10, 196, 224)
       doc.text('Email: everestODP2025@gmail.com', 105, 25, { align: 'center' });
-      // doc.setTextColor(10, 196, 224)
-
-      doc.text('EIN-384157540', 105, 29, { align: 'center'  });
+      doc.text('EIN-384157540', 105, 29, { align: 'center' });
+      
+      // Reset text color to black for rest of document
+      doc.setTextColor(0, 0, 0);
+      doc.setDrawColor(0, 0, 0);
 
       // Main Form Title - moved down to accommodate header
       doc.setFontSize(14);
