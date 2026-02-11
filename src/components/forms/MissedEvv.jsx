@@ -5,7 +5,7 @@ import Navbar from '../Navbar';
 import jsPDF from 'jspdf';
 import logo from '../../assets/img/Everest_logo.png';
 
-const MissedEvv = () => {
+const MissedEvv = ({handleAlert}) => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({});
   const [checkboxValues, setCheckboxValues] = useState({});
@@ -639,7 +639,7 @@ const MissedEvv = () => {
       const result = await response.json();
 
       if (response.ok && result.success) {
-        alert(`Success! Form submitted for ${result.consumerName}. An editable PDF has been sent to the company email.`);
+        handleAlert(`Success! Form submitted for ${result.consumerName}.`, "success");
         
         // Reset form
         setInputValue({});
@@ -649,12 +649,12 @@ const MissedEvv = () => {
         
         // Optionally navigate to home or success page
         navigate('/');
-      } else {
-        alert(`Error: ${result.message || 'Failed to submit form'}`);
+        } else {
+          handleAlert(`Error: ${result.message || 'Failed to submit form'}`, "danger");
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('An error occurred while submitting the form. Please try again.');
+      handleAlert('An error occurred while submitting the form. Please try again.', "danger");
     } finally {
       setIsSubmitting(false);
     }

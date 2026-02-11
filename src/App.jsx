@@ -46,8 +46,8 @@ function App() {
        
         <Route path="/login" element={<LoginPage handleAlert={handleAlert} />} />
         <Route path="/signup" element={<SignupPage handleAlert={handleAlert} />} />
-    <Route path="/preview/:formType" element={<PreviewForm />} />
-    <Route path="/miss-evv" element={<MissedEvv />} />
+    <Route path="/preview/:formType" element={<PreviewForm handleAlert={handleAlert} />} />
+    <Route path="/miss-evv" element={<MissedEvv handleAlert={handleAlert} />} />
         <Route path="/forgot-password" element={<ForgetPassword handleAlert={handleAlert} />} />
         <Route path="/reset-password" element={<ResetPassword handleAlert={handleAlert} />} />
         
