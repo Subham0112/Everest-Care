@@ -20,7 +20,7 @@ const TrainingForm = ({ selectedMember }) => {
         setLoading(true);
 
         // Fetch all trainings
-        const trainingsResponse = await fetch('https://localhost:44345/api/Training');
+        const trainingsResponse = await fetch('https://www.everesthealth.somee.com/api/Training');
         if (!trainingsResponse.ok) {
           throw new Error(`Failed to fetch trainings: ${trainingsResponse.status}`);
         }
@@ -28,7 +28,7 @@ const TrainingForm = ({ selectedMember }) => {
 
         // Fetch completed trainings for this user
         const completedResponse = await fetch(
-          `https://localhost:44345/api/TrainingComplete/user/${selectedMember.id}`
+          `https://www.everesthealth.somee.com/api/TrainingComplete/user/${selectedMember.id}`
         );
         
         let completedData = [];
