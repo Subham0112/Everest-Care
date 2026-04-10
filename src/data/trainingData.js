@@ -533,7 +533,7 @@ export const trainingData = {
         }
       ]
     },
-     "De-escalation and Behavioural Support Techniques": {
+     "De-escalation and Behavioral Support Techniques": {
     "description": "Welcome to De-escalation & Behavioral Support Training",
     "objective": [
       "Learn how to recognize, prevent, and respond to challenging behaviors while promoting dignity and safety.",
@@ -1386,7 +1386,7 @@ export const trainingData = {
       }
     ]
   },
-  "ODP Mission & Core Values": {
+  "ODP Missions & Core Values": {
     "description": "Welcome to ODP Mission & Values",
     "objective": [
       "Build deeper understanding of ODP’s mission and core values through activities, real-life scenarios, and discussion."

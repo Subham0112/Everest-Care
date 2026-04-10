@@ -1029,7 +1029,7 @@ export const HabgetQuizData = (option) => {
       }
     ]
         }
-      case "ODP Mission & Core Values":
+      case "ODP Missions & Core Values":
         return{
           questions: [
       {

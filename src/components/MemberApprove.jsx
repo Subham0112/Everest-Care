@@ -26,7 +26,7 @@ export default function MemberApprove() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://everesthealth.somee.com/api/Auth/pending-users"
+        "https://www.everesthealth.somee.com/api/Auth/pending-users"
       );
 
       if (!response.ok) {

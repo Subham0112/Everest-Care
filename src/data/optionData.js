@@ -74,7 +74,7 @@ export const HaboptionsData =[
     description: 'Click to access training materials and quizzes for Incident Management (IM)'
   },
   {  
-    title: 'ODP Mission and Values',
+    title: 'ODP Missions & Core Values',
     color: '#4ECDC4',
     description: 'Click to access training materials and quizzes for Mission and Values'
   },
